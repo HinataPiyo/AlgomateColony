@@ -11,11 +11,20 @@ public class ObjectClick : MonoBehaviour, IPointerClickHandler
         // キャンバスが開いていないとき
         if(FacilityManager.instance.GetIsOpenCanvas() == false)
         {
-            if(eventData.pointerPress.GetComponent<LocationController>() != null)
+            
+            if(gameObject.GetComponent<LocationController>() != null)
             {
                 Debug.Log($"オブジェクト {name} がクリックされました。");
                 FacilityManager.instance.CanvasEnabled(CanvasName.Location, true);
             }
+        }
+
+        if(gameObject.CompareTag("Robot"))
+        {
+            Debug.Log($"オブジェクト {name} がクリックされました。");
+            Robot _robot = GetComponent<Robot>();
+            RobotStatusPanelManager.instance.SetRobotStatus(_robot);
+            FacilityManager.instance.CanvasEnabled(CanvasName.RobotStatus, true);
         }
     }
 }

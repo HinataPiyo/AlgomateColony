@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Material
   - CenterCollider
+  - Robot
+  - ControlSyntax
+  - Proc
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,7 @@ TagManager:
   - Facility
   - Material
   - CenterCollider
-  - 
+  - Robot
   - 
   - 
   - 
