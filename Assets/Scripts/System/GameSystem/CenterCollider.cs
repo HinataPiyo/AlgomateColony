@@ -17,7 +17,6 @@ public class CenterCollider : MonoBehaviour
         {
             foreach(var _col in colInfo)
             {
-                Debug.Log("破棄しました");
                 // 範囲内に入った資源オブジェクトを破棄
                 Destroy(_col.gameObject);
             }

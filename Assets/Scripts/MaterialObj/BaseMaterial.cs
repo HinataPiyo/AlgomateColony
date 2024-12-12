@@ -1,24 +1,41 @@
+using System.Collections;
 using UnityEngine;
 
 public class BaseMaterial : MonoBehaviour
 {
-    [SerializeField] MaterialSO stoneSO;
-
-    int hp;
+    public MaterialSO mateSO;
+    float hp;
+    int amo = 1;    // 収集一回で得られる個数
+    bool deathFlag;
 
     void Start()
     {
-        hp = stoneSO.maxHp;     // SOで設定した最大体力を変数に設定する
+        hp = mateSO.maxHp;     // SOで設定した最大体力を変数に設定する
     }
 
-    public void TakeDamage(int damage)
+    // ダメージ処理
+    public void TakeDamage(float damage)
     {
         hp -= damage;
 
         if(hp <= 0)
         {
             hp = 0;
+            deathFlag = true;
             Destroy(gameObject);
+        }
+
+        deathFlag = false;
+    }
+
+    public int GetAmo() 
+    {
+        switch(deathFlag)
+        {
+            case false:
+                return amo;     // 収集一回で得られる個数
+            case true:
+                return amo + 10;    // ここが課題
         }
     }
 

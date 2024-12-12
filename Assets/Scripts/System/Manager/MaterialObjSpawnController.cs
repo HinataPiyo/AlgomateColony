@@ -1,8 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum MATERIAL_NAME
+{
+    stone,
+    tree,
+}
+
 public class MaterialObjSpawnController : MonoBehaviour
 {
+    [SerializeField] Transform objectStorage;
     [SerializeField] GameObject[] material;
     public List<GameObject> materials = new List<GameObject>();
     
@@ -15,12 +22,6 @@ public class MaterialObjSpawnController : MonoBehaviour
     {
         SpawnProc();
     }
-
-    void Update()
-    {
-        
-    }
-
     void SpawnProc()
     {
         for(int ii = 0; ii < MATERIAL_SPAWN_MAX; ii++)
@@ -30,7 +31,7 @@ public class MaterialObjSpawnController : MonoBehaviour
             Vector2 pos = new Vector2(rPos_wid, rPos_hig);
             int rMate = Random.Range(0, material.Length);
 
-            GameObject mateObj = Instantiate(material[rMate], pos, Quaternion.identity);
+            GameObject mateObj = Instantiate(material[rMate], pos, Quaternion.identity, objectStorage);
             materials.Add(mateObj);
         }
     }

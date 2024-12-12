@@ -12,11 +12,6 @@ public class LocationCanvasController : MonoBehaviour
         backButton.onClick.AddListener(BackButtonOnClick);
     }
 
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// Backボタンを押したときの処理
     /// </summary>
