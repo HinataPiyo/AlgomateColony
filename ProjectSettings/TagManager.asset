@@ -7,7 +7,6 @@ TagManager:
   - Material
   - CenterCollider
   - Robot
-  - ControlSyntax
   - Proc
   layers:
   - Default

@@ -2,49 +2,24 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RobotCommandController : MonoBehaviour
 {
     CommandDictionary commandDic;
-    CONTROL_SYNTAX current_controlsyntax;
-    [SerializeField] Transform inputParent;
-    [SerializeField] TMP_InputField[] inputField;
-    bool procField_flag;
+    [SerializeField] TMP_InputField inputField;
 
-    [SerializeField] bool applyflag;
-    public struct SummaryProc
-    {
-        public TMP_InputField _input;
-        public CONTROL_SYNTAX thisControlSyntax;
-        public string[] proctext;
-    }
+    [SerializeField] bool applyflag;        // テスト
+    public string[] proctext;
 
-    public enum CONTROL_SYNTAX
-    {
-        ERR = -2,   // 入力されていない
-        PROC = -1,
-        NONE,
-        IF,
-        ELSE,
-        ELSE_IF,
-        FOR,
-        WHILE,
-        SWICH,
-    }
 
     private void Start()
     {
-        inputField = inputParent.GetComponentsInChildren<TMP_InputField>();
         commandDic = new CommandDictionary();
     }
 
     private void Update() {
-        if(applyflag) Running(); applyflag = false;
-    }
-
-    void Running()
-    {
-        
+        if(applyflag) Run(); applyflag = false;
     }
 
     /// <summary>
@@ -52,111 +27,45 @@ public class RobotCommandController : MonoBehaviour
     /// </summary>
     void Run()
     {
-        foreach(var input in inputField)
-        {
-            SummaryProc sp;
-
-            sp._input = input;
-            sp.thisControlSyntax = CheckControlSyntaxText(sp._input);       // 入力された制御構文を確認する
-            if(sp.thisControlSyntax != CONTROL_SYNTAX.PROC)
-            {
-                // 制御構文を設定する
-                current_controlsyntax = CheckControlSyntaxText(sp._input);
-                sp.proctext = null;
-
-                // 制御構文のInputField内が空だったり間違った入力をしていたら処理を行わない
-                Debug.Log("制御構文が設定されていません。");
-                if(current_controlsyntax == CONTROL_SYNTAX.ERR) return;
-            }
-            else
-            {   // 処理を行うInputFieldだったら
-                sp.proctext = CheckTextCommand(sp._input);
-            }
-
-            InputCommand(sp);
-        }
+        proctext = CheckTextCommand(inputField);        // 行ごとに文字列を取得する
+        InputCommand(proctext);                         // コマンドが正確か否かを判断し、実行する
     }
 
     /// <summary>
     /// コマンドをプログラミング言語に変換
     /// </summary>
     /// <param name="sp"></param>
-    public void InputCommand(SummaryProc sp)
+    public void InputCommand(string[] proctext)
     {
-        if(sp.proctext != null)
+        if(proctext != null)
         {
             // ProcInputFieldを一行ずつ確認する
-            for(int ii = 0; ii < sp.proctext.Length; ii++)
+            for(int ii = 0; ii < proctext.Length; ii++)
             {
-                // もし制御構文がNONEだった場合
-                if(current_controlsyntax == CONTROL_SYNTAX.NONE)
+                string _proctext = commandDic.CheckCommand(proctext[ii]);
+                if(_proctext == null)
                 {
-                    // 一行目まで実行できる
-                    if(ii == 0)
+                    Debug.Log("()内のコマンドが設定されていません");
+                }
+                // コマンドがしっかりと動くものであれば
+                if(_proctext != null)
+                {
+                    // ()の中を確認する
+                    string specifytext = commandDic.MatchCommand(_proctext);
+                    if(specifytext == null)
                     {
-                        // コマンドがしっかりと動くものであれば
-                        if(commandDic.CheckCommand(sp.proctext[ii]) == true)
-                        {
-                            // ()の中を確認する
-                            string specifytext = commandDic.MatchCommand(sp.proctext[ii]);
-                            // コマンドを実行する
-                            commandDic.CommandToExecution(sp.proctext[ii],specifytext);
-                            Debug.Log("出力します。");
-                        }
-                        else
-                        {
-                            Debug.Log("出力できません。コマンドが間違えています。");
-                        }
+                        Debug.Log("()内のコマンドが間違えています。");
                     }
-                    else
-                    {
-                        Debug.Log("出力できません。");
-                    }
+                    // コマンドを実行する
+                    commandDic.CommandToExecution(proctext[ii],specifytext);
+                    Debug.Log("出力します。");
+                }
+                else
+                {
+                    Debug.Log("出力できません。コマンドが間違えています。");
                 }
             }
         }
-
-        Debug.Log("sp._input : "  + sp._input );
-        Debug.Log("sp.thisControlSyntax : " + sp.thisControlSyntax);
-    }
-
-    /// <summary>
-    /// 入力された制御構文を確認する
-    /// </summary>
-    /// <param name="_input"></param>
-    /// <returns></returns>
-    CONTROL_SYNTAX CheckControlSyntaxText(TMP_InputField _input)
-    {
-        CONTROL_SYNTAX cs = CONTROL_SYNTAX.ERR;
-        if(_input.CompareTag("Proc")) cs = CONTROL_SYNTAX.PROC;
-        else if(_input.CompareTag("ControlSyntax"))
-        {
-            switch (_input.text)
-            {
-                case "none:":
-                    cs = CONTROL_SYNTAX.NONE;
-                    break;
-                case "if:":
-                    cs = CONTROL_SYNTAX.IF;
-                    break;
-                case "else:":
-                    cs = CONTROL_SYNTAX.ELSE;
-                    break;
-                case "else if:":
-                    cs = CONTROL_SYNTAX.ELSE_IF;
-                    break;
-                case "for:":
-                    cs = CONTROL_SYNTAX.FOR;
-                    break;
-                case "while:":
-                    cs = CONTROL_SYNTAX.WHILE;
-                    break;
-                case "swich:":
-                    cs = CONTROL_SYNTAX.SWICH;
-                    break;
-            }
-        }
-        return cs;
     }
 
     /// <summary>
@@ -171,25 +80,35 @@ public class RobotCommandController : MonoBehaviour
         // 改行ごとにテキストを分割
         string[] lines = _proctext.Split(new[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
 
+        // 各行をログに表示
+        for (int i = 0; i < lines.Length; i++)
+        {
+            Debug.Log($"Line {i + 1}: {lines[i]}");
+        }
+
         return lines;
     }
-
-    
 }
 
 public class CommandDictionary
 {
-    // 処理終了コマンド
-    public string proc_end = "proc_end;"; 
+    public bool procend_flag;
     // メインコマンド
     const string move_to = "move_to";
     const string gather = "gather";
 
     // 例 : Locationと入力されたらLocationと返す
-    public Dictionary<string, string> moveName = new Dictionary<string, string>()
+    Dictionary<string, string> moveName = new Dictionary<string, string>()
     {
-        { "Location", "Location"}, { "stone", "stone"}, { "tree", "tree"}
+        { "Location", "Location"},
+        { "stone", "stone"}, { "tree", "tree"}
     };
+
+    Dictionary<string, string> gatherName = new Dictionary<string, string>()
+    {
+        { "stone", "stone"}, { "tree", "tree"}
+    };
+
     public string materialName;
 
     /// <summary>
@@ -220,17 +139,22 @@ public class CommandDictionary
     /// </summary>
     /// <param name="_proctext"></param>
     /// <returns></returns>
-    public bool CheckCommand(string _proctext) 
+    public string CheckCommand(string _proctext) 
     {
-        foreach(var mn in moveName.Keys)
+        // ()内のコマンドを取得する　
+        foreach(var mn in moveName.Keys)        // 移動処理
         {
-            if(_proctext == move_to + $"({mn});") { return true;}
+            if(_proctext == move_to + $"({mn});") { return _proctext; }
         }
-        if(_proctext == move_to + materialName) { return true; }
-        if(_proctext == gather + materialName) { return true; }
 
-        return false;
+        foreach(var gn in gatherName.Keys)      // 収集処理
+        {
+            if(_proctext == gather + $"({gn});") { return _proctext; }
+        }
+
+        return null;
     }
+
 
     /// <summary>
     /// 最終フェーズのコマンドの実行を行う
@@ -239,31 +163,29 @@ public class CommandDictionary
     /// <param name="specifytext"></param>
     public void CommandToExecution(string proctext, string specifytext)
     {
-        foreach(var mn in moveName.Keys)
-        {
-            // move_toのコマンドを使用されていた場合
-            if(proctext == move_to + $"({mn});")
-            {
-                switch(specifytext)
-                {
-                    case "Location":
-                        Debug.Log("最終フェーズのコマンドの実行を行います。");
-                        break;
-                }
-            }
-        }
-        
-        if(proctext == move_to + materialName)
+        // move_toのコマンドを使用されていた場合
+        if(proctext == move_to + $"({specifytext});")
         {
             switch(specifytext)
             {
                 case "Location":
-                    Debug.Log("最終フェーズのコマンドの実行を行います。");
+                    Debug.Log($"{specifytext}に移動します。");
+                    break;
+            }
+        }
+
+        // gatherのコマンドを使用されていた場合
+        if(proctext == gather + $"({specifytext});")
+        {
+            switch(specifytext)
+            {
+                case "stone":
+                    Debug.Log($"{specifytext}に移動します。");
+                    break;
+                case "tree":
+                    Debug.Log($"{specifytext}に移動します。");
                     break;
             }
         }
     }
-
-
-    // 条件コマンド
 }
