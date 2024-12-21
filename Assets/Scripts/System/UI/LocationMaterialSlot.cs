@@ -1,21 +1,21 @@
-using NUnit.Framework.Constraints;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LocationMaterialSlot : MonoBehaviour
 {
-    [SerializeField] Image icon;
-    [SerializeField] TextMeshProUGUI materialName_text;
-    [SerializeField] TextMeshProUGUI stockAmount_text;
-    [SerializeField] TextMeshProUGUI needAmount_text;
+    [SerializeField] MaterialSO mateSO;
+    [SerializeField] Image icon;                            // アイコンの素材
+    [SerializeField] TextMeshProUGUI materialName_text;     // 素材の名前
+    [SerializeField] TextMeshProUGUI stockAmount_text;      // 所持数
+    [SerializeField] TextMeshProUGUI needAmount_text;       // 必要個数
 
     // 所持数,必要個数
     [SerializeField, Range(0, 20)] int stockAmo, needAmo;
 
     private void Start() {
         // テスト
-        SetSlotMaterial(null, "- stone", 15);
+        SetSlotMaterial(mateSO, 15);
     }
 
     private void Update() {
@@ -30,17 +30,33 @@ public class LocationMaterialSlot : MonoBehaviour
     /// <summary>
     /// スロットの要素を一気に設定
     /// </summary>
-    /// <param name="_sprite"> スロットのアイコンを設定 </param>
-    /// <param name="_name"> 素材の名前を設定</param>
+    /// <param name="_mateSO"> 素材のデータ </param>
     /// <param name="_stockAmo"> 現在所持している素材の数 </param>
     /// <param name="_needAmo"> 必要個数 </param>
-    public void SetSlotMaterial(Sprite _sprite, string _name, int _needAmo)
+    public void SetSlotMaterial(MaterialSO _mateSO, int _needAmo)
     {
-        icon.sprite = _sprite;
-        materialName_text.text = _name;
-        needAmount_text.text = " / " + _needAmo;
+        if(_mateSO != null)
+        {
+            // スロットに設定
+            icon.sprite = _mateSO.icon;
+            materialName_text.text = "- " + _mateSO.materialName;
+            needAmount_text.text = " / " + _needAmo;
         
-        needAmo = _needAmo;
+            // 数値を取得
+            mateSO = _mateSO;
+            needAmo = _needAmo;
+        }
+        else
+        {
+            // スロットに設定
+            icon.sprite = null;
+            materialName_text.text = "";
+            needAmount_text.text = "";
+        
+            // 数値を取得
+            mateSO = null;
+            needAmo = 0;
+        }
     }
 
     /// <summary>
@@ -51,25 +67,12 @@ public class LocationMaterialSlot : MonoBehaviour
     /// <returns></returns>
     public bool Check_OverNeedAmo()
     {
-        int yellowAmo = (int)Mathf.Floor(needAmo * 0.8f);
-
         if(stockAmo < needAmo)
         {
-            if(stockAmo >= yellowAmo)
-            {
-                Debug.Log(yellowAmo);
-                // 必要個数より少し小さければ黄色テキストにする
-                stockAmount_text.color = Color.yellow;
-                needAmount_text.color = Color.yellow;
-                return false;
-            }
-            else
-            {
-                // 必要個数より小さければ赤いテキストにする
-                stockAmount_text.color = Color.red;
-                needAmount_text.color = Color.red;
-                return false;
-            }
+            // 必要個数より小さければ赤いテキストにする
+            stockAmount_text.color = Color.red;
+            needAmount_text.color = Color.red;
+            return false;
         }
 
         // 必要個数より大きければ緑テキストにする
@@ -87,4 +90,6 @@ public class LocationMaterialSlot : MonoBehaviour
         stockAmo = amo;
         stockAmount_text.text = "" + stockAmo;
     }
+
+    public MaterialSO GetMaterialSO() { return mateSO; }
 }

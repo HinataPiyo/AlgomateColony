@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4585257449271439181}
   - component: {fileID: 8228377441316406324}
   m_Layer: 5
-  m_Name: LeftTopPanel_White
+  m_Name: Panel_White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 5939930868928749512}
   - component: {fileID: 2193299578854125717}
   m_Layer: 5
-  m_Name: LeftTopPanel_Brack
+  m_Name: Panel_Brack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

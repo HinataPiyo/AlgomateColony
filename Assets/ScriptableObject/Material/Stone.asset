@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0adb47e7b77f1654cb832dc609ecdd27, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
+  icon: {fileID: 3845756139494361395, guid: 86c1dc4878892e74c9702913f0c3e93d, type: 3}
   serialNum: 1
-  materialName: "Stone(\u77F3)"
+  materialName: Stone
   maxHp: 30

@@ -3,6 +3,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    // ゲームの進行に関するSO
+    [SerializeField] SystemControlSO systemControlSO;
+    [SerializeField] Transform havematerial_parent;
+    [SerializeField] HaveMaterialSlot[] haveMateSlot;
     RobotFactory robotFactory;
     public Canvas sliderCanvas;       // スライダーを表示させるためのキャンバス
 
@@ -14,6 +18,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        robotFactory = GetComponent<RobotFactory>();
+        haveMateSlot = havematerial_parent.GetComponentsInChildren<HaveMaterialSlot>();
+        robotFactory = GetComponent<RobotFactory>();   
     }
+
+    private void Update()
+    {
+            
+    }
+
+    public SystemControlSO GetSystemControlSO() { return systemControlSO;}
 }
