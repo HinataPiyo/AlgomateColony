@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   serialNum: 2
-  materialName: "Tree(\u6728)"
+  materialName: Tree
   maxHp: 30

@@ -12,6 +12,7 @@ public class RobotStatusPanelManager : MonoBehaviour
     [SerializeField] Button backButton;
     [SerializeField] Button commandButton;
     [SerializeField] RectTransform robotStatusPanel;
+    [SerializeField] GameObject robotCodingObj;
 
     [Header("親のオブジェ")]
     [SerializeField] Transform slotsParent;
@@ -29,6 +30,9 @@ public class RobotStatusPanelManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI moveSpeed_text;
     [SerializeField] TextMeshProUGUI gatherStrength_text;
     [SerializeField] TextMeshProUGUI gatherRate_text;
+
+    const int ROBOT_STATUSPANEL_WIDTH_CLOSE = 450;
+    const int ROBOT_STATUSPANEL_WIDTH_OPEN = 850;
 
     void Awake()
     {
@@ -57,6 +61,10 @@ public class RobotStatusPanelManager : MonoBehaviour
         maxEnergy_text.text = "";
         moveSpeed_text.text = "";
         gatherRate_text.text = "";
+
+        // CodingPanelを非アクティブ状態にする
+        robotCodingObj.SetActive(false);
+        SetHeight(ROBOT_STATUSPANEL_WIDTH_CLOSE);
     }
 
     private void Update()
@@ -122,10 +130,15 @@ public class RobotStatusPanelManager : MonoBehaviour
     void BackButtonOnClick()
     {
         FacilityManager.instance.CanvasEnabled(CanvasName.RobotStatus, false);
-        SetHeight(450f);
+        robotCodingObj.SetActive(false);    // CodingPanelを非アクティブ状態にする
+        SetHeight(ROBOT_STATUSPANEL_WIDTH_CLOSE);
     }
 
-    private void CommandButtonClick() { SetHeight(1000f); }
+    private void CommandButtonClick()
+    {
+        robotCodingObj.SetActive(true);    // CodingPanelをアクティブ状態にする
+        SetHeight(ROBOT_STATUSPANEL_WIDTH_OPEN);
+    }
 
     /// <summary>
     /// パネルの高さの幅を変える
