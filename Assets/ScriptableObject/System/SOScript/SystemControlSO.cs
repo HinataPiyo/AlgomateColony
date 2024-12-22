@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SystemControlSO", menuName = "SystemControlSO")]
@@ -15,6 +16,17 @@ public class SystemControlSO : ScriptableObject
 
 }
 
+[System.Flags]
+public enum STATUS_SELECT
+{
+    NONE = -1,
+    MoveSpeedMax = 0 << 0,
+    RechargeMax = 1 << 1,
+    EnergyMax = 2 << 2,
+    GatherStrengthMax = 3 << 3,
+    GatherRateMax = 4 << 4,
+}
+
 /// <summary>
 /// ステータスの上限Upの値を決める
 /// </summary>
@@ -26,7 +38,7 @@ public struct StatusLimited
     [System.Serializable]
     public struct StatusParam
     {
-        public string statusName;               // 上限突破するステータスの名前
+        public STATUS_SELECT selectStatus;
         public float statusLimited_value;       // 上限突破するステータスの値
     }
 }

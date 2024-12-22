@@ -15,13 +15,11 @@ MonoBehaviour:
   nluSO: {fileID: 11400000, guid: d9c12c66f671a1d4387f8e9a47c7e55a, type: 2}
   LocationLevel: 0
   statuslimited:
-  - unlock_objeckt: {fileID: 341332133513557000, guid: 05b49dd88fe1be64da6ec8e952c24150, type: 3}
-    statusParam:
-    - statusName: GatherStrength
+  - statusParam:
+    - selectStatus: 0
       statusLimited_value: 0.2
-  - unlock_objeckt: {fileID: 341332133513557000, guid: 05b49dd88fe1be64da6ec8e952c24150, type: 3}
-    statusParam:
-    - statusName: MoveSpeed
+  - statusParam:
+    - selectStatus: 2
       statusLimited_value: 0.3
-    - statusName: MaxRecharge
+    - selectStatus: 24
       statusLimited_value: 0.5

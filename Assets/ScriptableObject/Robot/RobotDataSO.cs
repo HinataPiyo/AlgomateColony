@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.ShaderGraph.Internal;
+using NUnit.Framework;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewRobotData", menuName = "RobotSO/Robot Data")]
@@ -33,6 +32,12 @@ public class BaseStatus
     [Header("インベントリ")]
     const int MAX_SLOT = 5;
     public Slot[] slots = new Slot [MAX_SLOT];
+    public enum SLOT_STACK
+    {
+        STACK_TRUE,
+        STACK_MAX,
+        ALL_STACK_MAX
+    } 
 
     /// <summary>
     /// スロットを生成する
@@ -49,9 +54,9 @@ public class BaseStatus
     /// true : 全てスタックMax, false : どれかがスタック可能
     /// </summary>
     /// <returns></returns>
-    public bool CheckAllStackMax()
+    public SLOT_STACK CheckStackMax()
     {
-        for(int ii = slots.Length - 1; ii >= 0; ii--)
+        for(int ii = 0; ii < slots.Length; ii++)
         {
             // スロットの中にアイテムが存在していたら
             if(slots[ii].mateSO != null)
@@ -59,21 +64,42 @@ public class BaseStatus
                 // スタック数がマックスだった場合
                 if(slots[ii].CheckStackMax() == true)
                 {
-                    continue;
+                    return SLOT_STACK.STACK_MAX;
                 }
-                else    // スタックがまだ可能だった場合
+                else if(slots[ii].CheckStackMax() == false)    // スタックがまだ可能だった場合
                 {
-                    return false;
+                    return SLOT_STACK.STACK_TRUE;
                 }
             }
-            else    // 0番目以外のスロットがnullだった場合,スタック可能なのにAllMaxという判定になってしまう
+            else        // スロットの中にアイテムが存在していなかったら
             {
-                return false;
+                return SLOT_STACK.STACK_TRUE;
             }
         }
 
-        // スタック数がマックスだった場合にtrueを返す
-        return true;
+        // スタック数がマックスだった場合にSTACK_MAXを返す
+        return SLOT_STACK.STACK_MAX;
+    }
+
+    public SLOT_STACK CheckAllStackMax()
+    {
+        int value = 0;
+        for(int ii = 0; ii < slots.Length; ii++)
+        {
+            // スタック数がMaxなら
+            if(slots[ii].CheckStackMax() == true)
+            {
+                value++;
+            }
+        }
+
+        if(value == slots.Length)
+        {
+            return SLOT_STACK.ALL_STACK_MAX;
+        }
+
+        return SLOT_STACK.STACK_TRUE;
+
     }
 
 

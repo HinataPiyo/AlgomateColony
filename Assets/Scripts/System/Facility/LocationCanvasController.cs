@@ -1,5 +1,4 @@
 using TMPro;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -266,7 +265,7 @@ public class LocationCanvasController : MonoBehaviour
                 slTexts[ii].statusName_texts.gameObject.SetActive(true);
                 slTexts[ii].statusValue_value.gameObject.SetActive(true);
 
-                slTexts[ii].statusName_texts.text = statusParam[ii].statusName;
+                slTexts[ii].statusName_texts.text = $"{statusParam[ii].selectStatus}";
                 slTexts[ii].statusValue_value.text = "" + statusParam[ii].statusLimited_value;
             }
             else    // 中身が空っぽだったらテキストを非アクティブ状態にする
