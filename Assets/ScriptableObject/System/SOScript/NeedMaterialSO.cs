@@ -18,7 +18,7 @@ public class NeedMaterialSO : ScriptableObject
         public struct NEED_MATEREALS
         {
             public MaterialSO mateSO;
-            public int needAmo;
+            public uint needAmo;
         }
     }
 }

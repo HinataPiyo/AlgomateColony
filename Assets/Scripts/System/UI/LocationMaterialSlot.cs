@@ -10,21 +10,16 @@ public class LocationMaterialSlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI stockAmount_text;      // 所持数
     [SerializeField] TextMeshProUGUI needAmount_text;       // 必要個数
 
-    // 所持数,必要個数
-    [SerializeField, Range(0, 20)] int stockAmo, needAmo;
+    // 所持数,必要個数(RangeはDebug用)
+    [SerializeField, Range(0, 20)] uint stockAmo, needAmo;
 
     private void Start() {
-        // テスト
-        SetSlotMaterial(mateSO, 15);
+
     }
 
     private void Update() {
         // テスト
-        GetStockAmount(stockAmo);
-
-
-
-        Check_OverNeedAmo();        // 現在所持している素材の数が必要個数より大きいか小さいか判断する
+        SetStockAmount(stockAmo);
     }
 
     /// <summary>
@@ -33,7 +28,7 @@ public class LocationMaterialSlot : MonoBehaviour
     /// <param name="_mateSO"> 素材のデータ </param>
     /// <param name="_stockAmo"> 現在所持している素材の数 </param>
     /// <param name="_needAmo"> 必要個数 </param>
-    public void SetSlotMaterial(MaterialSO _mateSO, int _needAmo)
+    public void SetSlotMaterial(MaterialSO _mateSO, uint _needAmo)
     {
         if(_mateSO != null)
         {
@@ -85,7 +80,7 @@ public class LocationMaterialSlot : MonoBehaviour
     /// 現在所持している素材の数を取得
     /// </summary>
     /// <param name="amo"></param>
-    public void GetStockAmount(int amo)
+    public void SetStockAmount(uint amo)
     {
         stockAmo = amo;
         stockAmount_text.text = "" + stockAmo;

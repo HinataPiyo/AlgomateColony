@@ -16,7 +16,13 @@ MonoBehaviour:
   next_unlocks:
   - icon: {fileID: 5586023482547687954, guid: d383ede3d50ccce409a65044ef6d234c, type: 3}
     name_text: BatteryChargingRoom
-    exp_text: Charging facility. Can charge the batteries of the robot.
+    exp_text: "\u5145\u96FB\u65BD\u8A2D\u3002\u30ED\u30DC\u30C3\u30C8\u306E\u30D0\u30C3\u30C6\u30EA\u30FC\u3092\u5145\u96FB\u3067\u304D\u308B\u65BD\u8A2D\u3002"
+    statusParam:
+    - selectStatus: 0
+      statusLimited_value: 0
+    - selectStatus: 0
+      statusLimited_value: 0
   - icon: {fileID: -254286355086068568, guid: ee5d2df1db381464fadb6ea2a2c2c6ad, type: 3}
     name_text: Warehouse
     exp_text: "\u5009\u5EAB\u3002\u30ED\u30DC\u30C3\u30C8\u304C\u53D6\u5F97\u3057\u305F\u30A2\u30A4\u30C6\u30E0\u3092\u683C\u7D0D\u3059\u308B\u3053\u3068\u304C\u3067\u304D\u308B\u3002"
+    statusParam: []

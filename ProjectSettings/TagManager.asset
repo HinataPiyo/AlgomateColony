@@ -8,6 +8,7 @@ TagManager:
   - CenterCollider
   - Robot
   - Proc
+  - Location
   layers:
   - Default
   - TransparentFX

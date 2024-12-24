@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0adb47e7b77f1654cb832dc609ecdd27, type: 3}
   m_Name: Tree
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 4189845308651797931, guid: 93466ca9c6a035049b05f78a3c991659, type: 3}
   serialNum: 2
   materialName: Tree
   maxHp: 30

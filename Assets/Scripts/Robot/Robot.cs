@@ -327,7 +327,7 @@ public class Robot : MonoBehaviour
             if(hitInfo != null)     // 資源が存在していれば
             {
                 // 全てのスロットがスタックMaxだった場合
-                if(_base.CheckAllStackMax() == true)
+                if(_base.CheckAllStackMax() == BaseStatus.SLOT_STACK.ALL_STACK_MAX)
                 {
                     Debug.Log(_base.robotName + "のインベントリがいっぱいです。");
                     ChangeState(State.DoNon);   // 何もしない状態に遷移
@@ -361,28 +361,32 @@ public class Robot : MonoBehaviour
                 foreach(var _slot in _base.slots)
                 {
                     // スタック数がMaxではなかったら
-                    if(_slot.CheckStackMax() == false && _base.CheckAllStackMax() == false)
+                    if(_base.CheckStackMax() == BaseStatus.SLOT_STACK.STACK_TRUE)
                     {
                         // スロット内に同一のシリアル番号がなければ
                         if(_slot.mateSO?.serialNum != _baseMate.mateSO.serialNum)
                         {
-                            // スロット(インベントリ)に格納する
-                            _slot.mateSO = _baseMate.mateSO;
-                            // スタック数を増やす
-                            _slot.itemStackAmount += _baseMate.GetAmo();
-                            break;      // foreachを抜ける
+                            // 空のスロットを見つける
+                            if(_slot.mateSO == null)
+                            {
+                                // スロット(インベントリ)に格納する
+                                _slot.mateSO = _baseMate.mateSO;
+                                // スタック数を増やす
+                                _slot.itemStackAmount += _baseMate.GetAmo();
+                                break;      // foreachを抜ける
+                            }
                         }
                         else    // 同一のシリアル番号が存在したら
                         {
                             // スタック数を増やす
                             _slot.itemStackAmount += _baseMate.GetAmo();
-                            Debug.Log(_slot.mateSO);
                             break;      // foreachを抜ける
                         }
                     }
                     // スタックがMaxだった場合
-                    else if(_slot.CheckStackMax() == true && _base.CheckAllStackMax() == false)
+                    else if(_base.CheckStackMax() == BaseStatus.SLOT_STACK.STACK_MAX)
                     {
+
                         // 空のスロットを探す
                         if(_slot.mateSO == null)
                         {
@@ -391,7 +395,7 @@ public class Robot : MonoBehaviour
                             // スタック数を増やす
                             _slot.itemStackAmount += _baseMate.GetAmo();
                             break;      // foreachを抜ける
-                        }
+                        }             
                     }
                 }
             }

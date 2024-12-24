@@ -13,15 +13,10 @@ MonoBehaviour:
   m_Name: SystemControlSO
   m_EditorClassIdentifier: 
   nluSO: {fileID: 11400000, guid: d9c12c66f671a1d4387f8e9a47c7e55a, type: 2}
-  LocationLevel: 0
-  statuslimited:
-  - unlock_objeckt: {fileID: 341332133513557000, guid: 05b49dd88fe1be64da6ec8e952c24150, type: 3}
-    statusParam:
-    - statusName: GatherStrength
-      statusLimited_value: 0.2
-  - unlock_objeckt: {fileID: 341332133513557000, guid: 05b49dd88fe1be64da6ec8e952c24150, type: 3}
-    statusParam:
-    - statusName: MoveSpeed
-      statusLimited_value: 0.3
-    - statusName: MaxRecharge
-      statusLimited_value: 0.5
+  potential_class:
+    MOVESPEED_MAX: 0.4
+    RECHARGE_MAX: 0
+    ENERGY_MAX: 0
+    GATHERSTRENGTH_MAX: 0
+    GATHERRATE_MAX: 0.3
+  LocationLevel: 1

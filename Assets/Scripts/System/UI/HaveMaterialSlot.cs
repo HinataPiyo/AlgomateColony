@@ -28,5 +28,7 @@ public class HaveMaterialSlot : MonoBehaviour
     {
         haveAmo = amo;
         haveAmo_text.text = "" + haveAmo;
-    }   
+    }
+
+    public MaterialSO GetMaterialSO() { return mateSO; }
 }
