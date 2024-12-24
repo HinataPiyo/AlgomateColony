@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Namename
+  m_text: "\u540D\u524D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a528d75f061af754cb6a949e77ecae30, type: 2}
   m_sharedMaterial: {fileID: 6313767193362497592, guid: a528d75f061af754cb6a949e77ecae30, type: 2}
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: expeearghiehrgpaehrgpaergaeorhgoienvaoeirhgapehrgapiaeprh;gaeprgoi;hap@eo;hrgiouiaehgrl
+  m_text: "\u8AAC\u660E\u6587\u3092\u3053\u3053\u306B\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d38c63a230066dd46b8b3539e5323616, type: 2}
   m_sharedMaterial: {fileID: -3311538029097897713, guid: d38c63a230066dd46b8b3539e5323616, type: 2}

@@ -6,6 +6,7 @@ public enum CanvasName
     Setting,        // 設定
     RobotStatus,    // ステータス
     Location,       // 拠点
+    Warehouse,      // 倉庫
 }
 
 public class FacilityManager : MonoBehaviour
@@ -13,8 +14,9 @@ public class FacilityManager : MonoBehaviour
     public static FacilityManager instance;
     [SerializeField] Canvas settingCanvas;
     [SerializeField] Canvas locationCanvas;             // 拠点をクリックしたときに表示されるキャンバス
+    [SerializeField] Canvas warehouseCanvas;
     Canvas robotStatusCanvas;
-    LocationCanvasController lcCont;                    // 拠点キャンバスのスクリプト
+    LocationController lcCont;                    // 拠点キャンバスのスクリプト
 
     bool isOpenCnavas;      // Canvasが開いているか否か
 
@@ -26,11 +28,12 @@ public class FacilityManager : MonoBehaviour
     void Start()
     {
         // コンポーネントの取得
-        lcCont = GetComponent<LocationCanvasController>();
+        lcCont = GetComponent<LocationController>();
         robotStatusCanvas = RobotStatusPanelManager.instance.GetComponentInChildren<Canvas>();
 
         CanvasEnabled(CanvasName.Setting, false);       // 設定キャンバスを非表示にする
         CanvasEnabled(CanvasName.Location, false);      // 拠点キャンバスを非表示にする
+        CanvasEnabled(CanvasName.Warehouse, false);     // 倉庫キャンバスを非表示にする
         CanvasEnabled(CanvasName.RobotStatus, false);   // ステータスキャンバス
 
         // 変数の初期化
@@ -43,6 +46,7 @@ public class FacilityManager : MonoBehaviour
         {
             CanvasEnabled(CanvasName.Setting, false);       // 設定キャンバス
             CanvasEnabled(CanvasName.Location, false);      // 拠点キャンバス
+            CanvasEnabled(CanvasName.Warehouse, false);     // 倉庫キャンバス
             CanvasEnabled(CanvasName.RobotStatus, false);   // ステータスキャンバス
         }
     }
@@ -67,6 +71,10 @@ public class FacilityManager : MonoBehaviour
             case CanvasName.Location:
                 locationCanvas.enabled = flag;
                 break;
+            // 倉庫キャンバスの設定
+            case CanvasName.Warehouse:
+                warehouseCanvas.enabled = flag;
+                break;
         }
 
         isOpenCnavas = flag;    // Canvasが開いているか否か
@@ -74,5 +82,5 @@ public class FacilityManager : MonoBehaviour
     }
 
     public bool GetIsOpenCanvas() { return isOpenCnavas; }          // Canvasが開いているか否か
-    public LocationCanvasController lcController() { return lcCont; }
+    public LocationController lcController() { return lcCont; }
 }
