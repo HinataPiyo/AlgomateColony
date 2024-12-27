@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nluSO: {fileID: 11400000, guid: d9c12c66f671a1d4387f8e9a47c7e55a, type: 2}
   potential_class:
-    MOVESPEED_MAX: 0.4
-    RECHARGE_MAX: 0
-    ENERGY_MAX: 0
-    GATHERSTRENGTH_MAX: 0
+    MOVESPEED_MAX: 0.6
+    RECHARGE_MAX: 0.5
+    ENERGY_MAX: 1
+    GATHERSTRENGTH_MAX: 0.3
     GATHERRATE_MAX: 0.3
-  LocationLevel: 1
+  LocationLevel: 2

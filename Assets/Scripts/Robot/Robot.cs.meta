@@ -6,7 +6,8 @@ MonoImporter:
   defaultReferences:
   - energySlider: {fileID: 4249589918113511865, guid: 055de1bda11bf934f9f2e07ba4de34eb, type: 3}
   - gatherSlider: {fileID: 4249589918113511865, guid: adc46a6c5e28cb44a8a34c938d2083a0, type: 3}
-  - hitInfo: {instanceID: 0}
+  - equipmentSO: {fileID: 11400000, guid: c79b726fa38e6c942979de1585e25b30, type: 2}
+  - charaPos: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

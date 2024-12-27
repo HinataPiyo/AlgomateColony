@@ -17,6 +17,11 @@ public class ObjectClick : MonoBehaviour, IPointerClickHandler
                 Debug.Log($"オブジェクト {name} がクリックされました。");
                 FacilityManager.instance.CanvasEnabled(CanvasName.Location, true);
             }
+            else if(gameObject.CompareTag("Warehouse"))
+            {
+                Debug.Log($"オブジェクト {name} がクリックされました。");
+                FacilityManager.instance.CanvasEnabled(CanvasName.Warehouse, true);
+            }
         }
 
         if(gameObject.CompareTag("Robot"))

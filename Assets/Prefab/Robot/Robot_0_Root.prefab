@@ -129,6 +129,7 @@ MonoBehaviour:
   chargeEnergy: 0
   currentRecharged: 0
   needChangeBattery: 0
+  equipmentSO: {fileID: 11400000, guid: c79b726fa38e6c942979de1585e25b30, type: 2}
   charaPos: {fileID: 8465071134800166367}
   _base:
     _runk: 

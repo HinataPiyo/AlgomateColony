@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
-
 using UnityEngine.UI;
+
 // ロボット自身にアタッチするスクリプト
 public class Robot : MonoBehaviour
 {
@@ -38,6 +38,7 @@ public class Robot : MonoBehaviour
     bool hitMaterial;       // 資源が見つかっているか否か
 
     [Header("コンポーネント")]
+    [SerializeField] EquipmentSO equipmentSO;
     [SerializeField] Transform charaPos;
     [SerializeField] BaseStatus _base;
     Canvas sliderCanvas;
@@ -76,33 +77,16 @@ public class Robot : MonoBehaviour
 
     private void Update()
     {
+        // 収集速度ステータスの上昇
+        _base.UpdateGatherRate(equipmentSO);
+
         // テスト
         if(flag == true)
         {   
             ChangeState(State.Search);
             flag = false;
         }
-        //---------------------------------------------------------------
-        // テスト(移動処理)
-        // if(Input.GetKey(KeyCode.D))
-        // {
-        //     transform.position += new Vector3(1f, 0, 0) * 5 * Time.deltaTime;
-        //     animator.SetBool("Run", true);
-        // }
-        // if(Input.GetKey(KeyCode.A))
-        // {
-        //     transform.position += new Vector3(-1f, 0, 0) * 5 * Time.deltaTime;
-        // }
-        // if(Input.GetKey(KeyCode.W))
-        // {
-        //     transform.position += new Vector3(0, 1f, 0) * 5 * Time.deltaTime;
-        // }
-        // if(Input.GetKey(KeyCode.S))
-        // {
-        //     transform.position += new Vector3(0, -1f, 0) * 5 * Time.deltaTime;
-        // }
 
-        ///---------------------------------------------------------------
         if(currentEnergy > 0)
         {
             if(currentState != State.DoNon)
@@ -200,23 +184,14 @@ public class Robot : MonoBehaviour
         _base = new BaseStatus();   // 自身にクラスを生成
         _base.RandomStatusProc();   // ランダムでステータスを決める
         _base.GeneratSlots();       // インベントリを生成
+        _base.GenerateEquipmentSlots();       // 装備スロットを生成
         _base.TotalStatus();        // 総合ステータスを生成
 
         sliderCanvas = GameManager.instance.sliderCanvas;   // スライダーを表示するキャンバスを取得
-        // スライダーの生成
-        eSlider = Instantiate(      // バッテリーを示すスライダー
-            energySlider,
-            new Vector2(transform.position.x, transform.position.y + 0.5f),
-            Quaternion.identity,
-            sliderCanvas.transform
-        );
-
-        gSlider = Instantiate(      // 資源収集を行うときのスライダー
-            gatherSlider,
-            new Vector2(transform.position.x, transform.position.y + 0.6f),
-            Quaternion.identity,
-            sliderCanvas.transform
-        );
+        // スライダーの生成 / バッテリーを示すスライダー
+        eSlider = Instantiate(energySlider, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, sliderCanvas.transform);
+        // 資源収集を行うときのスライダー
+        gSlider = Instantiate(gatherSlider, new Vector2(transform.position.x, transform.position.y + 0.6f), Quaternion.identity, sliderCanvas.transform);
 
         // コンポーネントの取得
         _eslider = eSlider.GetComponent<Slider>();
@@ -412,6 +387,7 @@ public class Robot : MonoBehaviour
 
         yield break;        // コルーチンを抜ける
     }
+
 
 
     /// <summary>

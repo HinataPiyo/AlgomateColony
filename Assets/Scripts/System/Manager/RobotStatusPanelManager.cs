@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,9 @@ public class RobotStatusPanelManager : MonoBehaviour
     public static RobotStatusPanelManager instance;
 
     [Header("コンポーネント")]
+    UpdateTime_Class updateTime = new UpdateTime_Class();
+    EquipmentController equipmentController;
+    [SerializeField] SystemControlSO scSO;
     [SerializeField] Robot _robot;
     [SerializeField] BaseStatus _base;
     [SerializeField] Button backButton;
@@ -30,9 +34,18 @@ public class RobotStatusPanelManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI moveSpeed_text;
     [SerializeField] TextMeshProUGUI gatherStrength_text;
     [SerializeField] TextMeshProUGUI gatherRate_text;
+    [Header("潜在能力テキスト")]
+    [SerializeField] TextMeshProUGUI maxRecharge_potentialtext;
+    [SerializeField] TextMeshProUGUI maxEnergy_potentialtext;
+    [SerializeField] TextMeshProUGUI maxMovespeed_potentialtext;
+    [SerializeField] TextMeshProUGUI maxGatherStrength_potentialtext;
+    [SerializeField] TextMeshProUGUI maxGatherRate_potentialtext;
+    
 
     const int ROBOT_STATUSPANEL_WIDTH_CLOSE = 450;
     const int ROBOT_STATUSPANEL_WIDTH_OPEN = 850;
+
+
 
     void Awake()
     {
@@ -44,6 +57,7 @@ public class RobotStatusPanelManager : MonoBehaviour
         backButton.onClick.AddListener(BackButtonOnClick);
         commandButton.onClick.AddListener(CommandButtonClick);
         rSlot = slotsParent.GetComponentsInChildren<RobotSlot>();
+        equipmentController = GetComponent<EquipmentController>();
 
         foreach(var _rSlot in rSlot)
         {
@@ -62,9 +76,18 @@ public class RobotStatusPanelManager : MonoBehaviour
         moveSpeed_text.text = "";
         gatherRate_text.text = "";
 
+        // 潜在能力テキスト
+        maxRecharge_potentialtext.text = "";
+        maxEnergy_potentialtext.text = "";
+        maxMovespeed_potentialtext.text = "";
+        maxGatherStrength_potentialtext.text = "";
+        maxGatherRate_potentialtext.text = "";
+
         // CodingPanelを非アクティブ状態にする
         robotCodingObj.SetActive(false);
         SetHeight(ROBOT_STATUSPANEL_WIDTH_CLOSE);
+
+        
     }
 
     private void Update()
@@ -82,11 +105,18 @@ public class RobotStatusPanelManager : MonoBehaviour
             gatherRate_text.text = "" + _base.gatherRate;
         }
 
+        // 潜在能力テキスト
+        maxRecharge_potentialtext.text = $"({scSO.GetPotential().RECHARGE_MAX})";
+        maxEnergy_potentialtext.text = $"({scSO.GetPotential().ENERGY_MAX})";
+        maxMovespeed_potentialtext.text = $"({scSO.GetPotential().MOVESPEED_MAX})";
+        maxGatherStrength_potentialtext.text = $"({scSO.GetPotential().GATHERSTRENGTH_MAX})";
+        maxGatherRate_potentialtext.text = $"({scSO.GetPotential().GATHERRATE_MAX})";
+
+
         if(_baseSlot != null)
         {
             SetSlot();      // スロット内に画像を入れる
         }
-        
     }
 
     void SetSlot()
@@ -119,6 +149,7 @@ public class RobotStatusPanelManager : MonoBehaviour
             _robot = robot;
             _base = robot.GetBaseStatus();
             _baseSlot = robot.GetSlot();
+            equipmentController.Check_UnlockEquipmentSlot(_base);
         } else {
             _robot = null;
         }

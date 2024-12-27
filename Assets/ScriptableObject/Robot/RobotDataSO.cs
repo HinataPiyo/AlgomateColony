@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewRobotData", menuName = "RobotSO/Robot Data")]
@@ -17,7 +16,9 @@ public class BaseStatus
     const int rechargeMin = 10, rechargeMax = 100;
     const float energyMin = 50f, energyMax = 100f;
     const float gatherStrMin = 1f, gatherStrMax = 10f;
-    const float gatherRtMin = 3f, gatherRtMax = 10f;
+    const float gatherRtMin = 10f, gatherRtMax = 1f;
+    
+    [Header("ベースステータス")]
     public string _runk;
     public float totalScore;
     public string robotName;        // ロボットの名前
@@ -30,14 +31,30 @@ public class BaseStatus
 
     // ロボット各々のインベントリ
     [Header("インベントリ")]
-    const int MAX_SLOT = 5;
     public Slot[] slots = new Slot [MAX_SLOT];
+    const int MAX_SLOT = 5;
     public enum SLOT_STACK
     {
         STACK_TRUE,
         STACK_MAX,
         ALL_STACK_MAX
-    } 
+    }
+
+    [Header("装備")]
+    public EQUIPMENT_NAME select_equipment_name;
+    public EquipmentSO.EQUIPMENT_VALUE[] equipment_value = new EquipmentSO.EQUIPMENT_VALUE[MAX_EQUIPMENT_SLOTS];
+    const int MAX_EQUIPMENT_SLOTS = 3;
+    [Header("装備できるスロット数")]
+    public UNLOCK_EQUIPMENT_SLOT unlock_equipment_slot;
+
+    
+    public void GenerateEquipmentSlots()
+    {
+        for(int ii = 0; ii < MAX_EQUIPMENT_SLOTS; ii++)
+        {
+            equipment_value[ii] = new EquipmentSO.EQUIPMENT_VALUE();
+        }
+    }
 
     /// <summary>
     /// スロットを生成する
@@ -129,13 +146,14 @@ public class BaseStatus
     /// </summary>
     public void RandomStatusProc()
     {
-        // 強化余地を与えるため、0.8倍してあげてナーフする
+        // 装備によって強化できるものは最低値にする
+        // ロボットなのでランダム性はなるべく避ける
         robotName = "";
-        moveSpeed = Mathf.Round(Random.Range(moveMin, moveMax) * 0.8f * 10) / 10;
-        recharge_MAX = Random.Range(rechargeMin, rechargeMax);
-        maxEnergy = Mathf.Round(Random.Range(energyMin, energyMax) * 0.8f * 10) / 10;
-        gatherSterngth = Mathf.Round(Random.Range(gatherStrMin, gatherStrMax) * 0.8f * 10) / 10;
-        gatherRate = Mathf.Round(Random.Range(gatherRtMin, gatherRtMax) * 0.8f * 10) / 10;
+        moveSpeed = moveMin;
+        maxEnergy = energyMin;
+        recharge_MAX = rechargeMin;
+        gatherSterngth = gatherStrMin;
+        gatherRate = gatherRtMin;
     }
 
     /// <summary>
@@ -146,9 +164,9 @@ public class BaseStatus
         List<Score> _scores = new List<Score>();
 
         // 各ステータス値を配列にまとめる
-        float[] statuses = { moveSpeed, (float)recharge_MAX, maxEnergy, gatherSterngth, gatherRate };
+        float[] statuses = { moveSpeed, (float)recharge_MAX, maxEnergy, gatherSterngth};
 
-        for (int ii = 0; ii < STATUS_MAX; ii++)
+        for (int ii = 0; ii < STATUS_MAX -1; ii++)
         {
             float _status = statuses[ii];
 
@@ -172,7 +190,7 @@ public class BaseStatus
     private float DecideRunk(List<Score> _scores)
     {
         // ステータス全体の総和を求める
-        float sumtotal = moveMax + energyMax + gatherRtMax + gatherStrMax + rechargeMax;
+        float sumtotal = moveMax + energyMax + gatherStrMax + rechargeMax;
         float total = 0f;
 
         foreach (var score in _scores)
@@ -194,5 +212,17 @@ public class BaseStatus
         // 結果を記録
         return Mathf.Round(total * 10f) / 10f;
     }
+    
 
+    
+    /// <summary>
+    /// 収集速度ステータスの上昇
+    /// </summary>
+    /// <param name="_equipmentSO"></param>
+    public void UpdateGatherRate(EquipmentSO _equipmentSO)
+    {
+        gatherRate = gatherRtMin - _equipmentSO.GetEquipmentTotalValue(select_equipment_name);
+    }
 }
+
+
