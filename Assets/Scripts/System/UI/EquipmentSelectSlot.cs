@@ -1,12 +1,15 @@
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EquipmentSelectSlot : MonoBehaviour
 {
-    [SerializeField] EquipmentSO.EQUIPMENT_VALUE equipment_value;
-    [SerializeField] UNLOCK_EQUIPMENT_SLOT select_slotNo;
-    EquipmentController equipmentController;
+    [SerializeField] EquipmentSO.EQUIPMENT_STATUS equipment_value;
+    [SerializeField] AccessorySO.ACCESSORY_STATUS accessory_value;
+
+    SELECT_EQUIPMENTSLOT select_equipmentslot;
+    int accessory_slotNo;
 
     [Header("ボタン")]
     [SerializeField] Button select_button;
@@ -24,13 +27,13 @@ public class EquipmentSelectSlot : MonoBehaviour
         select_button.onClick.AddListener(OnClick_SelectButton);
     }
 
-    public void SetText_EquipmentInfo(EquipmentSO.EQUIPMENT_VALUE _value, EquipmentController _scriot)
+    /// <summary>
+    /// スロットやテキストの設定
+    /// </summary>
+    /// <param name="_value"></param>
+    /// <param name="_scriot"></param>
+    public void SetText_EquipmentInfo_Equipment(EquipmentSO.EQUIPMENT_STATUS _value)
     {
-        if(equipmentController == null)
-        {
-            equipmentController = _scriot;
-        }
-
         equipment_value = _value;
         icon.sprite = _value.icon;
         equipment_name.text = _value._name;
@@ -40,11 +43,52 @@ public class EquipmentSelectSlot : MonoBehaviour
     }
 
     /// <summary>
+    /// スロットやテキストの設定
+    /// </summary>
+    /// <param name="_value"></param>
+    /// <param name="_scriot"></param>
+    public void SetText_EquipmentInfo_Accessory(AccessorySO.ACCESSORY_STATUS _value)
+    {
+        accessory_value = _value;
+        icon.sprite = _value.icon;
+        equipment_name.text = _value._name;
+        equipment_level.text = "" + _value.level;
+        equipment_statusup_name.text = _value.statusup_name;
+        equipment_statusup_value.text = "" + _value.statusup_value;
+    }
+
+    public void Check_SelectSlot(SELECT_EQUIPMENTSLOT _select, int _slotNo)
+    {
+        select_equipmentslot = _select;
+        accessory_slotNo = _slotNo;
+    }
+
+    /// <summary>
     /// ボタンが押されたら、装備欄のスロットに設定する
     /// </summary>
     public void OnClick_SelectButton()
     {
-        equipmentController.SetEquipmentSlot(equipment_value);
+        switch(select_equipmentslot)
+        {
+            case SELECT_EQUIPMENTSLOT.BATTERY:
+                
+                break;
+            case SELECT_EQUIPMENTSLOT.TOOL:
+                EquipmentManager.instance.GetToolController().SetEquipmentSlot(equipment_value);
+                break;
+            case SELECT_EQUIPMENTSLOT.ACCESSORY:
+                EquipmentManager.instance.GetAccessoryController().SetEquipmentSlot(accessory_value, accessory_slotNo);
+                break;
+        }
     }
 
+
+
+}
+
+public enum SELECT_EQUIPMENTSLOT
+{
+    BATTERY,
+    TOOL,
+    ACCESSORY,
 }

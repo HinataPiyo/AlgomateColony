@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewRobotData", menuName = "RobotSO/Robot Data")]
@@ -16,17 +17,21 @@ public class BaseStatus
     const int rechargeMin = 10, rechargeMax = 100;
     const float energyMin = 50f, energyMax = 100f;
     const float gatherStrMin = 1f, gatherStrMax = 10f;
-    const float gatherRtMin = 10f, gatherRtMax = 1f;
+    const float gatherRtMin = 5f, gatherRtMax = 10f;
     
     [Header("ベースステータス")]
     public string _runk;
     public float totalScore;
     public string robotName;        // ロボットの名前
     public float moveSpeed;         // 移動速度
-    public int recharge_MAX;            // 充電回数（最大値）
+    public int recharge_MAX;        // 充電回数（最大値
+    public float currentEnergy;     // 現在のエネルギー
     public float maxEnergy;         // 最大エネルギー
     public float gatherSterngth;    // 収集力
     public float gatherRate;        // 資源収集速度
+    public bool recharge_battery;   // true : バッテリーを充電しなければならない
+    public int currentRecharged;    // 現在のバッテリー充電回数
+    public bool needchange_battery;     // true : バッテリーを交換しなければならない
     const int STATUS_MAX = 5;
 
     // ロボット各々のインベントリ
@@ -41,25 +46,36 @@ public class BaseStatus
     }
 
     [Header("装備")]
-    public EQUIPMENT_NAME select_equipment_name;
-    public EquipmentSO.EQUIPMENT_VALUE[] equipment_value = new EquipmentSO.EQUIPMENT_VALUE[MAX_EQUIPMENT_SLOTS];
-    const int MAX_EQUIPMENT_SLOTS = 3;
-    [Header("装備できるスロット数")]
-    public UNLOCK_EQUIPMENT_SLOT unlock_equipment_slot;
+    public EquipmentSO.EQUIPMENT_STATUS equipment_value = new EquipmentSO.EQUIPMENT_STATUS();
 
-    
+    /// <summary>
+    /// 装備スロットを生成する
+    /// </summary>
     public void GenerateEquipmentSlots()
     {
-        for(int ii = 0; ii < MAX_EQUIPMENT_SLOTS; ii++)
+        equipment_value = new EquipmentSO.EQUIPMENT_STATUS();
+    }
+
+    [Header("アクセサリー")]
+    public UNLOCK_ACCESSORY_SLOT unlock_accessory_slot;     // 使用できるスロットを設定する
+    public AccessorySO.ACCESSORY_STATUS[] accessories_value = new AccessorySO.ACCESSORY_STATUS[MAX_ACCESSORIES];
+    const int MAX_ACCESSORIES = 2;
+
+    /// <summary>
+    /// アクセサリーのスロットを生成する
+    /// </summary>
+    public void GeneratAccessoriesSlots()
+    {
+        for(int ii = accessories_value.Length - 1; ii >= 0; ii--)
         {
-            equipment_value[ii] = new EquipmentSO.EQUIPMENT_VALUE();
+            accessories_value[ii] = new AccessorySO.ACCESSORY_STATUS();
         }
     }
 
     /// <summary>
-    /// スロットを生成する
+    /// インベントリのスロットを生成する
     /// </summary>
-    public void GeneratSlots()
+    public void GeneratInventorySlots()
     {
         for(int ii = slots.Length - 1; ii >= 0; ii--)
         {
@@ -213,16 +229,7 @@ public class BaseStatus
         return Mathf.Round(total * 10f) / 10f;
     }
     
-
-    
-    /// <summary>
-    /// 収集速度ステータスの上昇
-    /// </summary>
-    /// <param name="_equipmentSO"></param>
-    public void UpdateGatherRate(EquipmentSO _equipmentSO)
-    {
-        gatherRate = gatherRtMin - _equipmentSO.GetEquipmentTotalValue(select_equipment_name);
-    }
+    public float GetGatherRate_Min() { return gatherRtMin; }
 }
 
 

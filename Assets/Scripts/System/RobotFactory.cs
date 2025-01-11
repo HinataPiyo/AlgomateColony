@@ -30,7 +30,7 @@ public class RobotFactory : MonoBehaviour
     public void CreateRobot()
     {
         GameObject newRobot = Instantiate(robotPrefab, spawnPoint.position, Quaternion.identity);
-        Robot _robot = newRobot.GetComponent<Robot>();
+        RobotController _robot = newRobot.GetComponent<RobotController>();
         _robot.Initialize();
     }
 }

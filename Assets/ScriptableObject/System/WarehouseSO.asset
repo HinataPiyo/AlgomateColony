@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   base_warehouse_slots:
   - mateSO: {fileID: 11400000, guid: 380daebfc203ddc468e185a5c341a12c, type: 2}
-    mateAmount: 41
+    mateAmount: 357
   - mateSO: {fileID: 11400000, guid: 6e2f2b0d0e287b74797f240d07e7755c, type: 2}
-    mateAmount: 1425
+    mateAmount: 1305

@@ -8,10 +8,8 @@ public class RobotStatusPanelManager : MonoBehaviour
     public static RobotStatusPanelManager instance;
 
     [Header("コンポーネント")]
-    UpdateTime_Class updateTime = new UpdateTime_Class();
-    EquipmentController equipmentController;
     [SerializeField] SystemControlSO scSO;
-    [SerializeField] Robot _robot;
+    [SerializeField] RobotController _robot;
     [SerializeField] BaseStatus _base;
     [SerializeField] Button backButton;
     [SerializeField] Button commandButton;
@@ -57,8 +55,16 @@ public class RobotStatusPanelManager : MonoBehaviour
         backButton.onClick.AddListener(BackButtonOnClick);
         commandButton.onClick.AddListener(CommandButtonClick);
         rSlot = slotsParent.GetComponentsInChildren<RobotSlot>();
-        equipmentController = GetComponent<EquipmentController>();
 
+        ResetText();
+
+        // CodingPanelを非アクティブ状態にする
+        robotCodingObj.SetActive(false);
+        SetHeight(ROBOT_STATUSPANEL_WIDTH_CLOSE);
+    }
+
+    void ResetText()
+    {
         foreach(var _rSlot in rSlot)
         {
             _rSlot.icon.sprite = null;
@@ -82,12 +88,6 @@ public class RobotStatusPanelManager : MonoBehaviour
         maxMovespeed_potentialtext.text = "";
         maxGatherStrength_potentialtext.text = "";
         maxGatherRate_potentialtext.text = "";
-
-        // CodingPanelを非アクティブ状態にする
-        robotCodingObj.SetActive(false);
-        SetHeight(ROBOT_STATUSPANEL_WIDTH_CLOSE);
-
-        
     }
 
     private void Update()
@@ -96,9 +96,9 @@ public class RobotStatusPanelManager : MonoBehaviour
         {
             runk_text.text = "" + _base._runk;
             maxRecharge_text.text = "" + _base.recharge_MAX;
-            currentRecharge_text.text = "" + _robot.GetCurrentRecharge();
+            currentRecharge_text.text = "" + _base.currentRecharged;
             generalStatus_text.text = "" + _base.totalScore.ToString("F1");
-            currentEnergy_text.text = "" + _robot.GetCurrentEnergy().ToString("F2");
+            currentEnergy_text.text = "" + _base.currentEnergy.ToString("F2");
             maxEnergy_text.text = "" + _base.maxEnergy;
             moveSpeed_text.text = "" + _base.moveSpeed;
             gatherStrength_text.text = "" + _base.gatherSterngth;
@@ -143,13 +143,13 @@ public class RobotStatusPanelManager : MonoBehaviour
     /// 加え、StatusPanelのBackを押したら"robot"を"null"に設定する
     /// </summary>
     /// <param name="robot"></param>
-    public void SetRobotStatus(Robot robot)
+    public void SetRobotStatus(RobotController robot)
     {
         if(robot != null) {
             _robot = robot;
             _base = robot.GetBaseStatus();
             _baseSlot = robot.GetSlot();
-            equipmentController.Check_UnlockEquipmentSlot(_base);
+            EquipmentManager.instance.Check_UnlockEquipmentSlot(_base);
         } else {
             _robot = null;
         }
@@ -160,6 +160,7 @@ public class RobotStatusPanelManager : MonoBehaviour
     /// </summary>
     void BackButtonOnClick()
     {
+        ResetText();
         FacilityManager.instance.CanvasEnabled(CanvasName.RobotStatus, false);
         robotCodingObj.SetActive(false);    // CodingPanelを非アクティブ状態にする
         SetHeight(ROBOT_STATUSPANEL_WIDTH_CLOSE);

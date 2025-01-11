@@ -12,11 +12,11 @@ public class EquipmentSO : ScriptableObject
     // ----------------------------------------------------------------------------------------------
 
     public Sprite stop_sprite;
-    public EQUIPMENT_VALUE[] equipment_values;
+    public EQUIPMENT_STATUS[] equipment_values;
 
     // 各々の装備のステータスを設定する
     [System.Serializable]
-    public struct EQUIPMENT_VALUE
+    public struct EQUIPMENT_STATUS
     {
         public EQUIPMENT_NAME equipment_name;   // 装備の名前
         public Sprite icon;
@@ -32,46 +32,36 @@ public class EquipmentSO : ScriptableObject
     /// 全ての装備の合計値を求めて返す
     /// </summary>
     /// <returns></returns>
-    public float GetEquipmentTotalValue(EQUIPMENT_NAME _name)
+    public float GetEquipmentTotalValue(EQUIPMENT_STATUS _status, MaterialSO _mateSO)
     {
-        foreach(var _equipment in equipment_values)
+        // 装備している装備の名前 と 取集している資源に設定してある対応した装備 が 一致していれば
+        if(_status.equipment_name == _mateSO.EquipmentToMatch)
         {
-            if(_equipment.equipment_name == _name)
+            // 装備に合った値を返す
+            switch(_status.equipment_name )
             {
-                switch(_name)
-                {
-                    case EQUIPMENT_NAME.NONE:
-                        return 0;
-                    case EQUIPMENT_NAME.DRIL:
-                        return _equipment.statusup_value;
-                    case EQUIPMENT_NAME.ARM:
-                        return _equipment.statusup_value;
-                    case EQUIPMENT_NAME.CHAINSAW:
-                        return _equipment.statusup_value;
-                }
+                case EQUIPMENT_NAME.NONE:
+                    return 0;
+                case EQUIPMENT_NAME.DRIL:
+                    return _status.statusup_value;
+                case EQUIPMENT_NAME.ARM:
+                    return _status.statusup_value;
+                case EQUIPMENT_NAME.CHAINSAW:
+                    return _status.statusup_value;
             }
         }
 
         return 0;       // 合計値を返す
     }
-
-    
 }
 
-[System.Flags]
 public enum EQUIPMENT_NAME
 {
-    BATTERY = -1 << -1, 
-    NONE = 0 << 0,
-    DRIL = 1 << 1,
-    ARM = 1 << 2,
-    CHAINSAW = 1 << 3,
+    BATTERY = -1, 
+    NONE,
+    DRIL,
+    ARM,
+    CHAINSAW,
 }
 
-public enum UNLOCK_EQUIPMENT_SLOT
-{
-    NONE = -1,
-    ONE,
-    TWO,
-    THREE,
-}
+

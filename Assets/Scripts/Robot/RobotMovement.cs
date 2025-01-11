@@ -1,0 +1,115 @@
+using UnityEngine;
+
+public class RobotMovement : MonoBehaviour
+{
+    RobotController robotCont;
+    BaseStatus _base;
+    Animator robot_anim;
+    
+    Vector3 targetPos;      // 移動先の目標座標
+    bool isMoving;          // 移動中かどうか
+    [Header("RootのTransform"), SerializeField] Transform charaPos;
+
+    [Header("移動先にオブジェクトがないか確認する")]
+    float destinationRadius = 0.3f;
+    [SerializeField] LayerMask destinationObjLayer;
+
+
+
+    public void GameInit(RobotController _robotCont)
+    {
+        robotCont = _robotCont;
+        _base = robotCont.GetBaseStatus();
+        robot_anim = robotCont.GetRobotAnim();
+    }
+
+    public void Set_TargetPosition(Vector3 _target, bool flag)
+    {
+        targetPos = _target;
+        isMoving = flag;
+    }
+
+    /// <summary>
+    /// 目標位置まで移動します
+    /// </summary>
+    public void MoveToTarget()
+    {
+        // 現在の充電量が0以下なら
+        if (_base.currentEnergy <= 0 && _base.recharge_battery == false)
+        {
+            isMoving = false;       // 移動停止
+            return;     // ここで終了
+        }
+        // 範囲の生成
+        Collider2D _hit = Physics2D.OverlapCircle(transform.position, destinationRadius, destinationObjLayer);
+        if(_hit != null)    // 自身の周りにオブジェクトが存在していたら
+        {
+            // 中心座標
+            Vector3 hitCenter = _hit.transform.position;
+            Vector3 dir = (hitCenter - transform.position).normalized;
+            
+            // 一旦保留-------------------------------------------
+            transform.position += -dir * 10f * Time.deltaTime;
+            // ---------------------------------------------------
+            robot_anim.SetBool("Run", true);
+        }
+        else    // 自身の周りにオブジェクトが存在していなければ
+        {
+            // ターゲット位置へ移動
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, _base.moveSpeed * Time.deltaTime);
+
+            if(transform.position.x >= targetPos.x) charaPos.localScale = new Vector3(-1,1);
+            else charaPos.localScale = new Vector3(1,1);
+
+            robot_anim.SetBool("Run", true);
+        }
+
+
+        // 距離が近ければ移動終了
+        if (Vector3.Distance(transform.position, targetPos) < 1f)
+        {
+            // 収集ステートに移行
+            robotCont.ChangeState(RobotController.State.GatherResource);
+
+            robot_anim.SetBool("Run", false);
+            isMoving = false;       // 移動停止
+        }
+    }
+
+    /// <summary>
+    /// 何もしないステートの時に処理
+    /// </summary>
+    public void DoNonPosition()
+    {
+        // 位置を固定
+        targetPos = transform.position;
+        // 移動を行わない
+        isMoving = false;
+    }
+
+    /// <summary>
+    /// ロボットの移動処理
+    /// </summary>
+    public void Moveing()
+    {
+        // 移動可能なら かつ ターゲットが見つかっているなら
+        if (isMoving && targetPos != null)
+        {
+            // 移動処理を実行する
+            MoveToTarget();
+        }
+        else
+        {
+            Debug.Log("ターゲットが見つかりませんでした。移動できません。");   // ターゲットが見つからなかった場合
+        }
+    }
+
+    /// <summary>
+    /// Gizmosを表示する
+    /// </summary>
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, destinationRadius);
+    }
+}

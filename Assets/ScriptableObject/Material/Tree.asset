@@ -16,3 +16,5 @@ MonoBehaviour:
   serialNum: 2
   materialName: Tree
   maxHp: 30
+  gatherTime: 30
+  EquipmentToMatch: 3

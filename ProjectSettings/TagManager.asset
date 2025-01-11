@@ -10,6 +10,7 @@ TagManager:
   - Proc
   - Location
   - Warehouse
+  - ChargingBattery
   layers:
   - Default
   - TransparentFX

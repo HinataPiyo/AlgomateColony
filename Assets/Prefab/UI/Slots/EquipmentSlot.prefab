@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 397e4c327f3674846888c38e95796283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentSO: {fileID: 0}
+  equipmentSO: {fileID: 11400000, guid: c79b726fa38e6c942979de1585e25b30, type: 2}
   value:
     equipment_name: 0
     icon: {fileID: 0}
@@ -254,7 +254,6 @@ MonoBehaviour:
     statusup_name: 
     statusup_value: 0
     levelupPitch: 0
-  slotNo: -1
   icon: {fileID: 5619329430388729927}
   button: {fileID: 4225778114649312986}
 --- !u!1 &5500904898642976476
