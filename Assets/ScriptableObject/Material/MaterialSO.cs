@@ -7,4 +7,6 @@ public class MaterialSO : ScriptableObject
     public int serialNum;
     public string materialName;     // 資材の名前
     public int maxHp;               // 最大体力
+    public float gatherTime;        // 収集時間
+    public EQUIPMENT_NAME EquipmentToMatch;
 }

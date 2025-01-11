@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NUnit.Framework;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewRobotData", menuName = "RobotSO/Robot Data")]
@@ -17,32 +17,65 @@ public class BaseStatus
     const int rechargeMin = 10, rechargeMax = 100;
     const float energyMin = 50f, energyMax = 100f;
     const float gatherStrMin = 1f, gatherStrMax = 10f;
-    const float gatherRtMin = 3f, gatherRtMax = 10f;
+    const float gatherRtMin = 5f, gatherRtMax = 10f;
+    
+    [Header("ベースステータス")]
     public string _runk;
     public float totalScore;
     public string robotName;        // ロボットの名前
     public float moveSpeed;         // 移動速度
-    public int recharge_MAX;            // 充電回数（最大値）
+    public int recharge_MAX;        // 充電回数（最大値
+    public float currentEnergy;     // 現在のエネルギー
     public float maxEnergy;         // 最大エネルギー
     public float gatherSterngth;    // 収集力
     public float gatherRate;        // 資源収集速度
+    public bool recharge_battery;   // true : バッテリーを充電しなければならない
+    public int currentRecharged;    // 現在のバッテリー充電回数
+    public bool needchange_battery;     // true : バッテリーを交換しなければならない
     const int STATUS_MAX = 5;
 
     // ロボット各々のインベントリ
     [Header("インベントリ")]
-    const int MAX_SLOT = 5;
     public Slot[] slots = new Slot [MAX_SLOT];
+    const int MAX_SLOT = 5;
     public enum SLOT_STACK
     {
         STACK_TRUE,
         STACK_MAX,
         ALL_STACK_MAX
-    } 
+    }
+
+    [Header("装備")]
+    public EquipmentSO.EQUIPMENT_STATUS equipment_value = new EquipmentSO.EQUIPMENT_STATUS();
 
     /// <summary>
-    /// スロットを生成する
+    /// 装備スロットを生成する
     /// </summary>
-    public void GeneratSlots()
+    public void GenerateEquipmentSlots()
+    {
+        equipment_value = new EquipmentSO.EQUIPMENT_STATUS();
+    }
+
+    [Header("アクセサリー")]
+    public UNLOCK_ACCESSORY_SLOT unlock_accessory_slot;     // 使用できるスロットを設定する
+    public AccessorySO.ACCESSORY_STATUS[] accessories_value = new AccessorySO.ACCESSORY_STATUS[MAX_ACCESSORIES];
+    const int MAX_ACCESSORIES = 2;
+
+    /// <summary>
+    /// アクセサリーのスロットを生成する
+    /// </summary>
+    public void GeneratAccessoriesSlots()
+    {
+        for(int ii = accessories_value.Length - 1; ii >= 0; ii--)
+        {
+            accessories_value[ii] = new AccessorySO.ACCESSORY_STATUS();
+        }
+    }
+
+    /// <summary>
+    /// インベントリのスロットを生成する
+    /// </summary>
+    public void GeneratInventorySlots()
     {
         for(int ii = slots.Length - 1; ii >= 0; ii--)
         {
@@ -129,13 +162,14 @@ public class BaseStatus
     /// </summary>
     public void RandomStatusProc()
     {
-        // 強化余地を与えるため、0.8倍してあげてナーフする
+        // 装備によって強化できるものは最低値にする
+        // ロボットなのでランダム性はなるべく避ける
         robotName = "";
-        moveSpeed = Mathf.Round(Random.Range(moveMin, moveMax) * 0.8f * 10) / 10;
-        recharge_MAX = Random.Range(rechargeMin, rechargeMax);
-        maxEnergy = Mathf.Round(Random.Range(energyMin, energyMax) * 0.8f * 10) / 10;
-        gatherSterngth = Mathf.Round(Random.Range(gatherStrMin, gatherStrMax) * 0.8f * 10) / 10;
-        gatherRate = Mathf.Round(Random.Range(gatherRtMin, gatherRtMax) * 0.8f * 10) / 10;
+        moveSpeed = moveMin;
+        maxEnergy = energyMin;
+        recharge_MAX = rechargeMin;
+        gatherSterngth = gatherStrMin;
+        gatherRate = gatherRtMin;
     }
 
     /// <summary>
@@ -146,9 +180,9 @@ public class BaseStatus
         List<Score> _scores = new List<Score>();
 
         // 各ステータス値を配列にまとめる
-        float[] statuses = { moveSpeed, (float)recharge_MAX, maxEnergy, gatherSterngth, gatherRate };
+        float[] statuses = { moveSpeed, (float)recharge_MAX, maxEnergy, gatherSterngth};
 
-        for (int ii = 0; ii < STATUS_MAX; ii++)
+        for (int ii = 0; ii < STATUS_MAX -1; ii++)
         {
             float _status = statuses[ii];
 
@@ -172,7 +206,7 @@ public class BaseStatus
     private float DecideRunk(List<Score> _scores)
     {
         // ステータス全体の総和を求める
-        float sumtotal = moveMax + energyMax + gatherRtMax + gatherStrMax + rechargeMax;
+        float sumtotal = moveMax + energyMax + gatherStrMax + rechargeMax;
         float total = 0f;
 
         foreach (var score in _scores)
@@ -194,5 +228,8 @@ public class BaseStatus
         // 結果を記録
         return Mathf.Round(total * 10f) / 10f;
     }
-
+    
+    public float GetGatherRate_Min() { return gatherRtMin; }
 }
+
+

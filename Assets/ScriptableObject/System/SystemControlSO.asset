@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b26a69f1f368372449063f0d00801500, type: 3}
   m_Name: SystemControlSO
   m_EditorClassIdentifier: 
+  playerName: Anpanman
   nluSO: {fileID: 11400000, guid: d9c12c66f671a1d4387f8e9a47c7e55a, type: 2}
+  LocationLevel: 2
+  upgread_chargingTime: 1
   potential_class:
-    MOVESPEED_MAX: 0.4
-    RECHARGE_MAX: 0
-    ENERGY_MAX: 0
-    GATHERSTRENGTH_MAX: 0
+    MOVESPEED_MAX: 1.4000001
+    RECHARGE_MAX: 2.5
+    ENERGY_MAX: 5
+    GATHERSTRENGTH_MAX: 1.5
     GATHERRATE_MAX: 0.3
-  LocationLevel: 1

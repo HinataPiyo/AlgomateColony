@@ -12,6 +12,10 @@ GameObject:
   - component: {fileID: 1740091864738582579}
   - component: {fileID: 8023114250149402423}
   - component: {fileID: -7608473638348724727}
+  - component: {fileID: 3189009393217600519}
+  - component: {fileID: -5784115634375964066}
+  - component: {fileID: -8489009368509014225}
+  - component: {fileID: 5719969249605050451}
   - component: {fileID: 7994730142508363131}
   m_Layer: 9
   m_Name: Robot_0_Root
@@ -125,20 +129,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energySlider: {fileID: 4249589918113511865, guid: 055de1bda11bf934f9f2e07ba4de34eb, type: 3}
   gatherSlider: {fileID: 4249589918113511865, guid: adc46a6c5e28cb44a8a34c938d2083a0, type: 3}
-  currentEnergy: 0
-  chargeEnergy: 0
-  currentRecharged: 0
-  needChangeBattery: 0
-  charaPos: {fileID: 8465071134800166367}
   _base:
     _runk: 
     totalScore: 0
     robotName: 
     moveSpeed: 0
     recharge_MAX: 0
+    currentEnergy: 0
     maxEnergy: 0
     gatherSterngth: 0
     gatherRate: 0
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
     slots:
     - mateSO: {fileID: 0}
       ITEM_STACK_MAX: 100
@@ -155,14 +158,88 @@ MonoBehaviour:
     - mateSO: {fileID: 0}
       ITEM_STACK_MAX: 100
       itemStackAmount: 0
-  infoRadius: 5
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 128
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    accessories_value:
+    - accessory_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    - accessory_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+  flag: 0
+--- !u!114 &3189009393217600519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282224230659730723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b3d0791f2e7de045bfa98ad5384213b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipmentSO: {fileID: 11400000, guid: c79b726fa38e6c942979de1585e25b30, type: 2}
+--- !u!114 &-5784115634375964066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282224230659730723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed6f04cb2830c24c93badad2db1b661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charaPos: {fileID: 6914740022856354479}
   destinationObjLayer:
     serializedVersion: 2
     m_Bits: 192
-  flag: 0
+--- !u!114 &-8489009368509014225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282224230659730723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a73fe3e9b7d0ac468da3b41f680a3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoRadius: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &5719969249605050451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282224230659730723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d817e0df029ae8a40958611779cdff82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7994730142508363131
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,14 +1,16 @@
-using System.Timers;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SystemControlSO", menuName = "CreatScriptableObject/SystemControlSO")]
 public class SystemControlSO : ScriptableObject 
 {
-    [SerializeField] private NextLevelUnlockedSO nluSO;
+    public string playerName;
+    [SerializeField] NextLevelUnlockedSO nluSO;
+    [SerializeField] int LocationLevel;         // 拠点のレベルを設定
+    [SerializeField] float upgread_chargingTime;        // ロボットの充電を早くする為のUpgread要素
     [SerializeField] POTENTIAL potential_class;         // 潜在能力のクラス
-    [SerializeField] private int LocationLevel;         // 拠点のレベルを設定
 
     public int GetLocationLevel() { return LocationLevel; }
+    public float GetBatteryChargingTime() { return upgread_chargingTime; }
     public NextLevelUnlockedSO GetNextLevelUnlockedSO() { return nluSO; }
 
     public POTENTIAL GetPotential() { return potential_class; }

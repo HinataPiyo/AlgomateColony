@@ -9,6 +9,8 @@ TagManager:
   - Robot
   - Proc
   - Location
+  - Warehouse
+  - ChargingBattery
   layers:
   - Default
   - TransparentFX

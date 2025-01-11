@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +8,8 @@ public class RobotStatusPanelManager : MonoBehaviour
     public static RobotStatusPanelManager instance;
 
     [Header("コンポーネント")]
-    [SerializeField] Robot _robot;
+    [SerializeField] SystemControlSO scSO;
+    [SerializeField] RobotController _robot;
     [SerializeField] BaseStatus _base;
     [SerializeField] Button backButton;
     [SerializeField] Button commandButton;
@@ -30,9 +32,18 @@ public class RobotStatusPanelManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI moveSpeed_text;
     [SerializeField] TextMeshProUGUI gatherStrength_text;
     [SerializeField] TextMeshProUGUI gatherRate_text;
+    [Header("潜在能力テキスト")]
+    [SerializeField] TextMeshProUGUI maxRecharge_potentialtext;
+    [SerializeField] TextMeshProUGUI maxEnergy_potentialtext;
+    [SerializeField] TextMeshProUGUI maxMovespeed_potentialtext;
+    [SerializeField] TextMeshProUGUI maxGatherStrength_potentialtext;
+    [SerializeField] TextMeshProUGUI maxGatherRate_potentialtext;
+    
 
     const int ROBOT_STATUSPANEL_WIDTH_CLOSE = 450;
     const int ROBOT_STATUSPANEL_WIDTH_OPEN = 850;
+
+
 
     void Awake()
     {
@@ -45,6 +56,15 @@ public class RobotStatusPanelManager : MonoBehaviour
         commandButton.onClick.AddListener(CommandButtonClick);
         rSlot = slotsParent.GetComponentsInChildren<RobotSlot>();
 
+        ResetText();
+
+        // CodingPanelを非アクティブ状態にする
+        robotCodingObj.SetActive(false);
+        SetHeight(ROBOT_STATUSPANEL_WIDTH_CLOSE);
+    }
+
+    void ResetText()
+    {
         foreach(var _rSlot in rSlot)
         {
             _rSlot.icon.sprite = null;
@@ -62,9 +82,12 @@ public class RobotStatusPanelManager : MonoBehaviour
         moveSpeed_text.text = "";
         gatherRate_text.text = "";
 
-        // CodingPanelを非アクティブ状態にする
-        robotCodingObj.SetActive(false);
-        SetHeight(ROBOT_STATUSPANEL_WIDTH_CLOSE);
+        // 潜在能力テキスト
+        maxRecharge_potentialtext.text = "";
+        maxEnergy_potentialtext.text = "";
+        maxMovespeed_potentialtext.text = "";
+        maxGatherStrength_potentialtext.text = "";
+        maxGatherRate_potentialtext.text = "";
     }
 
     private void Update()
@@ -73,20 +96,27 @@ public class RobotStatusPanelManager : MonoBehaviour
         {
             runk_text.text = "" + _base._runk;
             maxRecharge_text.text = "" + _base.recharge_MAX;
-            currentRecharge_text.text = "" + _robot.GetCurrentRecharge();
+            currentRecharge_text.text = "" + _base.currentRecharged;
             generalStatus_text.text = "" + _base.totalScore.ToString("F1");
-            currentEnergy_text.text = "" + _robot.GetCurrentEnergy().ToString("F2");
+            currentEnergy_text.text = "" + _base.currentEnergy.ToString("F2");
             maxEnergy_text.text = "" + _base.maxEnergy;
             moveSpeed_text.text = "" + _base.moveSpeed;
             gatherStrength_text.text = "" + _base.gatherSterngth;
             gatherRate_text.text = "" + _base.gatherRate;
         }
 
+        // 潜在能力テキスト
+        maxRecharge_potentialtext.text = $"({scSO.GetPotential().RECHARGE_MAX})";
+        maxEnergy_potentialtext.text = $"({scSO.GetPotential().ENERGY_MAX})";
+        maxMovespeed_potentialtext.text = $"({scSO.GetPotential().MOVESPEED_MAX})";
+        maxGatherStrength_potentialtext.text = $"({scSO.GetPotential().GATHERSTRENGTH_MAX})";
+        maxGatherRate_potentialtext.text = $"({scSO.GetPotential().GATHERRATE_MAX})";
+
+
         if(_baseSlot != null)
         {
             SetSlot();      // スロット内に画像を入れる
         }
-        
     }
 
     void SetSlot()
@@ -113,12 +143,13 @@ public class RobotStatusPanelManager : MonoBehaviour
     /// 加え、StatusPanelのBackを押したら"robot"を"null"に設定する
     /// </summary>
     /// <param name="robot"></param>
-    public void SetRobotStatus(Robot robot)
+    public void SetRobotStatus(RobotController robot)
     {
         if(robot != null) {
             _robot = robot;
             _base = robot.GetBaseStatus();
             _baseSlot = robot.GetSlot();
+            EquipmentManager.instance.Check_UnlockEquipmentSlot(_base);
         } else {
             _robot = null;
         }
@@ -129,6 +160,7 @@ public class RobotStatusPanelManager : MonoBehaviour
     /// </summary>
     void BackButtonOnClick()
     {
+        ResetText();
         FacilityManager.instance.CanvasEnabled(CanvasName.RobotStatus, false);
         robotCodingObj.SetActive(false);    // CodingPanelを非アクティブ状態にする
         SetHeight(ROBOT_STATUSPANEL_WIDTH_CLOSE);

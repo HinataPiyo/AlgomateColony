@@ -37,6 +37,7 @@ public class LocationController : MonoBehaviour
     LocationMaterialSlot[] mateSlots;      // 素材を表示させるスロット
     [Header("必要素材をまとめて格納してあるSO"), SerializeField] NeedMaterialSO needMateSO;
     int oldlevel = -1;
+    bool OverSet_MaterialList;      // true : 必要素材リストを超えた,false : まだ超えていない
 
     [Space(20.0f),Header("スロット ・ テキストの設定")]
     [SerializeField] GameObject unlockSlot_obj;         // アンロックスロットの本体
@@ -69,11 +70,16 @@ public class LocationController : MonoBehaviour
         nextUnlockSO = scSO.GetNextLevelUnlockedSO();
         wlist = wc.GetWarehouseSO().GetBaseWarehouseSlot_List();
 
-        CheckSet_NeedMaterial(scSO.GetLocationLevel());
+        // 最初に行う処理
+        CheckSet_NeedMaterial(scSO.GetLocationLevel());     // 現在の必要個数を所持数と比べる
+        locationLevelUp_button.interactable = false;        // ボタンの押下を出来ないようにする
+        
         
         // リスナー登録
         locationLevelUp_button.onClick.AddListener(BottonOnClick_LocationLevelUp);
         backButton.onClick.AddListener(ButtonOnClick_Back);
+
+        GameManager.instance.Set_PlayerName_LocationLevel(scSO.playerName, scSO.GetLocationLevel());
     }
 
     private void Update() {
@@ -90,11 +96,14 @@ public class LocationController : MonoBehaviour
     /// </summary>
     void CheckSet_NeedMaterial(int location_level)
     {
+        // １秒間に１回更新されるようにする
         if(Check_ChangeLocationLevel(location_level) == true)
         {
-            locationLevel_text.text = "" + location_level;
-            SetNeedMate(location_level);
-            TextSet_NextLevelUnlock(location_level);
+            locationLevel_text.text = "" + location_level;      // テキストのレベル表示を更新する
+            // 左上のPlayerNameとLocationLevelを設定する
+            GameManager.instance.Set_PlayerName_LocationLevel(scSO.playerName, scSO.GetLocationLevel());
+            SetNeedMate(location_level);                        // 必要個数をスロットに設定する
+            TextSet_NextLevelUnlock(location_level);            // 次のレベルでｒ
             oldlevel = location_level;
         }
     }
@@ -150,11 +159,14 @@ public class LocationController : MonoBehaviour
         // numがリストのカウント数より小さければ
         if(location_level < needMateSO.need_mate_root.Count)
         {
+            OverSet_MaterialList = false;
             needmate_root = needMateSO.need_mate_root[location_level];
         }
         else
         {
             Check_SlotInMaterial();
+            // 必要素材を設定していないのにボタンを押されるのを防ぐ
+            OverSet_MaterialList = true;
             Debug.Log($"拠点のレベルが素材リストのカウント数を超えました");
             return;
         }
@@ -325,12 +337,13 @@ public class LocationController : MonoBehaviour
         }
 
         // 全てのスロットの必要個数より所持数のほうが多かった場合
-        if(check_needAmoOverFlag == true)
+        // かつ　必要素材のリストのカウントがレベルより下回っていない場合
+        if(check_needAmoOverFlag == true && OverSet_MaterialList == false)
         {
             // レベルアップボタンを押せるようにする
             locationLevelUp_button.interactable = true;
         }
-        else
+        else if(check_needAmoOverFlag == false && OverSet_MaterialList == true)
         {
             locationLevelUp_button.interactable = false;
         }
