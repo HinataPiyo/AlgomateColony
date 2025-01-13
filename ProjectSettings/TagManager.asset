@@ -11,6 +11,7 @@ TagManager:
   - Location
   - Warehouse
   - ChargingBattery
+  - Warkshop
   layers:
   - Default
   - TransparentFX

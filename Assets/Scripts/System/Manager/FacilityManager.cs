@@ -7,7 +7,8 @@ public enum CanvasName
     RobotStatus,    // ステータス
     Location,       // 拠点
     Warehouse,      // 倉庫
-    BatteryRoom,
+    BatteryRoom,    // 充電
+    Warkshop,       // 加工
 }
 
 public class FacilityManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class FacilityManager : MonoBehaviour
     [SerializeField] Canvas locationCanvas;             // 拠点をクリックしたときに表示されるキャンバス
     [SerializeField] Canvas warehouseCanvas;
     [SerializeField] Canvas batteryRoomCanvas;
+    [SerializeField] Canvas warkshopCanvas;
     Canvas robotStatusCanvas;
     LocationController lcCont;                    // 拠点キャンバスのスクリプト
 
@@ -37,6 +39,7 @@ public class FacilityManager : MonoBehaviour
         CanvasEnabled(CanvasName.Location, false);      // 拠点キャンバスを非表示にする
         CanvasEnabled(CanvasName.Warehouse, false);     // 倉庫キャンバスを非表示にする
         CanvasEnabled(CanvasName.BatteryRoom, false);   // 充電施設のキャンバスを非表示にする
+        CanvasEnabled(CanvasName.Warkshop, false);      // 加工施設のキャンバスを非表示にする
         CanvasEnabled(CanvasName.RobotStatus, false);   // ステータスキャンバス
 
         // 変数の初期化
@@ -50,7 +53,8 @@ public class FacilityManager : MonoBehaviour
             CanvasEnabled(CanvasName.Setting, false);       // 設定キャンバス
             CanvasEnabled(CanvasName.Location, false);      // 拠点キャンバス
             CanvasEnabled(CanvasName.Warehouse, false);     // 倉庫キャンバス
-            CanvasEnabled(CanvasName.BatteryRoom, false);   // 充電施設のキャンバスを非表示にする
+            CanvasEnabled(CanvasName.BatteryRoom, false);   // 充電施設のキャンバス
+            CanvasEnabled(CanvasName.Warkshop, false);      // 加工施設のキャンバス
             CanvasEnabled(CanvasName.RobotStatus, false);   // ステータスキャンバス
         }
     }
@@ -82,6 +86,10 @@ public class FacilityManager : MonoBehaviour
             // 充電施設
             case CanvasName.BatteryRoom:
                 batteryRoomCanvas.enabled = flag;
+                break;
+            // 加工施設
+            case CanvasName.Warkshop:
+                warkshopCanvas.enabled = flag;
                 break;
         }
 

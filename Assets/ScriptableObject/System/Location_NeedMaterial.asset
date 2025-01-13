@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb55c0a3470e78488f390b349fcc1b9, type: 3}
+  m_Name: Location_NeedMaterial
+  m_EditorClassIdentifier: 
+  need_mate_root:
+  - need_materials:
+    - mateSO: {fileID: 11400000, guid: 380daebfc203ddc468e185a5c341a12c, type: 2}
+      needAmo: 10
+    unlock_objeckt:
+    - {fileID: 0}
+  - need_materials:
+    - mateSO: {fileID: 11400000, guid: 380daebfc203ddc468e185a5c341a12c, type: 2}
+      needAmo: 10
+    - mateSO: {fileID: 11400000, guid: 6e2f2b0d0e287b74797f240d07e7755c, type: 2}
+      needAmo: 10
+    unlock_objeckt: []

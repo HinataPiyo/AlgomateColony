@@ -175,6 +175,7 @@ MonoBehaviour:
       statusup_name: 
       statusup_value: 0
       levelupPitch: 0
+      need_mate_list: []
     - accessory_name: 0
       icon: {fileID: 0}
       _name: 
@@ -182,6 +183,7 @@ MonoBehaviour:
       statusup_name: 
       statusup_value: 0
       levelupPitch: 0
+      need_mate_list: []
   flag: 0
 --- !u!114 &3189009393217600519
 MonoBehaviour:

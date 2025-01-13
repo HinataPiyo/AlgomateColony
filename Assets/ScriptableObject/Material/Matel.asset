@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0adb47e7b77f1654cb832dc609ecdd27, type: 3}
+  m_Name: Matel
+  m_EditorClassIdentifier: 
+  icon: {fileID: 8249342819601133203, guid: b3a959d7581e4744fab3e7647686a051, type: 3}
+  serialNum: 3
+  materialName: Matel
+  maxHp: 30
+  gatherTime: 50
+  EquipmentToMatch: 1
+  exp: "\u91D1\u5C5E"
