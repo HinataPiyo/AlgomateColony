@@ -9,7 +9,6 @@ public class WarehouseSlot : MonoBehaviour
     [SerializeField] uint mateAmount;
 
     [SerializeField] Image icon;
-    [SerializeField] Image amotext_parent;
     [SerializeField] TextMeshProUGUI amo_text;
 
     private void Start() {
@@ -26,7 +25,6 @@ public class WarehouseSlot : MonoBehaviour
         mateAmount = _baseWarehouse_Slot.mateAmount;
 
         icon.enabled = true;
-        amotext_parent.enabled = true;
         icon.sprite = mateSO.icon;
         amo_text.text = $"{mateAmount}";
     }
@@ -39,7 +37,6 @@ public class WarehouseSlot : MonoBehaviour
         mateSO = null;
         mateAmount = 0;
         icon.enabled = false;
-        amotext_parent.enabled = false;
         icon.sprite = null;
         amo_text.text = null;
     }

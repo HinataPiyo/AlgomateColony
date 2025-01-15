@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ProcessingNeedMaterialSlot : MonoBehaviour
+public class WarkshopNeedMaterialSlot : MonoBehaviour
 {
     [SerializeField] MaterialSO mateSO;
     [SerializeField] Image icon;                            // アイコンの素材

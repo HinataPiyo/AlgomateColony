@@ -41,4 +41,6 @@ public class GameManager : MonoBehaviour
 
         locationlevel_text.text = "" + _level;              // LocationLevelを設定する（SystemSOで管理）
     }
+
+    
 }

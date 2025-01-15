@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 6413469394409662577}
   - component: {fileID: 2947718974260244758}
   m_Layer: 5
-  m_Name: SlotVertical_BatteryRoom_Button
+  m_Name: SlotVertical_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

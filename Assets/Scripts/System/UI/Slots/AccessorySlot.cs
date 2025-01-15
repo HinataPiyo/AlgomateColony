@@ -24,6 +24,8 @@ public class AccessorySlot : MonoBehaviour
     /// スロットをクリックしたときcontrollerに自身の番号を送る
     /// </summary>
     public void OnClick_SelectButton() {
+        SoundManager.instance.PlayAudio("ButtonClick");
+
         EquipmentManager.instance.SetActiv_SelectSlots_Accessory();
 
         foreach(var _slot in EquipmentManager.instance.GetEquipmentSelectSlot())

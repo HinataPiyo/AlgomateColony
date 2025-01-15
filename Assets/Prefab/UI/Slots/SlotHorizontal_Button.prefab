@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 7754825265185850066}
   - component: {fileID: 7441253502036992221}
   m_Layer: 5
-  m_Name: SlotHorizontal_BatteryRoom_Button
+  m_Name: SlotHorizontal_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

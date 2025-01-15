@@ -373,6 +373,8 @@ public class LocationController : MonoBehaviour
 
         // テキストの反映
         Sync_HaveMaterialToText();
+
+        SoundManager.instance.PlayAudio("LevelUp");
     }
 
     /// <summary>

@@ -7,7 +7,7 @@ public class EquipmentManager : MonoBehaviour
 {
     public static EquipmentManager instance;
     ToolController toolC;
-    AccessoryController accessoryC;
+    RobotAccessoryController accessoryC;
 
     [SerializeField] EquipmentSO equipmentSO;
     [SerializeField] AccessorySO accessorySO;
@@ -33,7 +33,7 @@ public class EquipmentManager : MonoBehaviour
 
     private void Start() {
         toolC = GetComponent<ToolController>();
-        accessoryC = GetComponent<AccessoryController>();
+        accessoryC = GetComponent<RobotAccessoryController>();
 
         a_status = accessorySO.accessory_status;
 
@@ -122,10 +122,14 @@ public class EquipmentManager : MonoBehaviour
     }
 
     public void SetActive_Equipment_ScrollView(bool flag) { equipment_ScrollView.SetActive(flag); }
-    public void OnClick_BackButton() { SetActive_Equipment_ScrollView(false); }
+    public void OnClick_BackButton()
+    {
+        SoundManager.instance.PlayAudio("Back_2");
+        SetActive_Equipment_ScrollView(false);
+    }
 
     public BaseStatus GetRobotStatus() { return robotbase; }
-    public AccessoryController GetAccessoryController() { return accessoryC; }
+    public RobotAccessoryController GetAccessoryController() { return accessoryC; }
     public ToolController GetToolController() { return toolC; }
 
     public EquipmentSelectSlot[] GetEquipmentSelectSlot() { return e_select_slots; }

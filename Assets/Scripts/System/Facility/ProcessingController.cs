@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class ProcessingController : MonoBehaviour
 {
-    WarehouseController wc;     // 倉庫のスクリプト
+    WarkshopManager warkManager;
     UpdateTime_Class updateTime = new UpdateTime_Class();
+    
+    
     [Header("加工品を選択するスロット")]
-    [SerializeField] GameObject processingSlot_prefab;      // 設定されているアクセサリーの量分生成するため
-    [SerializeField] Transform processingSlot_parent;       // Prefabを生成する為の親オブジェクトとなる（スクロールバー）
-    [SerializeField] List<ProcessingSlot> processingSlots_list = new List<ProcessingSlot>();
+    [SerializeField] GameObject warkshopSlot_prefab;      // 設定されているアクセサリーの量分生成するため
+    [SerializeField] Transform warkshopSlot_parent;       // Prefabを生成する為の親オブジェクトとなる（スクロールバー）
+    [SerializeField] List<WarkshopSlot> processingSlots_list = new List<WarkshopSlot>();
     [Space(10), Header("選択したときのスロット（Infoパネル）")]
-    [SerializeField] AccessorySO accessorySO;
     [SerializeField] AccessorySO processingSO;
     [SerializeField] Image select_icon;
     [SerializeField] TextMeshProUGUI selectName_text;
@@ -20,16 +21,13 @@ public class ProcessingController : MonoBehaviour
 
     [Space(10), Header("必要素材のスロット")]
     [SerializeField] Transform needMate_parent;
-    [SerializeField] ProcessingNeedMaterialSlot[] needMate_slots;
+    [SerializeField] WarkshopNeedMaterialSlot[] needMate_slots;
     bool OverSet_MaterialList;      // true : 必要素材リストを超えた,false : まだ超えていない
 
-    [Header("倉庫リスト")] 
-    List<WarehouseSO.BASE_WAREHOUSE_SLOT> wlist;
+
 
     [Header("作成ボタン")]
     [SerializeField] Button creat_button;
-    [Header("戻るボタン")]
-    [SerializeField] Button back_button;
     // sin は -1 ~ 1 の間
     // cos は -1 ~ 1 の間
     // tan は -∞ ~ ∞の間
@@ -37,26 +35,23 @@ public class ProcessingController : MonoBehaviour
 
     void Start()
     {
-        back_button.onClick.AddListener(ButtonOnClick_Back);
-        
         select_icon.enabled = false;
         selectName_text.text = "";
         selectExp_text.text = "";
 
-        needMate_slots = needMate_parent.GetComponentsInChildren<ProcessingNeedMaterialSlot>();
-        wc = GetComponent<WarehouseController>();
-        wlist = wc.GetWarehouseSO().GetBaseWarehouseSlot_List();
+        warkManager = GetComponent<WarkshopManager>();
+        needMate_slots = needMate_parent.GetComponentsInChildren<WarkshopNeedMaterialSlot>();
 
         // リストに作成している加工品分回す
         for(int ii = 0; ii < processingSO.processing_status.Length; ii++)
         {
             // 加工品のスロットを作成
-            GameObject _slot = Instantiate(processingSlot_prefab, processingSlot_parent);
+            GameObject _slot = Instantiate(warkshopSlot_prefab, warkshopSlot_parent);
             // スロットに番号を設定
-            ProcessingSlot processingSlot_cs = _slot.GetComponent<ProcessingSlot>();
-            processingSlot_cs.Set_NumAndScript(this, processingSO.processing_status[ii]);
+            WarkshopSlot warkshop_cs = _slot.GetComponent<WarkshopSlot>();
+            warkshop_cs.SetProcessing_NumAndScript(this, processingSO.processing_status[ii]);
             // リストに追加
-            processingSlots_list.Add(processingSlot_cs);
+            processingSlots_list.Add(warkshop_cs);
         }
 
         // 必要素材の表示するスロットを非アクティブ状態にする
@@ -88,6 +83,7 @@ public class ProcessingController : MonoBehaviour
     /// <param name="_selectNumber"></param>
     public void SetProcessing_SelectsButton(AccessorySO.PROCESSING_STATUS _processingSO)
     {
+        // Infoパネルの設定
         select_icon.enabled = true;
         select_icon.sprite = _processingSO.mateSO.icon;
         selectName_text.text = _processingSO.mateSO.materialName;
@@ -106,7 +102,7 @@ public class ProcessingController : MonoBehaviour
                 // 必要素材スロット(個々)
                 needMate_slots[ii].SetSlotMaterial(
                     _processingSO.need_mate_list[ii].mateSO,   // 素材のデータ
-                    _processingSO.need_mate_list[ii].needAmo   // 
+                    _processingSO.need_mate_list[ii].needAmo   // 必要個数
                 );
             }
             else
@@ -154,20 +150,14 @@ public class ProcessingController : MonoBehaviour
             if(needMate_slots[ii].GetMaterialSO() == null) continue;
 
             // 必要素材と倉庫の素材のシリアル番号が同一だった場合
-            if(needMate_slots[ii].GetMaterialSO().serialNum == wlist[ii].mateSO.serialNum)
+            if(needMate_slots[ii].GetMaterialSO().serialNum == warkManager.GetWarehouseList()[ii].mateSO.serialNum)
             {
                 // 素材の所持数を反映させる
-                needMate_slots[ii].SetStockAmount(wlist[ii].mateAmount);
+                needMate_slots[ii].SetStockAmount(warkManager.GetWarehouseList()[ii].mateAmount);
             }
         }
     }
 
 
-    /// <summary>
-    /// Backボタンを押したときの処理
-    /// </summary>
-    void ButtonOnClick_Back()
-    {
-        FacilityManager.instance.CanvasEnabled(CanvasName.Warkshop, false);
-    }
+    public void Interactable_CreatButton(bool flag) { creat_button.interactable = flag; }
 }

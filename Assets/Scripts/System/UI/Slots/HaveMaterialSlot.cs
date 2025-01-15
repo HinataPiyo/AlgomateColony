@@ -14,10 +14,6 @@ public class HaveMaterialSlot : MonoBehaviour
         icon.sprite = mateSO?.icon;
         haveAmo_text.text = "" + haveAmo;
     }
-
-    private void Update() {
-        haveAmo_text.text = "" + haveAmo;
-    }
     
     /// <summary>
     /// 自身のオブジェクトに素材のSOと現在の所持数を設定する

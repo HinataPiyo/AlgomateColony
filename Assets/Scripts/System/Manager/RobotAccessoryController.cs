@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AccessoryController : MonoBehaviour
+public class RobotAccessoryController : MonoBehaviour
 {
     [SerializeField] AccessorySO accessorySO;               // アクセアリーの核、スクリプタブルオブジェクト
 

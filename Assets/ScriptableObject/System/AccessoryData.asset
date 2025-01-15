@@ -13,22 +13,25 @@ MonoBehaviour:
   m_Name: AccessoryData
   m_EditorClassIdentifier: 
   stop_sprite: {fileID: 1547804281730946603, guid: 3d4ddbc0205189047a117f260180c4c6, type: 3}
+  processing_status: []
   accessory_status:
   - accessory_name: 1
-    icon: {fileID: 0}
+    icon: {fileID: -254286355086068568, guid: ee5d2df1db381464fadb6ea2a2c2c6ad, type: 3}
     _name: "\u30A2\u30AF\u30BB\u30B5\u30EA\u30FC\uFF11"
     level: 11
     statusup_name: "\u3044\u3044\u3044\u3044\u3044\u3044\u3044"
+    exp: "\u30A2\u30F3\u30D1\u30F3\u30DE\u30F3\u5927\u597D\u304D"
     statusup_value: 1.86
     levelupPitch: 2.92
     need_mate_list:
     - mateSO: {fileID: 11400000, guid: 380daebfc203ddc468e185a5c341a12c, type: 2}
       needAmo: 45
   - accessory_name: 2
-    icon: {fileID: 0}
+    icon: {fileID: 3845756139494361395, guid: 86c1dc4878892e74c9702913f0c3e93d, type: 3}
     _name: "\u30A2\u30AF\u30BB\u30B5\u30EA\u30FC2"
     level: 0
     statusup_name: "\u3042\u3042\u3042\u3042\u3042\u3042\u3042"
+    exp: "\u30D0\u30BF\u30B3\u3055\u3093\u3068\u30B8\u30E3\u30E0\u304A\u3058\u3055\u3093"
     statusup_value: 1.9
     levelupPitch: 1.94
     need_mate_list:

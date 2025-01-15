@@ -4,18 +4,23 @@ using UnityEngine.UI;
 
 public class WarehouseController : MonoBehaviour
 {
+    UpdateTime_Class updateTime = new UpdateTime_Class();
+    
     [SerializeField] WarehouseSO warehouseSO;
     FacilityManager fm;
     List<WarehouseSO.BASE_WAREHOUSE_SLOT> wlist;
 
+    [Header("戻る")]
     [SerializeField] Button back_button;
 
+    [Header("MainCanvasに表示させるモノ")]
     [SerializeField] Transform maincanvas_warehouse;
     HaveMaterialSlot[] haveMateSlots;
+
+    [Header("倉庫内のスロット")]
     [SerializeField] Transform warehouseSlot_parent;
     WarehouseSlot[] warehouseSlots;
 
-    UpdateTime_Class updateTime = new UpdateTime_Class();
     void Start() {
         // コンポーネントの取得
         fm = GetComponent<FacilityManager>();

@@ -68,6 +68,7 @@ public class EquipmentSelectSlot : MonoBehaviour
     /// </summary>
     public void OnClick_SelectButton()
     {
+        SoundManager.instance.PlayAudio("ButtonClick");
         switch(select_equipmentslot)
         {
             case SELECT_EQUIPMENTSLOT.BATTERY:

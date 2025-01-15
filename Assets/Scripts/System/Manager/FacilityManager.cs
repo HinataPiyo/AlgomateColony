@@ -14,6 +14,7 @@ public enum CanvasName
 public class FacilityManager : MonoBehaviour
 {
     public static FacilityManager instance;
+
     [SerializeField] Canvas settingCanvas;
     [SerializeField] Canvas locationCanvas;             // 拠点をクリックしたときに表示されるキャンバス
     [SerializeField] Canvas warehouseCanvas;
@@ -35,12 +36,12 @@ public class FacilityManager : MonoBehaviour
         lcCont = GetComponent<LocationController>();
         robotStatusCanvas = RobotStatusPanelManager.instance.GetComponentInChildren<Canvas>();
 
-        CanvasEnabled(CanvasName.Setting, false);       // 設定キャンバスを非表示にする
-        CanvasEnabled(CanvasName.Location, false);      // 拠点キャンバスを非表示にする
-        CanvasEnabled(CanvasName.Warehouse, false);     // 倉庫キャンバスを非表示にする
-        CanvasEnabled(CanvasName.BatteryRoom, false);   // 充電施設のキャンバスを非表示にする
-        CanvasEnabled(CanvasName.Warkshop, false);      // 加工施設のキャンバスを非表示にする
-        CanvasEnabled(CanvasName.RobotStatus, false);   // ステータスキャンバス
+        settingCanvas.enabled = false;       // 設定キャンバスを非表示にする
+        locationCanvas.enabled = false;      // 拠点キャンバスを非表示にする
+        warehouseCanvas.enabled = false;     // 倉庫キャンバスを非表示にする
+        batteryRoomCanvas.enabled = false;   // 充電施設のキャンバスを非表示にする
+        warkshopCanvas.enabled = false;      // 加工施設のキャンバスを非表示にする
+        robotStatusCanvas.enabled = false;   // ステータスキャンバス
 
         // 変数の初期化
         isOpenCnavas = false;
@@ -66,6 +67,9 @@ public class FacilityManager : MonoBehaviour
     /// <param name="flag">表示・非表示</param>
     public void CanvasEnabled(CanvasName canvasName, bool flag)
     {
+
+        SoundManager.instance.PlayAudio("Back");
+
         switch(canvasName)
         {
             // 設定キャンバスの設定

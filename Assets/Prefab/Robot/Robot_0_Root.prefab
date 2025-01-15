@@ -173,6 +173,7 @@ MonoBehaviour:
       _name: 
       level: 0
       statusup_name: 
+      exp: 
       statusup_value: 0
       levelupPitch: 0
       need_mate_list: []
@@ -181,6 +182,7 @@ MonoBehaviour:
       _name: 
       level: 0
       statusup_name: 
+      exp: 
       statusup_value: 0
       levelupPitch: 0
       need_mate_list: []

@@ -116,6 +116,7 @@ public class ChargingBatteryRobotSlot : MonoBehaviour
     // スロットをクリックしたとき
     void OnClick_Slot()
     {
+        SoundManager.instance.PlayAudio("ButtonClick");
         cbCont.Set_RobotData(robotbase, this);
         cbCont.SetActive_PutOutPanel(true);
     }

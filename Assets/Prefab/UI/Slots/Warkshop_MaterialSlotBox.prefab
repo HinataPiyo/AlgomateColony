@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4471545379795328847}
   - component: {fileID: 1842065255522471665}
   m_Layer: 0
-  m_Name: Processing_MaterialSlotBox
+  m_Name: Warkshop_MaterialSlotBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
