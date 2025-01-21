@@ -15,6 +15,7 @@ public class GameSettingController : MonoBehaviour
         backButton.onClick.AddListener(BackButtonOnClick);
         changePanel_slot = cangePanel_parent.GetComponentsInChildren<ButtonSlotVarticalHorizontal>();
 
+        // パネルを変える際に押すボタンの設定
         for(int pp = 0; pp < changePanel_slot.Length; pp++)
         {
             changePanel_slot[pp].slotNo = pp;
@@ -28,6 +29,9 @@ public class GameSettingController : MonoBehaviour
                 case 1:
                     changePanel_slot[pp].button_name.text = "音量設定";
                     break;
+                case 2:
+                    changePanel_slot[pp].button_name.text = "コマンド一覧";
+                    break;
             }
         }
 
@@ -40,6 +44,10 @@ public class GameSettingController : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// 選択されたボタンによって変える
+    /// </summary>
+    /// <param name="_num"></param>
     public void ChangePanel(int _num)
     {
         switch(_num)

@@ -26,6 +26,7 @@ public class BaseStatus
     public float moveSpeed;         // 移動速度
     public int recharge_MAX;        // 充電回数（最大値
     public float currentEnergy;     // 現在のエネルギー
+    public float base_MaxEnergy;
     public float maxEnergy;         // 最大エネルギー
     public float gatherSterngth;    // 収集力
     public float gatherRate;        // 資源収集速度
@@ -58,17 +59,17 @@ public class BaseStatus
 
     [Header("アクセサリー")]
     public UNLOCK_ACCESSORY_SLOT unlock_accessory_slot;     // 使用できるスロットを設定する
-    public AccessorySO.ACCESSORY_STATUS[] accessories_value = new AccessorySO.ACCESSORY_STATUS[MAX_ACCESSORIES];
-    const int MAX_ACCESSORIES = 2;
+    const int MAX_ACCESSORIES = 2;      // 最大所持数
+    public AccessoryData[] acceData_list = new AccessoryData[MAX_ACCESSORIES];  // 最大所持数を決めておく
 
     /// <summary>
-    /// アクセサリーのスロットを生成する
+    /// アクセサリースロットを生成する
     /// </summary>
-    public void GeneratAccessoriesSlots()
+    public void GeneratAccessorySlots()
     {
-        for(int ii = accessories_value.Length - 1; ii >= 0; ii--)
+        for(int ii = acceData_list.Length - 1; ii >= 0; ii--)
         {
-            accessories_value[ii] = new AccessorySO.ACCESSORY_STATUS();
+            acceData_list[ii] = new AccessoryData();
         }
     }
 
@@ -81,6 +82,27 @@ public class BaseStatus
         {
             slots[ii] = new Slot();
         }
+    }
+
+    [Header("バッテリースロットの生成")]
+    public BatteryData.BATTERY_STATUS battery_status = new BatteryData.BATTERY_STATUS();
+
+    /// <summary>
+    /// バッテリースロットを生成する
+    /// </summary>
+    public void GenerateBatterySlots()
+    {
+        battery_status = new BatteryData.BATTERY_STATUS();
+    }
+
+    // 最大充電量を上昇させる
+    public void StatusUp_EnergyMax()
+    {
+        // 一度初期化する
+        maxEnergy = base_MaxEnergy;
+
+        // 装備したバッテリーのステータスを適応
+        maxEnergy += battery_status.energyMax_Up;
     }
 
     /// <summary>
@@ -230,6 +252,7 @@ public class BaseStatus
     }
     
     public float GetGatherRate_Min() { return gatherRtMin; }
+
 }
 
 

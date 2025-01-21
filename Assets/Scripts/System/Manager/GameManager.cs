@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class GameManager : MonoBehaviour
     RobotFactory robotFactory;
     public Canvas sliderCanvas;       // スライダーを表示させるためのキャンバス
 
+    [Header("設定キャンバス")]
+    [SerializeField] Button setting_button;
+
     private void Awake()
     {
         if(instance == null) { instance = this; }
@@ -23,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        setting_button.onClick.AddListener(OnClick_SettingButton);
         haveMateSlot = havematerial_parent.GetComponentsInChildren<HaveMaterialSlot>();
         robotFactory = GetComponent<RobotFactory>();
     }
@@ -42,5 +47,9 @@ public class GameManager : MonoBehaviour
         locationlevel_text.text = "" + _level;              // LocationLevelを設定する（SystemSOで管理）
     }
 
+    void OnClick_SettingButton()
+    {
+        FacilityManager.instance.CanvasEnabled(CanvasName.Setting, true);
+    }
     
 }

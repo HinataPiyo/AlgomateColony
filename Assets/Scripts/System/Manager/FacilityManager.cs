@@ -68,7 +68,7 @@ public class FacilityManager : MonoBehaviour
     public void CanvasEnabled(CanvasName canvasName, bool flag)
     {
 
-        SoundManager.instance.PlayAudio("Back");
+        SoundManager.instance.PlayAudio("SelectObject");
 
         switch(canvasName)
         {

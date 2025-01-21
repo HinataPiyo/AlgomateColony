@@ -56,7 +56,7 @@ public class LocationController : MonoBehaviour
     }
 
     [Header("倉庫リスト")] 
-    List<WarehouseSO.BASE_WAREHOUSE_SLOT> wlist;
+    List<WarehouseSO.MATERIAL_WAREHOUSE_SLOT> wlist;
 
     
 
@@ -68,7 +68,7 @@ public class LocationController : MonoBehaviour
         mateSlots = materialSlot_parent.GetComponentsInChildren<LocationMaterialSlot>();
         scSO = GameManager.instance.GetSystemControlSO();
         nextUnlockSO = scSO.GetNextLevelUnlockedSO();
-        wlist = wc.GetWarehouseSO().GetBaseWarehouseSlot_List();
+        wlist = wc.GetWarehouseSO().GetMaterial_WarehouseList();
 
         // 最初に行う処理
         CheckSet_NeedMaterial(scSO.GetLocationLevel());     // 現在の必要個数を所持数と比べる
@@ -384,13 +384,14 @@ public class LocationController : MonoBehaviour
     {
         for(int ii = 0; ii < mateSlots.Length; ii++)
         {
-            if(mateSlots[ii].GetMaterialSO() == null) continue;
-
-            // 必要素材と倉庫の素材のシリアル番号が同一だった場合
-            if(mateSlots[ii].GetMaterialSO().serialNum == wlist[ii].mateSO.serialNum)
+            for(int qq = 0; qq < wlist.Count; qq++)
             {
-                // 素材の所持数を反映させる
-                mateSlots[ii].SetStockAmount(wlist[ii].mateAmount);
+                // 必要素材と倉庫の素材のシリアル番号が同一だった場合
+                if(mateSlots[ii].GetMaterialSO()?.serialNum == wlist[qq].mateSO.serialNum)
+                {
+                    // 素材の所持数を反映させる
+                    mateSlots[ii].SetStockAmount(wlist[ii].mateAmount);
+                }
             }
         }
     }

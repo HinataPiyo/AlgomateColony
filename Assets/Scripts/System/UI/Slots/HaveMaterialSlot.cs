@@ -9,20 +9,24 @@ public class HaveMaterialSlot : MonoBehaviour
     [SerializeField] uint haveAmo;
     [SerializeField] TextMeshProUGUI haveAmo_text;
 
-    private void Start()
-    {
-        icon.sprite = mateSO?.icon;
-        haveAmo_text.text = "" + haveAmo;
-    }
-    
     /// <summary>
     /// 自身のオブジェクトに素材のSOと現在の所持数を設定する
     /// </summary>
     /// <param name="_mateSO"></param>
     /// <param name="amo"></param>
-    public void SetHaveMaterial(uint amo)
+    public void SetHaveMaterial(MaterialSO _mateSO, uint _amo)
     {
-        haveAmo = amo;
+        mateSO = _mateSO;
+        icon.sprite = mateSO.icon;
+        haveAmo = _amo;
+        haveAmo_text.text = "" + haveAmo;
+    }
+
+    public void ClearSlot()
+    {
+        mateSO = null;
+        icon.sprite = null;
+        haveAmo = 0;
         haveAmo_text.text = "" + haveAmo;
     }
 

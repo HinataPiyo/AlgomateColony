@@ -10,14 +10,21 @@ public class ButtonSlotVarticalHorizontal : MonoBehaviour
     public TextMeshProUGUI button_name;
 
 
-    WarkshopManager wc;
+    WarehouseController wareC;
+    WarkshopManager warkC;
     GameSettingController gSettingCont;
+
+    public void Initialize_Warehouse(WarehouseController _wareC)
+    {
+        wareC = _wareC;
+        button.onClick.AddListener(OnClick_ChangePanel_Warehouse);
+    }
     /// <summary>
     /// ProcessingControllerで行う初期化処理
     /// </summary>
-    public void Initialize_Warkshop(WarkshopManager _wc)
+    public void Initialize_Warkshop(WarkshopManager _warkC)
     {
-        wc = _wc;
+        warkC = _warkC;
         button.onClick.AddListener(OnClick_ChangePanel_Warkshop);
     }
 
@@ -27,13 +34,19 @@ public class ButtonSlotVarticalHorizontal : MonoBehaviour
         button.onClick.AddListener(OnClick_ChangePanel_GameSetting);
     }
 
+    void OnClick_ChangePanel_Warehouse()
+    {
+        SoundManager.instance.PlayAudio("ButtonClick");
+        wareC.ChangePanel(slotNo);
+    }
+
     /// <summary>
     /// Warkshopのパネルを切り替える
     /// </summary>
     void OnClick_ChangePanel_Warkshop()
     {
         SoundManager.instance.PlayAudio("ButtonClick");
-        wc.ChangePanel(slotNo);
+        warkC.ChangePanel(slotNo);
     }
 
     void OnClick_ChangePanel_GameSetting()

@@ -5,21 +5,38 @@ using UnityEngine.UI;
 public class WarehouseSlot : MonoBehaviour
 {
     // 確認するためSerializeFieldする
-    [SerializeField] MaterialSO mateSO;
-    [SerializeField] uint mateAmount;
+    MaterialSO mateSO;
+    uint mateAmount;
+
+    AccessoryData acceData;
 
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI amo_text;
+
+
 
     private void Start() {
         ClearSlot();
     }
 
     /// <summary>
+    /// アクセサリー用スロット
+    /// </summary>
+    /// <param name="_data"></param>
+    public void AddAccessorySlot(AccessoryData _data)
+    {
+        acceData = _data;
+
+        icon.enabled = true;
+        icon.sprite = acceData.icon;
+        amo_text.text = "";
+    }
+
+    /// <summary>
     /// スロットに素材を追加する
     /// </summary>
     /// <param name="_baseWarehouse_Slot"></param>
-    public void AddMaterialToSlot(WarehouseSO.BASE_WAREHOUSE_SLOT _baseWarehouse_Slot)
+    public void AddMaterialToSlot(WarehouseSO.MATERIAL_WAREHOUSE_SLOT _baseWarehouse_Slot)
     {
         mateSO = _baseWarehouse_Slot.mateSO;
         mateAmount = _baseWarehouse_Slot.mateAmount;
@@ -43,4 +60,6 @@ public class WarehouseSlot : MonoBehaviour
 
 
     public MaterialSO GetMaterialSO() { return mateSO; }
+    public AccessoryData GetAccessoryData() { return acceData; }
+    public uint GetHaveAmount() { return mateAmount; }
 }

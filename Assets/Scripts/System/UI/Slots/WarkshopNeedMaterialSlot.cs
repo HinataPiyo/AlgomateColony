@@ -11,10 +11,7 @@ public class WarkshopNeedMaterialSlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI needAmount_text;       // 必要個数
 
     // 所持数,必要個数(RangeはDebug用)
-    [SerializeField, Range(0, 20)] uint stockAmo, needAmo;
-
-    private void Start() {
-    }
+    [SerializeField] uint stockAmo, needAmo;
 
     private void Update() {
         // テスト

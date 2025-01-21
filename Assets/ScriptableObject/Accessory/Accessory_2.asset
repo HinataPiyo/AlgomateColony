@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5501803d171a84044a3c9600b582ff1c, type: 3}
+  m_Name: Accessory_2
+  m_EditorClassIdentifier: 
+  icon: {fileID: -7552770603206785389, guid: 8b1e47e88c2d17f4f877296d4710880a, type: 3}
+  serialNum: 0
+  _name: "\u30A2\u30AF\u30BB\u30B52"
+  level: 31
+  statusup_name: "\u79FB\u52D5\u901F\u5EA6\u4E0A\u6607"
+  exp: "\u79FB\u52D5\u901F\u5EA6\u3092\u4E0A\u6607\u3055\u305B\u308B"
+  statusup_value: 2
+  levelupPitch: 0

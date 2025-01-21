@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class ProcessingController : MonoBehaviour
@@ -147,13 +148,15 @@ public class ProcessingController : MonoBehaviour
     {
         for(int ii = 0; ii < needMate_slots.Length; ii++)
         {
-            if(needMate_slots[ii].GetMaterialSO() == null) continue;
-
-            // 必要素材と倉庫の素材のシリアル番号が同一だった場合
-            if(needMate_slots[ii].GetMaterialSO().serialNum == warkManager.GetWarehouseList()[ii].mateSO.serialNum)
+            for(int qq = 0; qq < warkManager.GetWarehouseList().Count; qq++)
             {
-                // 素材の所持数を反映させる
-                needMate_slots[ii].SetStockAmount(warkManager.GetWarehouseList()[ii].mateAmount);
+                // 必要素材と倉庫の素材のシリアル番号が同一だった場合
+                if(needMate_slots[ii].GetMaterialSO()?.serialNum == warkManager.GetWarehouseList()[qq].mateSO.serialNum)
+                {
+                    // 素材の所持数を反映させる
+                    needMate_slots[ii].SetStockAmount(warkManager.GetWarehouseList()[ii].mateAmount);
+                    break;
+                }
             }
         }
     }

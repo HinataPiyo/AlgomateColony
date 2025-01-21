@@ -7,10 +7,12 @@ public class WarkshopSlot : MonoBehaviour
     ProcessingController processingCont;
     public AccessorySO.PROCESSING_STATUS processing_status;
     AccessoryController accessoryCont;
-    public AccessorySO.ACCESSORY_STATUS accessory_status;
+    public AccessorySO.NEED_ACCESSORY_STATUS accessory_status;
     public Image icon;
     public TextMeshProUGUI name_text;
     public TextMeshProUGUI exp_text;
+    public TextMeshProUGUI statusUp_value;
+    public TextMeshProUGUI statusUp_name;
     public Button button;
 
     private void Start()
@@ -29,15 +31,18 @@ public class WarkshopSlot : MonoBehaviour
         exp_text.text = processing_status.mateSO.exp;       // 加工の説明
     }
 
-    public void SetAccessory_NumAndScript(AccessoryController _script, AccessorySO.ACCESSORY_STATUS a_status)
+    public void SetAccessory_NumAndScript(AccessoryController _script, AccessorySO.NEED_ACCESSORY_STATUS a_status)
     {
         accessoryCont = _script;
         accessory_status = a_status;
 
         icon.enabled = true;
-        icon.sprite = accessory_status.icon;                // アイコンの設定
-        name_text.text = accessory_status.statusup_name;    // 名前
-        exp_text.text = accessory_status.exp;               // 説明
+        icon.sprite = accessory_status.acceData.icon;                // アイコンの設定
+        name_text.text = accessory_status.acceData._name;            // 名前
+        exp_text.text = accessory_status.acceData.exp;               // 説明
+
+        statusUp_name.text = $"- {accessory_status.acceData.statusup_name}";
+        statusUp_value.text = $"+ {accessory_status.acceData.statusup_value}";
     }
 
 

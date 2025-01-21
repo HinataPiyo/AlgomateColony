@@ -3,16 +3,22 @@ using UnityEngine.UI;
 
 public class AccessorySlot : MonoBehaviour
 {
-    [SerializeField] AccessorySO accessorySO;
-    [SerializeField] AccessorySO.ACCESSORY_STATUS accessory_value;
+    [SerializeField] AccessoryData accessory_value;
     int this_slotNumber;
     public Image icon;          // アイコンの画像
     public Button button;       // アイコンをクリック
 
-    public void SetText_AccessoryValue(AccessorySO.ACCESSORY_STATUS status)
+    public void SetText_AccessoryValue(AccessoryData status)
     {
-        icon.sprite = status.icon;
-        icon.enabled = true;
+        if(status != null)
+        {
+            icon.sprite = status.icon;
+            icon.enabled = true;
+        }
+        else
+        {
+            icon.enabled = false;
+        }
     }
 
     private void Start() {

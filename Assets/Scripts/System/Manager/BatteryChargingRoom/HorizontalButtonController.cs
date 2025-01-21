@@ -6,13 +6,12 @@ public class HorizontalButtonController : MonoBehaviour
     ButtonSlotVarticalHorizontal[] slot_script;
     BatteryChargingRoomManager.HorizontalButtonCohesion[] horizontal_panels;
     VerticalButtonController vbCont;
-
     
     private void Start() {
         vbCont = GetComponent<VerticalButtonController>();
     }
 
-    public void Set_VarticalButton(ButtonSlotVarticalHorizontal[] _slots,
+    public void Set_HorizontalButton(ButtonSlotVarticalHorizontal[] _slots,
     BatteryChargingRoomManager.HorizontalButtonCohesion[] _panels)
     {
         horizontal_panels = _panels;
@@ -69,6 +68,7 @@ public class HorizontalButtonController : MonoBehaviour
 
     public void HorizontalButtonClick_Proc(int _verticalbutton_num, int _slotnum)
     {
+        SoundManager.instance.PlayAudio("ButtonClick");
         for(int ii = 0; ii < slot_script.Length; ii++)
         {
             if(slot_script[ii].gameObject.activeSelf == false) continue;

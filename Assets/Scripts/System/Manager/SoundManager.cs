@@ -17,6 +17,14 @@ public class SoundManager : MonoBehaviour
     [SerializeField] Slider masterSlider;   // 全ての音量
     [SerializeField] Slider bgmSlider;      // BGM用スライダー
     [SerializeField] Slider seSlider;       // SE用スライダー
+
+    [Header("リセットボタン")]
+    [SerializeField] Button reset_button;
+
+
+    float master_vol;
+    float bgm_vol;
+    float se_vol;
     
 
     private void Awake()
@@ -26,14 +34,10 @@ public class SoundManager : MonoBehaviour
     }
     void Start()
     {
+        reset_button.onClick.AddListener(ResetVolume);
         bgm_AudioSource.PlayOneShot(soundSO.bgms[0]);
 
-        float master_vol;
-        float bgm_vol;
-        float se_vol;
-
         // 初期値をAudioMixerから取得
-
         audioMixer.GetFloat("METER_Volume", out master_vol);
         audioMixer.GetFloat("BGM_Volume", out bgm_vol);
         audioMixer.GetFloat("SE_Volume", out se_vol);
@@ -46,6 +50,17 @@ public class SoundManager : MonoBehaviour
         masterSlider.onValueChanged.AddListener(SetMETERVolume);
         bgmSlider.onValueChanged.AddListener(SetBGMVolume);
         seSlider.onValueChanged.AddListener(SetSEVolume);
+    }
+
+    void ResetVolume()
+    {
+        audioMixer.ClearFloat("METER_Volume");
+        audioMixer.ClearFloat("BGM_Volume");
+        audioMixer.ClearFloat("SE_Volume");
+
+        masterSlider.value = master_vol;
+        bgmSlider.value = bgm_vol;
+        seSlider.value = se_vol;
     }
 
     // Masterの音量を設定
@@ -73,7 +88,7 @@ public class SoundManager : MonoBehaviour
             case "Back":
                 se_AudioSource.PlayOneShot(soundSO.se_system[0]);
                 break;
-            case "Back_2":
+            case "SelectObject":
                 se_AudioSource.PlayOneShot(soundSO.se_system[1]);
                 break;
             case "ButtonClick":
@@ -84,7 +99,5 @@ public class SoundManager : MonoBehaviour
                 break;
         }
     }
-
-   
 
 }

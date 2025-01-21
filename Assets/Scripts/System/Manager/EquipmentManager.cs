@@ -1,65 +1,91 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EquipmentManager : MonoBehaviour
 {
     public static EquipmentManager instance;
-    ToolController toolC;
+    RobotToolController toolC;
     RobotAccessoryController accessoryC;
+    RobotBatteryController batteryC;
 
+    // ロボットのベースステータス
+    BaseStatus robotbase;
+
+    [Header("Robotのステータス画面で表示する装備など")]
     [SerializeField] EquipmentSO equipmentSO;
     [SerializeField] AccessorySO accessorySO;
+    [SerializeField] BatteryData batteryData;
 
-    BaseStatus robotbase;                                   // ロボットのベースステータス
+    // アクセサリーのステータスをまとめる場所(スロット)
+    AccessoryData[] acceDatas;
 
-    AccessorySO.ACCESSORY_STATUS[] a_status;                // アクセサリーのステータスをまとめる場所(スロット)
+    [SerializeField] Button back_button;                    // 戻るボタン
+    [SerializeField] GameObject backButton_obj;
 
-
-    [Header("選択画面")]
+    [Header("選択画面 / 装備")]
     [SerializeField] GameObject equipment_ScrollView;       // 装備選択画面のスクロールビュー
-    [SerializeField] GameObject Select_AccessorySlot_Prefab;       // アクセサリースロットを生成する為のPrefab
+    [SerializeField] GameObject select_slot_Prefab;         // 装備スロットを生成する為のPrefab(装備)
     [SerializeField] Transform equipmentselect_parent;      // 装備選択スロットの親オブジェクト
     EquipmentSelectSlot[] e_select_slots;                   // 装備選択スロット(個々)
-    [SerializeField] Button back_button;                    // 戻るボタン
 
     public List<GameObject> select_objs = new List<GameObject>();
+
+    [Header("選択画面 / バッテリー")]
+    [SerializeField] GameObject battery_ScrollView;
+    [SerializeField] GameObject select_BatterySlot_Prefab;         // 装備スロットを生成する為のPrefab(バッテリー)
+    [SerializeField] Transform batterySelect_parent;
+    EquipmentSelectSlot[] battery_select_slots;                   // 装備選択スロット(個々 / バッテリー)
+    public List<GameObject> battery_select_objs = new List<GameObject>();
+
 
     private void Awake() {
         if(instance == null) instance = this;
         else { Destroy(this); }
     }
 
-    private void Start() {
-        toolC = GetComponent<ToolController>();
+    private void Start()
+    {
+        // コンポーネントを取得
+        toolC = GetComponent<RobotToolController>();
         accessoryC = GetComponent<RobotAccessoryController>();
+        batteryC = GetComponent<RobotBatteryController>();
 
-        a_status = accessorySO.accessory_status;
-
-        for(int ii = 0; ii < a_status.Length; ii++)
-        {
-            // SOで作成したアクセサリーの数に合わせて選択スロットを生成する
-            GameObject obj = Instantiate(Select_AccessorySlot_Prefab, transform.position, Quaternion.identity, equipmentselect_parent);
-            select_objs.Add(obj);
-        }
+        // ボタンをリスナーに登録
+        back_button.onClick.AddListener(OnClick_BackButton);
         
-        // もし生成したスロット数が装備の最大数より小さければ追加で生成する
+        // もし生成したスロット数が装備の最大数より小さければ追加で生成する(装備)
         if(select_objs.Count < equipmentSO.equipment_values.Length)
         {
             int index = equipmentSO.equipment_values.Length - select_objs.Count;
             for(int ii = 0; ii < index; ii++)
             {
                 // SOで作成したアクセサリーの数に合わせて選択スロットを生成する
-                GameObject obj = Instantiate(Select_AccessorySlot_Prefab, transform.position, Quaternion.identity, equipmentselect_parent);
+                GameObject obj = Instantiate(select_slot_Prefab, equipmentselect_parent);
                 select_objs.Add(obj);
             }
         }
 
-        e_select_slots = equipmentselect_parent.GetComponentsInChildren<EquipmentSelectSlot>();
+        // 
+        if(battery_select_objs.Count < batteryData.battery_values.Length)
+        {
+            int index = batteryData.battery_values.Length - battery_select_objs.Count;
+            for(int ii = 0; ii < index; ii++)
+            {
+                // SOで作成したアクセサリーの数に合わせて選択スロットを生成する
+                GameObject obj = Instantiate(select_BatterySlot_Prefab, batterySelect_parent);
+                battery_select_objs.Add(obj);
+            }
+        }
 
-        back_button.onClick.AddListener(OnClick_BackButton);
+        // 装備スロットを取得
+        e_select_slots = equipmentselect_parent.GetComponentsInChildren<EquipmentSelectSlot>();
+        battery_select_slots = batterySelect_parent.GetComponentsInChildren<EquipmentSelectSlot>();
+
+        // パネル類を非表示
+        backButton_obj.SetActive(false);
         SetActive_Equipment_ScrollView(false);
+        SetActive_Battery_ScrollView(false);
     }
 
     /// <summary>
@@ -71,18 +97,21 @@ public class EquipmentManager : MonoBehaviour
         // 選択されたロボットのステータスを取得する
         robotbase = _robotBase;
 
-        // 
+        // ドリルなどのツールステータスをテキストに設定する
         toolC.GetToolSlot().SetText_ToolValue(_robotBase.equipment_value);
 
         for(int ii = 0; ii < accessoryC.GetAccessorySlots().Length; ii++)
         {
-            accessoryC.GetAccessorySlots()[ii].SetText_AccessoryValue(_robotBase.accessories_value[ii]);
+            accessoryC.GetAccessorySlots()[ii].SetText_AccessoryValue(_robotBase.acceData_list[ii]);
         }
-        
+
+        // スロットのボタンが押せるかどうか調べる
         toolC.SetButtonInteractable();
+        batteryC.SetButtonInteractable();
         accessoryC.SetButtonInteractable(robotbase);
     }
 
+#region スロットを表示/非表示にするか調べる
     /// <summary>
     /// アクセサリースロットを押下した場合SOで設定している
     /// アクセサリーの数だけスロットをアクティブ状態にする
@@ -93,7 +122,7 @@ public class EquipmentManager : MonoBehaviour
         for(int ii = 0; ii < select_objs.Count; ii++)
         {
             // アクセサリーの数分アクティブ状態にする
-            if(ii < accessorySO.accessory_status.Length)
+            if(ii < acceDatas.Length)
             {
                 select_objs[ii].SetActive(true);
             }
@@ -121,17 +150,91 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    public void SetActive_Equipment_ScrollView(bool flag) { equipment_ScrollView.SetActive(flag); }
+    public void SetActiv_SelectSlots_Battery()
+    {
+        // 生成したスロット分forを回す
+        for(int ii = 0; ii < battery_select_objs.Count; ii++)
+        {
+            // 装備の数分アクティブ状態にする
+            if(ii < batteryData.battery_values.Length)
+            {
+                battery_select_objs[ii].SetActive(true);
+            }
+            else    // それ以外を非アクティブ状態にする
+            {
+                battery_select_objs[ii].SetActive(false);
+            }
+        }
+    }
+#endregion
+
+#region ロボットの装備スロットを押下した時にパネルを表示/非表示にするか設定する
+    /// <summary>
+    /// ツールパネルの非表示 / 表示
+    /// </summary>
+    /// <param name="flag"></param>
+    public void SetActive_Equipment_ScrollView(bool flag)
+    {
+        // パネルを表示
+        equipment_ScrollView.SetActive(flag);
+
+        // ツールパネルが表示状態だった場合
+        if(equipment_ScrollView.activeSelf == true) 
+        {
+            // バッテリーのパネルを非表示にする
+            SetActive_Battery_ScrollView(false);
+            // バックボタンを表示
+            backButton_obj.SetActive(true);
+        }
+        else
+        {
+            // バックボタンを非表示
+            backButton_obj.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// バッテリーパネルの非表示 / 表示
+    /// </summary>
+    /// <param name="flag"></param>
+    public void SetActive_Battery_ScrollView(bool flag)
+    {
+        // パネルを表示
+        battery_ScrollView.SetActive(flag);
+
+        // バッテリーパネルが表示状態だった場合
+        if(battery_ScrollView.activeSelf == true)
+        {
+            // ツールパネルを非表示状態にする
+            SetActive_Equipment_ScrollView(false);
+            // バックボタンを表示
+            backButton_obj.SetActive(true);
+        }
+        else
+        {
+            // バックボタンを非表示
+            backButton_obj.SetActive(false);
+        }
+    }
+#endregion
+
+    /// <summary>
+    /// 戻るボタン(X)を押したときの処理
+    /// </summary>
     public void OnClick_BackButton()
     {
-        SoundManager.instance.PlayAudio("Back_2");
+        SoundManager.instance.PlayAudio("SelectObject");
+
         SetActive_Equipment_ScrollView(false);
+        SetActive_Battery_ScrollView(false);
     }
 
     public BaseStatus GetRobotStatus() { return robotbase; }
     public RobotAccessoryController GetAccessoryController() { return accessoryC; }
-    public ToolController GetToolController() { return toolC; }
+    public RobotToolController GetToolController() { return toolC; }
+    public RobotBatteryController GetRobotBatteryController() { return batteryC; }
 
     public EquipmentSelectSlot[] GetEquipmentSelectSlot() { return e_select_slots; }
-    public AccessorySO.ACCESSORY_STATUS[] GetAccessoryStatusSlot() { return a_status;}
+    public EquipmentSelectSlot[] GetBatterySelectSlot() { return battery_select_slots; }
+    public AccessoryData[] GetAccessoryStatusSlot() { return acceDatas;}
 }

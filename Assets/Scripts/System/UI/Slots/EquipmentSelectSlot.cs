@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class EquipmentSelectSlot : MonoBehaviour
 {
     [SerializeField] EquipmentSO.EQUIPMENT_STATUS equipment_value;
-    [SerializeField] AccessorySO.ACCESSORY_STATUS accessory_value;
+    [SerializeField] AccessoryData accessory_value;
+    [SerializeField] BatteryData.BATTERY_STATUS battery_value; 
 
     SELECT_EQUIPMENTSLOT select_equipmentslot;
     int accessory_slotNo;
@@ -39,7 +40,7 @@ public class EquipmentSelectSlot : MonoBehaviour
         equipment_name.text = _value._name;
         equipment_level.text = "" + _value.level;
         equipment_statusup_name.text = _value.statusup_name;
-        equipment_statusup_value.text = "" + _value.statusup_value;
+        equipment_statusup_value.text = "+ " + _value.statusup_value;
     }
 
     /// <summary>
@@ -47,14 +48,28 @@ public class EquipmentSelectSlot : MonoBehaviour
     /// </summary>
     /// <param name="_value"></param>
     /// <param name="_scriot"></param>
-    public void SetText_EquipmentInfo_Accessory(AccessorySO.ACCESSORY_STATUS _value)
+    public void SetText_EquipmentInfo_Accessory(AccessoryData _value)
     {
         accessory_value = _value;
         icon.sprite = _value.icon;
         equipment_name.text = _value._name;
         equipment_level.text = "" + _value.level;
         equipment_statusup_name.text = _value.statusup_name;
-        equipment_statusup_value.text = "" + _value.statusup_value;
+        equipment_statusup_value.text = "+ " + _value.statusup_value;
+    }
+
+    /// <summary>
+    /// バッテリーのテキストの設定
+    /// </summary>
+    /// <param name="_value"></param>
+    public void SetText_EquipmentInfo_Battery(BatteryData.BATTERY_STATUS _value)
+    {
+        battery_value = _value;
+        icon.sprite = _value.icon;
+        equipment_name.text = _value._name;
+        equipment_level.text = "" + (int)_value.battery_level;
+        equipment_statusup_name.text = _value.statusup_name;
+        equipment_statusup_value.text = "" + _value.energyMax_Up;
     }
 
     public void Check_SelectSlot(SELECT_EQUIPMENTSLOT _select, int _slotNo)
@@ -72,7 +87,7 @@ public class EquipmentSelectSlot : MonoBehaviour
         switch(select_equipmentslot)
         {
             case SELECT_EQUIPMENTSLOT.BATTERY:
-                
+                EquipmentManager.instance.GetRobotBatteryController().SetEquipmentSlot(battery_value);
                 break;
             case SELECT_EQUIPMENTSLOT.TOOL:
                 EquipmentManager.instance.GetToolController().SetEquipmentSlot(equipment_value);

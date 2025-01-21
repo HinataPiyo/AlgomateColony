@@ -16,11 +16,11 @@ public class WarkshopManager : MonoBehaviour
     ButtonSlotVarticalHorizontal[] changePanel_slot;
 
     [Header("倉庫リスト")] 
-    [SerializeField] List<WarehouseSO.BASE_WAREHOUSE_SLOT> wlist;
+    [SerializeField] List<WarehouseSO.MATERIAL_WAREHOUSE_SLOT> wlist;
 
     private void Awake() {
      WarehouseController wc = GetComponent<WarehouseController>();
-        wlist = wc.GetWarehouseSO().GetBaseWarehouseSlot_List();   
+        wlist = wc.GetWarehouseSO().GetMaterial_WarehouseList();   
     }
     private void Start()
     {
@@ -74,5 +74,5 @@ public class WarkshopManager : MonoBehaviour
         FacilityManager.instance.CanvasEnabled(CanvasName.Warkshop, false);
     }
 
-    public List<WarehouseSO.BASE_WAREHOUSE_SLOT> GetWarehouseList() { return wlist; }
+    public List<WarehouseSO.MATERIAL_WAREHOUSE_SLOT> GetWarehouseList() { return wlist; }
 }

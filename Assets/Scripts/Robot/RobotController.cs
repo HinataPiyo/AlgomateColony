@@ -143,6 +143,8 @@ public class RobotController : MonoBehaviour
         _base.RandomStatusProc();               // ランダムでステータスを決める
         _base.GeneratInventorySlots();          // インベントリを生成
         _base.GenerateEquipmentSlots();         // 装備スロットを生成
+        _base.GeneratAccessorySlots();          // アクセサリースロットを生成
+        _base.GenerateBatterySlots();           // バッテリースロットを生成
         _base.TotalStatus();                    // 総合ステータスを生成
 
         GameInit();
@@ -165,8 +167,9 @@ public class RobotController : MonoBehaviour
         robotBattery = GetComponent<RobotBattery>();
 
 
-         // 初期化処理を開始
-        _base.currentEnergy = _base.maxEnergy;        // 充電をMaxにする
+        // 初期化処理を開始
+        _base.currentEnergy = _base.maxEnergy;  // 充電をMaxにする
+        _base.base_MaxEnergy = _base.maxEnergy; // 最大充電量を別の変数に格納しておく
         _eslider.maxValue = _base.maxEnergy;    // スライダーの最大値を個々の充電量を反映
         _eslider.value = _eslider.maxValue;     // スライダーのvalueをMaxに設定
         ChangeState(State.DoNon);               // ステートを何もしない状態にする

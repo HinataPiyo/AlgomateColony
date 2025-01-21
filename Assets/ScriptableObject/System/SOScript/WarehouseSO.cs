@@ -5,15 +5,17 @@ using UnityEngine;
 public class WarehouseSO : ScriptableObject
 {
     // 一つ一つのスロットをまとめたリスト
-    [SerializeField] List<BASE_WAREHOUSE_SLOT> base_warehouse_slots = new List<BASE_WAREHOUSE_SLOT>();
+    [SerializeField] List<MATERIAL_WAREHOUSE_SLOT> mate_warehouse_slots = new List<MATERIAL_WAREHOUSE_SLOT>();
+    [SerializeField] List<AccessoryData> acce_warehouse_slots = new List<AccessoryData>();
 
-    public List<BASE_WAREHOUSE_SLOT> GetBaseWarehouseSlot_List() { return base_warehouse_slots; }
+    public List<MATERIAL_WAREHOUSE_SLOT> GetMaterial_WarehouseList() { return mate_warehouse_slots; }
+    public List<AccessoryData> GetAccessory_WarehouseList() { return acce_warehouse_slots; }
 
     /// <summary>
     /// 倉庫の一つ一つのスロット
     /// </summary>
     [System.Serializable]
-    public class BASE_WAREHOUSE_SLOT
+    public class MATERIAL_WAREHOUSE_SLOT
     {
         public MaterialSO mateSO;
         public uint mateAmount;

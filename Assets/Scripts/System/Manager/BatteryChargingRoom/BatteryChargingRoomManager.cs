@@ -43,7 +43,7 @@ public class BatteryChargingRoomManager : MonoBehaviour
         
         // 縦に並んでるボタンを設定する
         vbCont.Set_VarticalButton(vertical_slots, vertical_panels);
-        hbCont.Set_VarticalButton(horizontal_slots, horizontal_panels);
+        hbCont.Set_HorizontalButton(horizontal_slots, horizontal_panels);
         
         vbCont.ButtonClick_Proc(0);     // 最初の画面設定
     }

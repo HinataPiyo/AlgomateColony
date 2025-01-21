@@ -18,6 +18,8 @@ public class AccessoryController : MonoBehaviour
     [SerializeField] Image select_icon;
     [SerializeField] TextMeshProUGUI selectName_text;
     [SerializeField] TextMeshProUGUI selectExp_text;
+    [SerializeField] TextMeshProUGUI statusUp_value;
+    [SerializeField] TextMeshProUGUI statusUp_name;
 
     [Space(10), Header("必要素材のスロット")]
     [SerializeField] Transform needMate_parent;
@@ -43,13 +45,13 @@ public class AccessoryController : MonoBehaviour
         needMate_slots = needMate_parent.GetComponentsInChildren<WarkshopNeedMaterialSlot>();
 
         // リストに作成している加工品分回す
-        for(int ii = 0; ii < accessorySO.accessory_status.Length; ii++)
+        for(int ii = 0; ii < accessorySO.need_accessory_status.Length; ii++)
         {
             // 加工品のスロットを作成
             GameObject _slot = Instantiate(warkshopSlot_prefab, warkshopSlot_parent);
             // スロットに番号を設定
             WarkshopSlot warkshop_cs = _slot.GetComponent<WarkshopSlot>();
-            warkshop_cs.SetAccessory_NumAndScript(this, accessorySO.accessory_status[ii]);
+            warkshop_cs.SetAccessory_NumAndScript(this, accessorySO.need_accessory_status[ii]);
             // リストに追加s
             processingSlots_list.Add(warkshop_cs);
         }
@@ -62,7 +64,7 @@ public class AccessoryController : MonoBehaviour
         }
 
         // 最初は0番目の加工品を表示する
-        SetAccessory_SelectsButton(accessorySO.accessory_status[0]);
+        SetAccessory_SelectsButton(accessorySO.need_accessory_status[0]);
         Sync_HaveMaterialToText();
     }
 
@@ -81,13 +83,16 @@ public class AccessoryController : MonoBehaviour
     /// ボタンが押された時にInfoパネルの設定を行う
     /// </summary>
     /// <param name="_selectNumber"></param>
-    public void SetAccessory_SelectsButton(AccessorySO.ACCESSORY_STATUS _processingSO)
+    public void SetAccessory_SelectsButton(AccessorySO.NEED_ACCESSORY_STATUS _processingSO)
     {
         // Infoパネルの設定
         select_icon.enabled = true;
-        select_icon.sprite = _processingSO.icon;
-        selectName_text.text = _processingSO.statusup_name;
-        selectExp_text.text = _processingSO.exp;
+        select_icon.sprite = _processingSO.acceData.icon;
+        selectName_text.text = _processingSO.acceData._name;
+        selectExp_text.text = _processingSO.acceData.exp;
+
+        statusUp_name.text = $"- {_processingSO.acceData.statusup_name}";
+        statusUp_value.text = $"+ {_processingSO.acceData.statusup_value}";
 
 
         // 必要素材スロットの表示
@@ -147,13 +152,16 @@ public class AccessoryController : MonoBehaviour
     {
         for(int ii = 0; ii < needMate_slots.Length; ii++)
         {
-            if(needMate_slots[ii].GetMaterialSO() == null) continue;
-
-            // 必要素材と倉庫の素材のシリアル番号が同一だった場合
-            if(needMate_slots[ii].GetMaterialSO().serialNum == warkManager.GetWarehouseList()[ii].mateSO.serialNum)
+            // 倉庫内を全て見る
+            for(int qq = 0; qq < warkManager.GetWarehouseList().Count; qq++)
             {
-                // 素材の所持数を反映させる
-                needMate_slots[ii].SetStockAmount(warkManager.GetWarehouseList()[ii].mateAmount);
+                // 必要素材と倉庫の素材のシリアル番号が同一だった場合
+                if(needMate_slots[ii].GetMaterialSO()?.serialNum == warkManager.GetWarehouseList()[qq].mateSO.serialNum)
+                {
+                    // 素材の所持数を反映させる
+                    needMate_slots[ii].SetStockAmount(warkManager.GetWarehouseList()[ii].mateAmount);
+                    break;
+                }
             }
         }
     }

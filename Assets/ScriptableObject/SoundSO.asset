@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: SoundSO
   m_EditorClassIdentifier: 
   bgms:
-  - {fileID: 8300000, guid: a8f8bf3f6a569154a8d0103bdd0f8c85, type: 3}
+  - {fileID: 8300000, guid: 99f98a6313f4f6c43ba85c74ac95295a, type: 3}
   se_system:
   - {fileID: 8300000, guid: cd89c1ff77504154087d993e7fedaaaf, type: 3}
-  - {fileID: 8300000, guid: 6de8c5bb2f0085d47b82d09e75f7c97f, type: 3}
+  - {fileID: 8300000, guid: 4f208beb9bcc5be45b58a84ec25a017b, type: 3}
   - {fileID: 8300000, guid: 744786b275f866f4caa12bed3a6bf63f, type: 3}
   - {fileID: 8300000, guid: 3bb3a15a95547f443b2cbc9426dc7a99, type: 3}
