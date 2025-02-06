@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start()
-    {
+    {   
         setting_button.onClick.AddListener(OnClick_SettingButton);
         haveMateSlot = havematerial_parent.GetComponentsInChildren<HaveMaterialSlot>();
         robotFactory = GetComponent<RobotFactory>();

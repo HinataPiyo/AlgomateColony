@@ -1,0 +1,715 @@
+fileFormatVersion: 2
+guid: 64b63f11935118f419a0e04327d24c76
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8319867724411143618
+    second: yakannsyoumei3_0
+  - first:
+      213: -3662897560246724842
+    second: yakannsyoumei3_1
+  - first:
+      213: -245514877216899268
+    second: yakannsyoumei3_2
+  - first:
+      213: -4352116558705630642
+    second: yakannsyoumei3_3
+  - first:
+      213: -265505426249996287
+    second: yakannsyoumei3_4
+  - first:
+      213: 880348949102538634
+    second: yakannsyoumei3_5
+  - first:
+      213: 6860752890240931817
+    second: yakannsyoumei3_6
+  - first:
+      213: -39684743942796043
+    second: yakannsyoumei3_7
+  - first:
+      213: -5737943731309756700
+    second: yakannsyoumei3_8
+  - first:
+      213: -2062607088484828033
+    second: yakannsyoumei3_9
+  - first:
+      213: -2299900843843127013
+    second: yakannsyoumei3_10
+  - first:
+      213: 3430370729202456583
+    second: yakannsyoumei3_11
+  - first:
+      213: -4794790641704586548
+    second: yakannsyoumei3_12
+  - first:
+      213: -1758558562014689195
+    second: yakannsyoumei3_13
+  - first:
+      213: 1967819483356977409
+    second: yakannsyoumei3_14
+  - first:
+      213: -6239822246779077158
+    second: yakannsyoumei3_15
+  - first:
+      213: 5164444178441997586
+    second: yakannsyoumei3_16
+  - first:
+      213: 6647568852042613121
+    second: yakannsyoumei3_17
+  - first:
+      213: -6524861068133203739
+    second: yakannsyoumei3_18
+  - first:
+      213: -8833768817269613921
+    second: yakannsyoumei3_19
+  - first:
+      213: 8142669510584567707
+    second: yakannsyoumei3_20
+  - first:
+      213: -8166419911475657040
+    second: yakannsyoumei3_21
+  - first:
+      213: 8033936562359141636
+    second: yakannsyoumei3_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 200
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: yakannsyoumei3_0
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 584
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3a7c3c9264e98c80800000000000000
+      internalID: -8319867724411143618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_1
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 579
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61759d86316ca2dc0800000000000000
+      internalID: -3662897560246724842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_2
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 569
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3fb96c1581c79cf0800000000000000
+      internalID: -245514877216899268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_3
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 574
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4261416c0d2a93c0800000000000000
+      internalID: -4352116558705630642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_4
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 564
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1082e66b83cb05cf0800000000000000
+      internalID: -265505426249996287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_5
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 539
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8f25a574b0a73c00800000000000000
+      internalID: 880348949102538634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_6
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 534
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e79b82676a463f50800000000000000
+      internalID: 6860752890240931817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_7
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 99
+        width: 142
+        height: 442
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fc89468fe2037ff0800000000000000
+      internalID: -39684743942796043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_8
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 534
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ee3a1ac39abe50b0800000000000000
+      internalID: -5737943731309756700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_9
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 384
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7cb8abf7c52063e0800000000000000
+      internalID: -2062607088484828033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_10
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 384
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b19fb103e5c1510e0800000000000000
+      internalID: -2299900843843127013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_11
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 379
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 708920ad0002b9f20800000000000000
+      internalID: 3430370729202456583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_12
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 369
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc2b4d4b05b757db0800000000000000
+      internalID: -4794790641704586548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_13
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 364
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 558846a1e485897e0800000000000000
+      internalID: -1758558562014689195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_14
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 364
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 109d597e4691f4b10800000000000000
+      internalID: 1967819483356977409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_15
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 354
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: add372ff9b2b769a0800000000000000
+      internalID: -6239822246779077158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_16
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 354
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21d8e5e2e9acba740800000000000000
+      internalID: 5164444178441997586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_17
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 59
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18183fd86a8e04c50800000000000000
+      internalID: 6647568852042613121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_18
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 59
+        width: 17
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e00521cd690375a0800000000000000
+      internalID: -6524861068133203739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_19
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 59
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9ad8b26016286580800000000000000
+      internalID: -8833768817269613921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_20
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 59
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b970cc537c2900170800000000000000
+      internalID: 8142669510584567707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_21
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 24
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b601d9ab5c0bae80800000000000000
+      internalID: -8166419911475657040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yakannsyoumei3_22
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 29
+        width: 22
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4058073ecb64e7f60800000000000000
+      internalID: 8033936562359141636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      yakannsyoumei3_0: -8319867724411143618
+      yakannsyoumei3_1: -3662897560246724842
+      yakannsyoumei3_10: -2299900843843127013
+      yakannsyoumei3_11: 3430370729202456583
+      yakannsyoumei3_12: -4794790641704586548
+      yakannsyoumei3_13: -1758558562014689195
+      yakannsyoumei3_14: 1967819483356977409
+      yakannsyoumei3_15: -6239822246779077158
+      yakannsyoumei3_16: 5164444178441997586
+      yakannsyoumei3_17: 6647568852042613121
+      yakannsyoumei3_18: -6524861068133203739
+      yakannsyoumei3_19: -8833768817269613921
+      yakannsyoumei3_2: -245514877216899268
+      yakannsyoumei3_20: 8142669510584567707
+      yakannsyoumei3_21: -8166419911475657040
+      yakannsyoumei3_22: 8033936562359141636
+      yakannsyoumei3_3: -4352116558705630642
+      yakannsyoumei3_4: -265505426249996287
+      yakannsyoumei3_5: 880348949102538634
+      yakannsyoumei3_6: 6860752890240931817
+      yakannsyoumei3_7: -39684743942796043
+      yakannsyoumei3_8: -5737943731309756700
+      yakannsyoumei3_9: -2062607088484828033
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

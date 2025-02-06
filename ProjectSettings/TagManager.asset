@@ -8,10 +8,13 @@ TagManager:
   - CenterCollider
   - Robot
   - Proc
-  - Location
   - Warehouse
   - ChargingBattery
   - Warkshop
+  - location
+  - matel
+  - rock
+  - tree
   layers:
   - Default
   - TransparentFX

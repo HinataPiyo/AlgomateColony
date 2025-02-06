@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0adb47e7b77f1654cb832dc609ecdd27, type: 3}
   m_Name: Matel
   m_EditorClassIdentifier: 
-  icon: {fileID: 8249342819601133203, guid: b3a959d7581e4744fab3e7647686a051, type: 3}
+  icon: {fileID: -5054491579448134799, guid: e7adc56bb64781e42babc164ff0e3c8b, type: 3}
   serialNum: 3
-  materialName: Matel
+  materialName: "\u91D1\u5C5E"
   maxHp: 30
   gatherTime: 50
   EquipmentToMatch: 1

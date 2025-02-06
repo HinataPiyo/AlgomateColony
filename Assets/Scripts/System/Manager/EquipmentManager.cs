@@ -31,12 +31,7 @@ public class EquipmentManager : MonoBehaviour
 
     public List<GameObject> select_objs = new List<GameObject>();
 
-    [Header("選択画面 / バッテリー")]
-    [SerializeField] GameObject battery_ScrollView;
-    [SerializeField] GameObject select_BatterySlot_Prefab;         // 装備スロットを生成する為のPrefab(バッテリー)
-    [SerializeField] Transform batterySelect_parent;
-    EquipmentSelectSlot[] battery_select_slots;                   // 装備選択スロット(個々 / バッテリー)
-    public List<GameObject> battery_select_objs = new List<GameObject>();
+    [SerializeField] BatterySlot b_slot;    // バッテリー用スロット（装備スロット）
 
 
     private void Awake() {
@@ -66,40 +61,32 @@ public class EquipmentManager : MonoBehaviour
             }
         }
 
-        // 
-        if(battery_select_objs.Count < batteryData.battery_values.Length)
-        {
-            int index = batteryData.battery_values.Length - battery_select_objs.Count;
-            for(int ii = 0; ii < index; ii++)
-            {
-                // SOで作成したアクセサリーの数に合わせて選択スロットを生成する
-                GameObject obj = Instantiate(select_BatterySlot_Prefab, batterySelect_parent);
-                battery_select_objs.Add(obj);
-            }
-        }
-
         // 装備スロットを取得
         e_select_slots = equipmentselect_parent.GetComponentsInChildren<EquipmentSelectSlot>();
-        battery_select_slots = batterySelect_parent.GetComponentsInChildren<EquipmentSelectSlot>();
 
         // パネル類を非表示
         backButton_obj.SetActive(false);
         SetActive_Equipment_ScrollView(false);
-        SetActive_Battery_ScrollView(false);
     }
 
     /// <summary>
-    /// ロボットを押された時に初めに処理される
+    /// ロボットを押された時に初めに処理される（ロボットのステータス画面が表示されるとき）
+    /// 全ての装備スロットを確認する
+    /// RobotStatusPanelManagerで処理が実行される
     /// </summary>
     /// <param name="_robotBase"></param>
-    public void Check_UnlockEquipmentSlot(BaseStatus _robotBase)
+    public void Check_EquipmentSlots(BaseStatus _robotBase)
     {
         // 選択されたロボットのステータスを取得する
         robotbase = _robotBase;
 
-        // ドリルなどのツールステータスをテキストに設定する
+        // バッテリースロットを設定する
+        Set_BatterySlot();
+
+        // ロボットが装備しているツールをスロットに反映させる
         toolC.GetToolSlot().SetText_ToolValue(_robotBase.equipment_value);
 
+        // アクセサリーの処理
         for(int ii = 0; ii < accessoryC.GetAccessorySlots().Length; ii++)
         {
             accessoryC.GetAccessorySlots()[ii].SetText_AccessoryValue(_robotBase.acceData_list[ii]);
@@ -107,8 +94,16 @@ public class EquipmentManager : MonoBehaviour
 
         // スロットのボタンが押せるかどうか調べる
         toolC.SetButtonInteractable();
-        batteryC.SetButtonInteractable();
         accessoryC.SetButtonInteractable(robotbase);
+    }
+
+    /// <summary>
+    /// 装備スロットにバッテリーを反映させる
+    /// </summary>
+    public void Set_BatterySlot()
+    {
+        // ロボットが装備しているバッテリーを装備スロットに反映させる
+        b_slot.SetSlot_BatteryStatus(robotbase.battery_status);
     }
 
 #region スロットを表示/非表示にするか調べる
@@ -149,23 +144,6 @@ public class EquipmentManager : MonoBehaviour
             }
         }
     }
-
-    public void SetActiv_SelectSlots_Battery()
-    {
-        // 生成したスロット分forを回す
-        for(int ii = 0; ii < battery_select_objs.Count; ii++)
-        {
-            // 装備の数分アクティブ状態にする
-            if(ii < batteryData.battery_values.Length)
-            {
-                battery_select_objs[ii].SetActive(true);
-            }
-            else    // それ以外を非アクティブ状態にする
-            {
-                battery_select_objs[ii].SetActive(false);
-            }
-        }
-    }
 #endregion
 
 #region ロボットの装備スロットを押下した時にパネルを表示/非表示にするか設定する
@@ -181,8 +159,6 @@ public class EquipmentManager : MonoBehaviour
         // ツールパネルが表示状態だった場合
         if(equipment_ScrollView.activeSelf == true) 
         {
-            // バッテリーのパネルを非表示にする
-            SetActive_Battery_ScrollView(false);
             // バックボタンを表示
             backButton_obj.SetActive(true);
         }
@@ -193,29 +169,6 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// バッテリーパネルの非表示 / 表示
-    /// </summary>
-    /// <param name="flag"></param>
-    public void SetActive_Battery_ScrollView(bool flag)
-    {
-        // パネルを表示
-        battery_ScrollView.SetActive(flag);
-
-        // バッテリーパネルが表示状態だった場合
-        if(battery_ScrollView.activeSelf == true)
-        {
-            // ツールパネルを非表示状態にする
-            SetActive_Equipment_ScrollView(false);
-            // バックボタンを表示
-            backButton_obj.SetActive(true);
-        }
-        else
-        {
-            // バックボタンを非表示
-            backButton_obj.SetActive(false);
-        }
-    }
 #endregion
 
     /// <summary>
@@ -226,7 +179,6 @@ public class EquipmentManager : MonoBehaviour
         SoundManager.instance.PlayAudio("SelectObject");
 
         SetActive_Equipment_ScrollView(false);
-        SetActive_Battery_ScrollView(false);
     }
 
     public BaseStatus GetRobotStatus() { return robotbase; }
@@ -235,6 +187,5 @@ public class EquipmentManager : MonoBehaviour
     public RobotBatteryController GetRobotBatteryController() { return batteryC; }
 
     public EquipmentSelectSlot[] GetEquipmentSelectSlot() { return e_select_slots; }
-    public EquipmentSelectSlot[] GetBatterySelectSlot() { return battery_select_slots; }
     public AccessoryData[] GetAccessoryStatusSlot() { return acceDatas;}
 }

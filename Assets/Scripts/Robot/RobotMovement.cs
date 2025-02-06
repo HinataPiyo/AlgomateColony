@@ -1,4 +1,7 @@
+using TMPro;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RobotMovement : MonoBehaviour
 {
@@ -6,12 +9,12 @@ public class RobotMovement : MonoBehaviour
     BaseStatus _base;
     Animator robot_anim;
     
-    Vector3 targetPos;      // 移動先の目標座標
+    Transform targetPos;      // 移動先の目標座標
     bool isMoving;          // 移動中かどうか
-    [Header("RootのTransform"), SerializeField] Transform charaPos;
+    [Header("ロボットの画像"), SerializeField] SpriteRenderer charImg;
 
     [Header("移動先にオブジェクトがないか確認する")]
-    float destinationRadius = 0.3f;
+    [SerializeField] float destinationRadius = 0.3f;
     [SerializeField] LayerMask destinationObjLayer;
 
 
@@ -23,7 +26,7 @@ public class RobotMovement : MonoBehaviour
         robot_anim = robotCont.GetRobotAnim();
     }
 
-    public void Set_TargetPosition(Vector3 _target, bool flag)
+    public void Set_TargetPosition(Transform _target, bool flag)
     {
         targetPos = _target;
         isMoving = flag;
@@ -44,6 +47,19 @@ public class RobotMovement : MonoBehaviour
         Collider2D _hit = Physics2D.OverlapCircle(transform.position, destinationRadius, destinationObjLayer);
         if(_hit != null)    // 自身の周りにオブジェクトが存在していたら
         {
+            // 距離が近ければ移動終了
+            if (_hit.CompareTag(robotCont.ObjectName)) // Vector3.Distance(transform.position, targetPos) < 2.5f)
+            {
+                // 収集ステートに移行
+                robotCont.ChangeState(RobotController.State.DoNon);
+                robotCont.Get_RobotCommandExecute.StateEndFlag = true;      // 移動処理が終了したときにフラグを立てる
+                
+                robot_anim.SetBool("Run", false);
+                isMoving = false;       // 移動停止
+
+                return;
+            }
+
             // 中心座標
             Vector3 hitCenter = _hit.transform.position;
             Vector3 dir = (hitCenter - transform.position).normalized;
@@ -52,27 +68,19 @@ public class RobotMovement : MonoBehaviour
             transform.position += -dir * 10f * Time.deltaTime;
             // ---------------------------------------------------
             robot_anim.SetBool("Run", true);
+
+            return;
         }
         else    // 自身の周りにオブジェクトが存在していなければ
         {
             // ターゲット位置へ移動
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, _base.moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos.position, _base.moveSpeed * Time.deltaTime);
 
-            if(transform.position.x >= targetPos.x) charaPos.localScale = new Vector3(-1,1);
-            else charaPos.localScale = new Vector3(1,1);
+            // 反転処理
+            if(transform.position.x >= targetPos.position.x) charImg.flipX = true;
+            else charImg.flipX = false;
 
             robot_anim.SetBool("Run", true);
-        }
-
-
-        // 距離が近ければ移動終了
-        if (Vector3.Distance(transform.position, targetPos) < 1f)
-        {
-            // 収集ステートに移行
-            robotCont.ChangeState(RobotController.State.GatherResource);
-
-            robot_anim.SetBool("Run", false);
-            isMoving = false;       // 移動停止
         }
     }
 
@@ -81,8 +89,6 @@ public class RobotMovement : MonoBehaviour
     /// </summary>
     public void DoNonPosition()
     {
-        // 位置を固定
-        targetPos = transform.position;
         // 移動を行わない
         isMoving = false;
     }

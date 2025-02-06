@@ -17,14 +17,14 @@ MonoBehaviour:
     battery_level: 2
     energyMax_Up: 30
     statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
-    icon: {fileID: -2378248847373052380, guid: 851fe74bc90f6304ab0e3e727c70c7e1, type: 3}
+    icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
   - _name: "\u30D0\u30C3\u30C6\u30EA\u30FC\uFF08\u4E2D\uFF09"
     battery_level: 1
     energyMax_Up: 60
     statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
-    icon: {fileID: 7041874871385080086, guid: c65dc8f92609e7b4bbaed2a62d282adb, type: 3}
+    icon: {fileID: 797348246780296435, guid: e4dc7ee35ea9dad4cb578163d901efd9, type: 3}
   - _name: "\u30D0\u30C3\u30C6\u30EA\u30FC\uFF08\u5F37\uFF09"
     battery_level: 0
     energyMax_Up: 120
     statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
-    icon: {fileID: 21300000, guid: 54c419e9bcdf9384daba4c8723a52fbb, type: 3}
+    icon: {fileID: 3086662691875175084, guid: e1e0ca23859ded7479252f99d62bab20, type: 3}

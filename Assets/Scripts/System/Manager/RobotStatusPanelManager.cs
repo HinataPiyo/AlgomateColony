@@ -15,6 +15,7 @@ public class RobotStatusPanelManager : MonoBehaviour
     [SerializeField] Button commandButton;
     [SerializeField] RectTransform robotStatusPanel;
     [SerializeField] GameObject robotCodingObj;
+    RobotCommandController robotCmdCont;
 
     [Header("親のオブジェ")]
     [SerializeField] Transform slotsParent;
@@ -55,6 +56,7 @@ public class RobotStatusPanelManager : MonoBehaviour
         backButton.onClick.AddListener(BackButtonOnClick);
         commandButton.onClick.AddListener(CommandButtonClick);
         rSlot = slotsParent.GetComponentsInChildren<RobotSlot>();
+        robotCmdCont = GetComponent<RobotCommandController>();
 
         ResetText();
 
@@ -149,7 +151,10 @@ public class RobotStatusPanelManager : MonoBehaviour
             _robot = robot;
             _base = robot.GetBaseStatus();
             _baseSlot = robot.GetSlot();
-            EquipmentManager.instance.Check_UnlockEquipmentSlot(_base);
+
+            // ロボット自身にアタッチしてあるスクリプトを取得する
+            robotCmdCont.Set_RobotCommandExecute = robot.gameObject.GetComponent<RobotCommandExecute>();
+            EquipmentManager.instance.Check_EquipmentSlots(_base);
         } else {
             _robot = null;
         }

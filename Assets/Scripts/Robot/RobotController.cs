@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,12 +28,14 @@ public class RobotController : MonoBehaviour
     GameObject gSlider;     // 位置を調整するため(収集ゲージ)
 
     [Header("コンポーネント")]
+    [SerializeField] BatteryData batteryData;
     [SerializeField] BaseStatus _base;
 
     RobotGather robotGather;
     RobotMovement robotMove;
     RobotSearch robotSearch;
     RobotBattery robotBattery;
+    RobotCommandExecute robotCmdExecute;
 
     Canvas sliderCanvas;
     Animator robot_anim;
@@ -43,7 +46,9 @@ public class RobotController : MonoBehaviour
     [Header("Test")]
     [SerializeField] bool flag;
 
-
+    string objectName;
+    public string ObjectName { get{return objectName;} set{ objectName = value; } }
+    public RobotCommandExecute Get_RobotCommandExecute { get{ return robotCmdExecute; } }
 #region ステート管理
     void LateUpdate()
     {
@@ -87,8 +92,8 @@ public class RobotController : MonoBehaviour
                 }
                 break;
             case State.Search:
-                // 資源を探す
-                hitInfo = robotSearch.Material_Search();
+                // オブジェクトを探す
+                hitInfo = robotSearch.Search(objectName);
                 break;
             case State.Move:
                 // 移動処理
@@ -165,9 +170,11 @@ public class RobotController : MonoBehaviour
         robotMove = GetComponent<RobotMovement>();
         robotSearch = GetComponent<RobotSearch>();
         robotBattery = GetComponent<RobotBattery>();
+        robotCmdExecute = GetComponent<RobotCommandExecute>();
 
 
         // 初期化処理を開始
+        _base.battery_status = batteryData.battery_values[0];   // 一番弱いバッテリーを最初に装着させておく
         _base.currentEnergy = _base.maxEnergy;  // 充電をMaxにする
         _base.base_MaxEnergy = _base.maxEnergy; // 最大充電量を別の変数に格納しておく
         _eslider.maxValue = _base.maxEnergy;    // スライダーの最大値を個々の充電量を反映
@@ -179,6 +186,8 @@ public class RobotController : MonoBehaviour
         robotMove.GameInit(this);               // 移動用スクリプト
         robotSearch.GameInit(this,robotMove);   // 資源探し用スクリプト
         robotBattery.GameInit(this);            // バッテリー用スクリプト
+
+        _base.StatusUp_EnergyMax();
 
         // 非アクティブ状態系は最後に実行
         gSlider.SetActive(false);   // 非アクティブ状態にする

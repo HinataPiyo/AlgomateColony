@@ -1,25 +1,21 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BatteryChargingRoomManager : MonoBehaviour
 {
-    VerticalButtonController vbCont;
     HorizontalButtonController hbCont;
+    ChargingBatteryPanel cbCont;
 
-    ChargingBatteryController cbCont;
 
     [Header("ChargingBatteryキャンバスの設定")]
     [SerializeField] Button backButton;                 // 戻るボタン
-
-    [Header("縦ボタンを押したときに切り替えるパネル")]
-    [SerializeField] GameObject[] vertical_panels;
-    [SerializeField] Transform verticalButton_parent;
-    ButtonSlotVarticalHorizontal[] vertical_slots;
 
     [Header("横ボタンを押したときに切り替えるパネル")]
     [SerializeField] Transform horizontalButton_parent;
     [SerializeField] HorizontalButtonCohesion[] horizontal_panels;
     ButtonSlotVarticalHorizontal[] horizontal_slots;
+    [SerializeField] string[] buttonName;
 
     // 横ボタンのまとまり用ストラクト
     [System.Serializable]
@@ -29,23 +25,18 @@ public class BatteryChargingRoomManager : MonoBehaviour
         public Transform panels_paent;
         // まとまりの中にある別のパネル
         public GameObject[] horizontal_panels;
-        public string[] buttonName;
+        public TextMeshProUGUI[] buttonName;
     }
 
     private void Start() {
         backButton.onClick.AddListener(ButtonOnClick_Back);
         // コンポーネントの取得
-        vbCont = GetComponent<VerticalButtonController>();
         hbCont = GetComponent<HorizontalButtonController>();
-        cbCont = GetComponent<ChargingBatteryController>();
-        vertical_slots = verticalButton_parent.GetComponentsInChildren<ButtonSlotVarticalHorizontal>();
+        cbCont = GetComponent<ChargingBatteryPanel>();
         horizontal_slots = horizontalButton_parent.GetComponentsInChildren<ButtonSlotVarticalHorizontal>();
         
-        // 縦に並んでるボタンを設定する
-        vbCont.Set_VarticalButton(vertical_slots, vertical_panels);
-        hbCont.Set_HorizontalButton(horizontal_slots, horizontal_panels);
-        
-        vbCont.ButtonClick_Proc(0);     // 最初の画面設定
+        // 横に並んでるボタンを設定する
+        hbCont.Set_HorizontalButton(horizontal_slots, horizontal_panels, buttonName);
     }
     
     private void Update()
@@ -60,5 +51,5 @@ public class BatteryChargingRoomManager : MonoBehaviour
         FacilityManager.instance.CanvasEnabled(CanvasName.BatteryRoom, false);
     }
 
-    public ChargingBatteryController GetChargingBatteryController() { return cbCont;}
+    public ChargingBatteryPanel GetChargingBatteryController() { return cbCont;}
 }

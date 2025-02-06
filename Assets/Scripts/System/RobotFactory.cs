@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class RobotFactory : MonoBehaviour
 {
+    [SerializeField] SystemControlSO scSO;
     [Header("ロボット系")]
     [SerializeField] GameObject robotPrefab;    // ロボットのPrefab
     [SerializeField] Transform spawnPoint;      // スポーン地点
 
-    [SerializeField] RobotDataSO rDataSO;       // テスト
     [SerializeField] bool flag;
 
     private void Start() {
@@ -32,5 +32,6 @@ public class RobotFactory : MonoBehaviour
         GameObject newRobot = Instantiate(robotPrefab, spawnPoint.position, Quaternion.identity);
         RobotController _robot = newRobot.GetComponent<RobotController>();
         _robot.Initialize();
+        scSO.robot_list.Add(_robot.GetBaseStatus());
     }
 }

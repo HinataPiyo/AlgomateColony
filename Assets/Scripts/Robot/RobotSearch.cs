@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +10,10 @@ public class RobotSearch : MonoBehaviour
 
     [Header("資源を索敵する範囲")]
     [SerializeField] float infoRadius;
-    const float INCREASE_RADIUS = 3f;
+    const float INCREASE_RADIUS = 0.5f;
     [SerializeField] LayerMask layerMask;
-    Collider2D hitInfo;
-    bool hitMaterial;       // 資源が見つかっているか否か
+    Collider2D[] hitInfo;
+    bool hitObject;       // 資源が見つかっているか否か
 
 
     public void GameInit(RobotController _robotCont, RobotMovement _robotMove)
@@ -21,32 +23,38 @@ public class RobotSearch : MonoBehaviour
     }
 
     /// <summary>
-    /// 資源を見つかるまで探す
+    /// オブジェクトを見つかるまで探す
     /// </summary>
-    public Collider2D Material_Search()
+    public Collider2D Search(string _name)
     {
+        
         // 範囲の生成
-        hitInfo = Physics2D.OverlapCircle(transform.position, infoRadius, layerMask);
+        hitInfo = Physics2D.OverlapCircleAll(transform.position, infoRadius, layerMask);
 
-        // 資源が範囲内にいたら
-        if(hitInfo != null && hitMaterial == false)
+        foreach(Collider2D hit in hitInfo)
         {
-            infoRadius = 0;         // 0に初期化する
-            hitMaterial = true;     // マテリアルが見つかりました
+            Debug.Log("name : " + _name);    
+            Debug.Log("hitInfo : " + hitInfo);
+            if(hitInfo != null && hitObject == false && hit.CompareTag(_name))
+            {
 
-            // 資源の位置を保存しておく
-            robotMove.Set_TargetPosition(hitInfo.transform.position, true);
+                infoRadius = 0;         // 0に初期化する
+                hitObject = true;       // マテリアルが見つかりました
 
-            // 資源が見つかったらその資源に向かって移動
-            robotCont.ChangeState(RobotController.State.Move);
+                // オブジェクトの位置を保存しておく
+                robotMove.Set_TargetPosition(hit.transform, true);
+
+                // オブジェクトが見つかったらそのオブジェクトに向かって移動
+                robotCont.ChangeState(RobotController.State.Move);
+                Debug.Log("searchが完了しました");
+
+                return hit;
+            }        
         }
-        else    // 資源が見つからなかったら
-        {
-            infoRadius += INCREASE_RADIUS;  // 半径を広げる
-            hitMaterial = false;    // マテリアルが見つかりませんでした
-        }
+        infoRadius += INCREASE_RADIUS;  // 半径を広げる
+        hitObject = false;    // マテリアルが見つかりませんでした
 
-        return hitInfo;
+        return null;
     }
 
     /// <summary>

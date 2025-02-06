@@ -1,13 +1,5 @@
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "NewRobotData", menuName = "RobotSO/Robot Data")]
-public class RobotDataSO : ScriptableObject
-{
-    
-}
-
 
 [System.Serializable]
 public class BaseStatus
@@ -69,7 +61,7 @@ public class BaseStatus
     {
         for(int ii = acceData_list.Length - 1; ii >= 0; ii--)
         {
-            acceData_list[ii] = new AccessoryData();
+            acceData_list[ii] = ScriptableObject.CreateInstance<AccessoryData>();
         }
     }
 

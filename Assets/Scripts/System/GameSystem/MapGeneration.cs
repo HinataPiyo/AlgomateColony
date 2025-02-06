@@ -33,37 +33,9 @@ public class MapGeneration : MonoBehaviour
                 TileBase tile = tiles[Random.Range(0, tiles.Length)];
                 
                 tilemap.SetTile(position, tile);
-                SetTileTrandform(position);
             }
         }
     }
-    void SetTileTrandform(Vector3Int pos)
-    {
-        int randomRotation = Random.Range(0,4);
-        float angle = 0;
-        switch(randomRotation)
-        {
-            case 0:
-            angle = 90;
-                break;
-            case 1:
-            angle = 180;
-                break;
-            case 2:
-            angle = -90;
-                break;
-            case 3:
-                angle = -180;
-                break;
-        }
-
-        Quaternion rotation = Quaternion.Euler(0,0,angle);
-        Matrix4x4 matrix = Matrix4x4.TRS(Vector3.zero, rotation, Vector3.one);
-
-        // Tilemapの指定位置にタイルを設定
-        tilemap.SetTransformMatrix(pos, matrix);
-    }
-
 
     /// <summary>
     /// ゲッター関数

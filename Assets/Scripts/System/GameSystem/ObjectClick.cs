@@ -12,7 +12,7 @@ public class ObjectClick : MonoBehaviour, IPointerClickHandler
         if(FacilityManager.instance.GetIsOpenCanvas() == false)
         {
             
-            if(gameObject.CompareTag("Location"))
+            if(gameObject.CompareTag("location"))
             {
                 Debug.Log($"オブジェクト {name} がクリックされました。");
                 FacilityManager.instance.CanvasEnabled(CanvasName.Location, true);

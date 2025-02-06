@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -8489009368509014225}
   - component: {fileID: 5719969249605050451}
   - component: {fileID: 7994730142508363131}
+  - component: {fileID: 2500215236835340123}
   m_Layer: 9
   m_Name: Robot_0_Root
   m_TagString: Robot
@@ -130,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energySlider: {fileID: 4249589918113511865, guid: 055de1bda11bf934f9f2e07ba4de34eb, type: 3}
   gatherSlider: {fileID: 4249589918113511865, guid: adc46a6c5e28cb44a8a34c938d2083a0, type: 3}
+  batteryData: {fileID: 11400000, guid: 42915cfa5fade6a42a545c81325bfbe3, type: 2}
   _base:
     _runk: 
     totalScore: 0
@@ -204,7 +206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed6f04cb2830c24c93badad2db1b661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charaPos: {fileID: 6914740022856354479}
+  charImg: {fileID: 722260685615233087}
+  destinationRadius: 0.7
   destinationObjLayer:
     serializedVersion: 2
     m_Bits: 192
@@ -223,7 +226,7 @@ MonoBehaviour:
   infoRadius: 0
   layerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 192
 --- !u!114 &5719969249605050451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +249,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9578acf08fe0e24ea9b9abaaee1ef8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2500215236835340123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282224230659730723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24aa697a5c7de4043a9a8fbed598fdad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2260300160016322739

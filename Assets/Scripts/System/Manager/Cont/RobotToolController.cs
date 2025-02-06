@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// ロボットにつけるスクリプト
 public class RobotToolController : MonoBehaviour
 {
     [SerializeField] EquipmentSO equipmentSO;                                // 装備の核、スクリプタブルオブジェクト
