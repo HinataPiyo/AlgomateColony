@@ -17,17 +17,17 @@ public class ObjectClick : MonoBehaviour, IPointerClickHandler
                 Debug.Log($"オブジェクト {name} がクリックされました。");
                 FacilityManager.instance.CanvasEnabled(CanvasName.Location, true);
             }
-            else if(gameObject.CompareTag("Warehouse"))
+            else if(gameObject.CompareTag("warehouse"))
             {
                 Debug.Log($"オブジェクト {name} がクリックされました。");
                 FacilityManager.instance.CanvasEnabled(CanvasName.Warehouse, true);
             }
-            else if(gameObject.CompareTag("ChargingBattery"))
+            else if(gameObject.CompareTag("chargingroom"))
             {
                 Debug.Log($"オブジェクト {name} がクリックされました。");
                 FacilityManager.instance.CanvasEnabled(CanvasName.BatteryRoom, true);
             }
-            else if(gameObject.CompareTag("Warkshop"))
+            else if(gameObject.CompareTag("processingroom"))
             {
                 Debug.Log($"オブジェクト {name} がクリックされました。");
                 FacilityManager.instance.CanvasEnabled(CanvasName.Warkshop, true);

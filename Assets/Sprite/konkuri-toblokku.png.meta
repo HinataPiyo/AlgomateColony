@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ee78d4a1d6979e64393501d40aa9014f
+guid: 82e4a1e8f76af1d468f9ee75c8868cdc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3064601436989315645
-    second: suraida-2_2_0
+      213: 144807091098716867
+    second: konkuri-toblokku_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: suraida-2_2_0
+      name: konkuri-toblokku_0
       rect:
         serializedVersion: 2
-        x: 28
-        y: 95
-        width: 604
-        height: 116
+        x: 259
+        y: 249
+        width: 162
+        height: 122
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d3a56ed15c6a78a20800000000000000
-      internalID: 3064601436989315645
+      spriteID: 3ca85e93845720200800000000000000
+      internalID: 144807091098716867
       vertices: []
       indices: 
       edges: []

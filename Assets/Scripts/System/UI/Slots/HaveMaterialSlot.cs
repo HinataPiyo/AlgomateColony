@@ -6,7 +6,7 @@ public class HaveMaterialSlot : MonoBehaviour
 {
     [SerializeField] MaterialSO mateSO;
     [SerializeField] Image icon;
-    [SerializeField] uint haveAmo;
+    [SerializeField] int haveAmo;
     [SerializeField] TextMeshProUGUI haveAmo_text;
 
     /// <summary>
@@ -14,7 +14,7 @@ public class HaveMaterialSlot : MonoBehaviour
     /// </summary>
     /// <param name="_mateSO"></param>
     /// <param name="amo"></param>
-    public void SetHaveMaterial(MaterialSO _mateSO, uint _amo)
+    public void SetHaveMaterial(MaterialSO _mateSO, int _amo)
     {
         mateSO = _mateSO;
         icon.sprite = mateSO.icon;

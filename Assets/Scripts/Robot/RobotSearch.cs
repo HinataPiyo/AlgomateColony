@@ -10,7 +10,7 @@ public class RobotSearch : MonoBehaviour
 
     [Header("資源を索敵する範囲")]
     [SerializeField] float infoRadius;
-    const float INCREASE_RADIUS = 0.5f;
+    const float INCREASE_RADIUS = 0.6f;
     [SerializeField] LayerMask layerMask;
     Collider2D[] hitInfo;
     bool hitObject;       // 資源が見つかっているか否か
@@ -33,8 +33,6 @@ public class RobotSearch : MonoBehaviour
 
         foreach(Collider2D hit in hitInfo)
         {
-            Debug.Log("name : " + _name);    
-            Debug.Log("hitInfo : " + hitInfo);
             if(hitInfo != null && hitObject == false && hit.CompareTag(_name))
             {
 

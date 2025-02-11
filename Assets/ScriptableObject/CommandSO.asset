@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be007bd7f8841545aa2da9d57a5104a, type: 3}
+  m_Name: CommandSO
+  m_EditorClassIdentifier: 
+  cmdsDetail:
+  - commandName: MoveTo();
+    exp: "\u30ED\u30DC\u30C3\u30C8\u3092\u79FB\u52D5\u3055\u305B\u308B\u3002\n\u62EC\u5F27\u5185\u306B\u306F\u3001\u5BFE\u8C61\u306E\u540D\u524D\u3092\u66F8\u304F\u3002\n\n\u4F8B)
+      MoveTo(rock); ---> \u77F3\u306B\u79FB\u52D5"
+    canUseCommads:
+    - rock
+    - tree
+    - ironore
+    - location
+    - warehouse
+  - commandName: GatherTo();
+    exp: "\u30ED\u30DC\u30C3\u30C8\u306B\u6728\u3084\u77F3\u306A\u3069\u3092\u53CE\u96C6\u3055\u305B\u308B\u3002\n\u62EC\u5F27\u5185\u306B\u306F\u3001\u5BFE\u8C61\u306E\u540D\u524D\u3092\u66F8\u304F\u3002\n\u203B\u3053\u306E\u30B3\u30DE\u30F3\u30C9\u306F\u3001MoveTo();\u3067\u5148\u306B\u5BFE\u8C61\u306E\u30AA\u30D6\u30B8\u30A7\u30AF\u30C8\u3067\u79FB\u52D5\u3057\u3066\u304A\u304F\u5FC5\u8981\u304C\u3042\u308B\n\n\u4F8B)
+      MoveTo(rock);\n    GatherTo(rock);"
+    canUseCommads:
+    - rock
+    - tree
+    - location
+  - commandName: DepositTo();
+    exp: "\u30ED\u30DC\u30C3\u30C8\u304C\u53D6\u5F97\u3057\u305F\u8CC7\u6E90\u3092\u5009\u5EAB\u306B\u3044\u308C\u308B\u3002\n\u62EC\u5F27\u5185\u306B\u306F\u3001\u5BFE\u8C61\u306E\u540D\u524D\u3068\u5009\u5EAB\u306B\u3044\u308C\u308B\u500B\u6570\u3092\u66F8\u304F\u3002\n\u203B\u3053\u306E\u30B3\u30DE\u30F3\u30C9\u306F,\u5009\u5EAB\u307E\u3067\u79FB\u52D5\u3057\u3066\u304A\u304F\u5FC5\u8981\u304C\u3042\u308B\u3002\n\n\u4F8B)
+      MoveTo(rock);\n    DepositTo(rock, 10);"
+    canUseCommads:
+    - rock
+    - tree
+    - ironore

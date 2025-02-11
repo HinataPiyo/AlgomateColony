@@ -1,7 +1,4 @@
-using TMPro;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RobotMovement : MonoBehaviour
 {
@@ -52,11 +49,11 @@ public class RobotMovement : MonoBehaviour
             {
                 // 収集ステートに移行
                 robotCont.ChangeState(RobotController.State.DoNon);
-                robotCont.Get_RobotCommandExecute.StateEndFlag = true;      // 移動処理が終了したときにフラグを立てる
                 
                 robot_anim.SetBool("Run", false);
                 isMoving = false;       // 移動停止
 
+                robotCont.Get_RobotCommandExecute.StateEndFlag = true;      // 移動処理が終了したときにフラグを立てる
                 return;
             }
 
@@ -65,7 +62,7 @@ public class RobotMovement : MonoBehaviour
             Vector3 dir = (hitCenter - transform.position).normalized;
             
             // 一旦保留-------------------------------------------
-            transform.position += -dir * 10f * Time.deltaTime;
+            transform.position += -dir * 1f * Time.deltaTime;
             // ---------------------------------------------------
             robot_anim.SetBool("Run", true);
 
@@ -107,6 +104,7 @@ public class RobotMovement : MonoBehaviour
         else
         {
             Debug.Log("ターゲットが見つかりませんでした。移動できません。");   // ターゲットが見つからなかった場合
+            LogController.instance.SetLog(_base, "ターゲットが見つかりませんでした, 移動できません");
         }
     }
 

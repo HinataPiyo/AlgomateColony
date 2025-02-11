@@ -12,15 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61e28209fee962448b26735d9767baec, type: 3}
   m_Name: WarehouseSO
   m_EditorClassIdentifier: 
-  mate_warehouse_slots:
-  - mateSO: {fileID: 11400000, guid: 6e2f2b0d0e287b74797f240d07e7755c, type: 2}
-    mateAmount: 149
-  - mateSO: {fileID: 11400000, guid: 6e2f2b0d0e287b74797f240d07e7755c, type: 2}
-    mateAmount: 149
-  - mateSO: {fileID: 11400000, guid: 6e2f2b0d0e287b74797f240d07e7755c, type: 2}
-    mateAmount: 149
-  - mateSO: {fileID: 11400000, guid: 6e2f2b0d0e287b74797f240d07e7755c, type: 2}
-    mateAmount: 149
+  mate_warehouse_slots: []
   acce_warehouse_slots:
   - {fileID: 11400000, guid: 82c4b85c481c0a74a82fb6e396a1a6ec, type: 2}
   - {fileID: 11400000, guid: a56377f38034ae743bb1a46c8fb3795c, type: 2}

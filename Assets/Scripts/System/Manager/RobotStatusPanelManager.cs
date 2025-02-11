@@ -129,6 +129,7 @@ public class RobotStatusPanelManager : MonoBehaviour
             if(_baseSlot[ii].mateSO == null)
             {
                 rSlot[ii].icon.sprite = null;
+                rSlot[ii].icon.enabled = false;
                 rSlot[ii].stackAmo_text.text = "0";
             }
             else    // アイテムを所持していれば
@@ -152,8 +153,23 @@ public class RobotStatusPanelManager : MonoBehaviour
             _base = robot.GetBaseStatus();
             _baseSlot = robot.GetSlot();
 
+            // コマンドのチェックボタンや実行ブタンを初期化する
+            robotCmdCont.Reset_Buttons();
+
             // ロボット自身にアタッチしてあるスクリプトを取得する
             robotCmdCont.Set_RobotCommandExecute = robot.gameObject.GetComponent<RobotCommandExecute>();
+
+            // 入力されているコマンドを押されたロボットの内容にする
+            RobotCommandExecute _execute = robot.GetComponent<RobotCommandExecute>();
+            if(_execute.ProcText != null)
+            {
+                robotCmdCont.InputCommandField.text = string.Join("\n", _execute.ProcText);
+            }
+            else
+            {
+                robotCmdCont.InputCommandField.text = "";
+            }
+
             EquipmentManager.instance.Check_EquipmentSlots(_base);
         } else {
             _robot = null;

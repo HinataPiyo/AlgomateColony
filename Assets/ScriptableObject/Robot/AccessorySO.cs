@@ -31,7 +31,7 @@ public class AccessorySO : ScriptableObject
     public struct NEED_MATERIAL
     {
         public MaterialSO mateSO;       // 素材のデータ
-        public uint needAmo;             // 必要個数
+        public int needAmo;             // 必要個数
     }
 }
 

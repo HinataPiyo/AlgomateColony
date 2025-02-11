@@ -172,7 +172,7 @@ public class WarehouseController : MonoBehaviour
     /// </summary>
     /// <param name="_mateSO"></param>
     /// <param name="_amo"></param>
-    public void SetMaterial_WarehouseSlot(MaterialSO _mateSO, uint _amo)
+    public void SetMaterial_WarehouseSlot(MaterialSO _mateSO, int _amo)
     {
         WarehouseSO.MATERIAL_WAREHOUSE_SLOT warehouse_slot = new WarehouseSO.MATERIAL_WAREHOUSE_SLOT();
 
@@ -206,7 +206,7 @@ public class WarehouseController : MonoBehaviour
     /// </summary>
     /// <param name="_mateSO"></param>
     /// <param name="_useAmo"></param>
-    public void UseMaterial(MaterialSO _mateSO, uint _useAmo)
+    public void UseMaterial(MaterialSO _mateSO, int _useAmo)
     {
         for(int ii = 0; ii < wlist.Count; ii++)
         {

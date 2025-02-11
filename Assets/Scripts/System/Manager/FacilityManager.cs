@@ -21,7 +21,7 @@ public class FacilityManager : MonoBehaviour
     [SerializeField] Canvas batteryRoomCanvas;
     [SerializeField] Canvas warkshopCanvas;
     Canvas robotStatusCanvas;
-    LocationController lcCont;                    // 拠点キャンバスのスクリプト
+    [SerializeField] WarehouseController wCont;
 
     bool isOpenCnavas;      // Canvasが開いているか否か
 
@@ -33,7 +33,6 @@ public class FacilityManager : MonoBehaviour
     void Start()
     {
         // コンポーネントの取得
-        lcCont = GetComponent<LocationController>();
         robotStatusCanvas = RobotStatusPanelManager.instance.GetComponentInChildren<Canvas>();
 
         settingCanvas.enabled = false;       // 設定キャンバスを非表示にする
@@ -102,5 +101,5 @@ public class FacilityManager : MonoBehaviour
     }
 
     public bool GetIsOpenCanvas() { return isOpenCnavas; }          // Canvasが開いているか否か
-    public LocationController lcController() { return lcCont; }
+    public WarehouseController wController { get{ return wCont; } }
 }

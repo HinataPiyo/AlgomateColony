@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stop_sprite: {fileID: 0}
   processing_status:
-  - mateSO: {fileID: 11400000, guid: 2d7d5f2e89d25654291cd54df7087c6f, type: 2}
+  - mateSO: {fileID: 11400000, guid: 9e97d63cecc460745999458009b6945a, type: 2}
     need_mate_list:
-    - mateSO: {fileID: 11400000, guid: 380daebfc203ddc468e185a5c341a12c, type: 2}
-      needAmo: 70
-  - mateSO: {fileID: 11400000, guid: 6e2f2b0d0e287b74797f240d07e7755c, type: 2}
-    need_mate_list:
-    - mateSO: {fileID: 11400000, guid: 380daebfc203ddc468e185a5c341a12c, type: 2}
-      needAmo: 70
     - mateSO: {fileID: 11400000, guid: 6e2f2b0d0e287b74797f240d07e7755c, type: 2}
+      needAmo: 30
+  - mateSO: {fileID: 11400000, guid: 45cba4d29a190a04aa1d413d10aab7ad, type: 2}
+    need_mate_list:
+    - mateSO: {fileID: 11400000, guid: 380daebfc203ddc468e185a5c341a12c, type: 2}
       needAmo: 50
-  accessory_status: []
+  - mateSO: {fileID: 11400000, guid: 00481e47ccea5764c9ae29101199e96a, type: 2}
+    need_mate_list:
+    - mateSO: {fileID: 11400000, guid: 2d7d5f2e89d25654291cd54df7087c6f, type: 2}
+      needAmo: 75
+  need_accessory_status: []

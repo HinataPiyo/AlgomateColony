@@ -15,16 +15,16 @@ MonoBehaviour:
   battery_values:
   - _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
     battery_level: 2
-    energyMax_Up: 30
+    energyMax_Up: 99999
     statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
     icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
   - _name: "\u30D0\u30C3\u30C6\u30EA\u30FC\uFF08\u4E2D\uFF09"
     battery_level: 1
-    energyMax_Up: 60
+    energyMax_Up: 100
     statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
     icon: {fileID: 797348246780296435, guid: e4dc7ee35ea9dad4cb578163d901efd9, type: 3}
   - _name: "\u30D0\u30C3\u30C6\u30EA\u30FC\uFF08\u5F37\uFF09"
     battery_level: 0
-    energyMax_Up: 120
+    energyMax_Up: 200
     statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
     icon: {fileID: 3086662691875175084, guid: e1e0ca23859ded7479252f99d62bab20, type: 3}

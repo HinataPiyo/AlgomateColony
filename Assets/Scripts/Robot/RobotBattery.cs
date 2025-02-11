@@ -20,7 +20,8 @@ public class RobotBattery : MonoBehaviour
     {
         if(_base.currentEnergy > 0)
         {
-            if(robotCont.GetCurrentStat() != RobotController.State.DoNon)
+            if(robotCont.GetCurrentStat() != RobotController.State.DoNon
+            && robotCont.GetHitInfo() != null)
             {
                 // エネルギー消費
                 _base.currentEnergy -= Time.deltaTime;
@@ -78,6 +79,7 @@ public class RobotBattery : MonoBehaviour
         robotCont.GetGatherSliderObject().SetActive(false);
 
         Debug.Log(_base.robotName + "のエネルギーが不足しています！");
+        LogController.instance.SetLog(_base, "エネルギーが不足しています！");
         robot_anim.SetBool("OutBattery", true);       // 充電不足のアニメーションを開始
     }
 

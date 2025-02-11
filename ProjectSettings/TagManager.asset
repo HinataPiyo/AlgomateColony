@@ -8,13 +8,13 @@ TagManager:
   - CenterCollider
   - Robot
   - Proc
-  - Warehouse
-  - ChargingBattery
-  - Warkshop
   - location
-  - matel
   - rock
   - tree
+  - warehouse
+  - chargingroom
+  - processingroom
+  - ironore
   layers:
   - Default
   - TransparentFX
@@ -26,7 +26,7 @@ TagManager:
   - Material
   - CenterCollider
   - Robot
-  - 
+  - Name
   - 
   - 
   - 

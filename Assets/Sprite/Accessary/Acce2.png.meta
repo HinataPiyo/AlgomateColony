@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ad764f47ddcc2da4a86486ec909a851f
+guid: 1c89e25dfc74bbc45a98721c7145a6c3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1669824195579845504
-    second: suraida-2_0
+      213: -6621304728671135691
+    second: "\u30A2\u30A4\u30C6\u30E02_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: suraida-2_0
+      name: "\u30A2\u30A4\u30C6\u30E02_0"
       rect:
         serializedVersion: 2
-        x: 28
-        y: 95
-        width: 604
-        height: 116
+        x: 179
+        y: 199
+        width: 282
+        height: 242
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0846c11cdb793d8e0800000000000000
-      internalID: -1669824195579845504
+      spriteID: 53851f13e666c14a0800000000000000
+      internalID: -6621304728671135691
       vertices: []
       indices: 
       edges: []
@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "\u30A2\u30A4\u30C6\u30E02_0": -6621304728671135691
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0adb47e7b77f1654cb832dc609ecdd27, type: 3}
-  m_Name: Stone
+  m_Name: Concrete
   m_EditorClassIdentifier: 
-  icon: {fileID: 4619248598060133510, guid: 9e78a528120f9cb42bc9dcd97bec5335, type: 3}
-  serialNum: 1
-  materialName: Stone
-  maxHp: 30
-  gatherTime: 30
+  icon: {fileID: 144807091098716867, guid: 82e4a1e8f76af1d468f9ee75c8868cdc, type: 3}
+  serialNum: 5
+  materialName: "\u30B3\u30F3\u30AF\u30EA\u30FC\u30C8"
+  maxHp: 0
+  gatherTime: 0
   EquipmentToMatch: 1
+  exp: "\u62E0\u70B9\u3084\u30A2\u30AF\u30BB\u30B5\u30EA\u30FC\u306E\u5F37\u5316\u7D20\u6750\u3068\u306A\u308B"

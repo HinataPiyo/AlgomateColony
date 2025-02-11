@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 public class RobotCommandController : MonoBehaviour
 {
     public static RobotCommandController instance;
-    CommandDictionary commandDic;
+    [SerializeField] CommandSO commandSO;
     [Header("確認ボタン")]
     [SerializeField] Button checkButton;
     [SerializeField] TextMeshProUGUI check_text;
@@ -27,14 +28,21 @@ public class RobotCommandController : MonoBehaviour
 
     RobotCommandExecute robotCmdExecute;
     public RobotCommandExecute Set_RobotCommandExecute { set{robotCmdExecute = value;} }
+    public TMP_InputField InputCommandField { get{return inputField;} }
 
     private void Start()
     {
-        commandDic = new CommandDictionary();
         executeButton.onClick.AddListener(OnClick_CommandExecute);
         checkButton.onClick.AddListener(OnClick_CommandCheck);
 
         executeButton.interactable = false;     // 実行ボタンを最初は押せない状態にする
+    }
+
+    public void Reset_Buttons()
+    {
+        executeButton.interactable = false;
+        check_text.text = "チェック";
+        check_text.color = Color.white;
     }
 
     /// <summary>
@@ -43,46 +51,47 @@ public class RobotCommandController : MonoBehaviour
     /// <param name="proctext"></param>
     public bool InputCommand(string[] proctext)
     {
-        int counter = 0;
-        if(proctext != null)
+        if (string.IsNullOrEmpty(inputField.text))
         {
-            // ProcInputFieldを一行ずつ確認する
-            for(int ii = 0; ii < proctext.Length; ii++)
+            UpdateButtonState(false, "失敗", Color.red);
+            return false;
+        }
+
+        int validCommandCount = 0;
+        foreach (var command in proctext)
+        {
+            string commandText = commandSO.CheckCommand(command);
+            if (commandText != null)
             {
-                // string _proctext = commandDic.CheckCommand(proctext[ii]);
-
-                // ()の中を確認する
-                if(proctext[ii] != null)
-                {
-                    string text = CommandDictionary.MatchParenthesesCommand(proctext[ii]);
-
-                    if(text != null)
-                    {
-                        counter++;
-                    }
-                    else
-                    {
-                        Debug.Log($"({proctext[ii]})コマンドが間違えています。");
-                    }
-                }
-                else
-                {
-                    Debug.Log($"({proctext[ii]})コマンドが間違えています。");
-                }
+                validCommandCount++;
             }
-
-            if(counter == proctext.Length)
+            else
             {
-                return true;
+                Debug.Log($"[ {command} ]コマンドが間違えています。");
             }
         }
 
+        if (validCommandCount == proctext.Length)
+        {
+            UpdateButtonState(true, "成功", Color.green);
+            return true;
+        }
+
+        UpdateButtonState(false, "失敗", Color.red);
         return false;
     }
 
+    private void UpdateButtonState(bool isEnabled, string message, Color color)
+    {
+        executeButton.interactable = isEnabled;
+        check_text.text = message;
+        check_text.color = color;
+    }
+
+
     void OnClick_CommandCheck()
     {
-        robotCmdExecute.Set_ProcText = null;
+        robotCmdExecute.ProcText = null;
         robotCmdExecute.StateEndFlag  = false;
 
         proctext = CheckTextCommand(inputField);        // 行ごとに文字列を取得する
@@ -90,7 +99,7 @@ public class RobotCommandController : MonoBehaviour
 
         if(complete == true)
         {
-            robotCmdExecute.Set_ProcText = proctext;
+            robotCmdExecute.ProcText = proctext;
             executeButton.interactable = true;
         }
     }
@@ -99,6 +108,7 @@ public class RobotCommandController : MonoBehaviour
     {
         // コマンドを実行する
         robotCmdExecute.StartCoroutine_CommandToExecution();
+        
         Debug.Log("出力します。");
     }
 
@@ -124,78 +134,4 @@ public class RobotCommandController : MonoBehaviour
     }
 }
 
-public class CommandDictionary
-{
-    // メインコマンド
-    public const string moveTo = "MoveTo";
-    public const string gatherTo = "GatherTo";
 
-    // 例 : Locationと入力されたらLocationと返す
-    Dictionary<string, string> moveName = new Dictionary<string, string>()
-    {
-        { "location", "location"},
-        { "rock", "rock"}, { "tree", "tree"}
-    };
-
-    Dictionary<string, string> gatherName = new Dictionary<string, string>()
-    {
-        { "rock", "rock"}, { "tree", "tree"}
-    };
-
-    /// <summary>
-    /// 括弧の中の文字列を取得する
-    /// </summary>
-    /// <param name="_name"></param>
-    /// <returns></returns>
-    public static string MatchParenthesesCommand(string _name)
-    {
-        Match match = Regex.Match(_name, @"\((.*?)\)");
-
-        if (match.Success)
-        {
-            string result = match.Groups[1].Value;
-            // Regex.Split
-            Debug.Log(result);
-            return result;
-        }
-        else
-        {
-            Debug.LogError("括弧の中身を見つけられませんでした。");
-        }
-
-        return null;
-    }
-
-    /// <summary>
-    /// 括弧内のコマンドをセパレートする処理
-    /// </summary>
-    /// <param name="_text"></param>
-    /// <returns></returns>
-    public static string MatchSeparateCommand(string _text)
-    {
-
-        return null;
-    }
-
-    /// <summary>
-    /// コマンドがちゃんと動くものか確かめる
-    /// Dictionaryで設定された単語が誤字脱字なく書かれているか確認する
-    /// </summary>
-    /// <param name="_proctext"></param>
-    /// <returns></returns>
-    public string CheckCommand(string _proctext) 
-    {
-        // ()内のコマンドを取得する　
-        foreach(var mn in moveName.Keys)        // 移動処理
-        {
-            if(_proctext == moveTo + $"({mn});") { return _proctext; }
-        }
-
-        foreach(var gn in gatherName.Keys)      // 収集処理
-        {
-            if(_proctext == gatherTo + $"({gn});") { return _proctext; }
-        }
-
-        return null;
-    }
-}

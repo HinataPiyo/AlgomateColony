@@ -36,6 +36,7 @@ public class ProcessingController : MonoBehaviour
 
     void Start()
     {
+        creat_button.interactable = false;
         select_icon.enabled = false;
         selectName_text.text = "";
         selectExp_text.text = "";

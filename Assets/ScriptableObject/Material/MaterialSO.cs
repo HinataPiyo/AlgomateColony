@@ -9,5 +9,15 @@ public class MaterialSO : ScriptableObject
     public int maxHp;               // 最大体力
     public float gatherTime;        // 収集時間
     public EQUIPMENT_NAME EquipmentToMatch;
-    public string exp;              // アイテムの説明
+    [TextArea(3, 10)] public string exp;              // アイテムの説明
+    [Header("アイテムのタグ名")]
+    public MaterialNameTag mateTagName;
+}
+
+[System.Flags]
+public enum MaterialNameTag
+{
+    rock,
+    tree,
+    ironore,
 }

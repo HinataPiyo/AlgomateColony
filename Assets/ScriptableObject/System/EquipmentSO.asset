@@ -19,7 +19,7 @@ MonoBehaviour:
     _name: "\u30C9\u30EA\u30EB"
     level: 0
     statusup_name: "- \u77F3\u306E\u63A1\u6398\u901F\u5EA6\u4E0A\u6607\u7387"
-    statusup_value: 0.36
+    statusup_value: 20
     levelupPitch: 0.2
   - equipment_name: 2
     icon: {fileID: -254286355086068568, guid: ee5d2df1db381464fadb6ea2a2c2c6ad, type: 3}

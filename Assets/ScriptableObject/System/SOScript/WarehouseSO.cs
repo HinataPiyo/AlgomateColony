@@ -18,6 +18,6 @@ public class WarehouseSO : ScriptableObject
     public class MATERIAL_WAREHOUSE_SLOT
     {
         public MaterialSO mateSO;
-        public uint mateAmount;
+        public int mateAmount;
     }
 }

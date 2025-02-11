@@ -13,6 +13,7 @@ public class RobotController : MonoBehaviour
         GatherResource, // 収集する
         Recharge,   // 充電する
         NonEnergy,
+        Deposit,
     }
 
     [Header("ステート")]
@@ -36,6 +37,7 @@ public class RobotController : MonoBehaviour
     RobotSearch robotSearch;
     RobotBattery robotBattery;
     RobotCommandExecute robotCmdExecute;
+    RobotDeposit robotDeposit;
 
     Canvas sliderCanvas;
     Animator robot_anim;
@@ -43,10 +45,10 @@ public class RobotController : MonoBehaviour
     // Searchで取得してきたhitInfoを格納しておく為の変数
     Collider2D hitInfo;
 
-    [Header("Test")]
-    [SerializeField] bool flag;
 
     string objectName;
+    string[] depsiteName;
+    public string[] DepsiteName { get{ return depsiteName; } set{ depsiteName = value; }}
     public string ObjectName { get{return objectName;} set{ objectName = value; } }
     public RobotCommandExecute Get_RobotCommandExecute { get{ return robotCmdExecute; } }
 #region ステート管理
@@ -69,12 +71,6 @@ public class RobotController : MonoBehaviour
 
     private void Update()
     {
-        // テスト
-        if(flag == true)
-        {   
-            ChangeState(State.Search);
-            flag = false;
-        }
 
         // ロボットの充電がなくなったか調べる
         robotBattery.Check_CurrentEnergy();
@@ -87,6 +83,7 @@ public class RobotController : MonoBehaviour
                 if(stateEnter)
                 {
                     Debug.Log(_base.robotName + "が待機状態になりました");
+                    LogController.instance.SetLog(_base, "待機状態です");
                     robotMove.DoNonPosition();
                     gSlider.SetActive(false);   // 非アクティブ状態にする
                 }
@@ -96,6 +93,10 @@ public class RobotController : MonoBehaviour
                 hitInfo = robotSearch.Search(objectName);
                 break;
             case State.Move:
+                if(stateEnter)
+                {
+                    LogController.instance.SetLog(_base, "移動を開始しました");
+                }
                 // 移動処理
                 robotMove.Moveing();
                 break;
@@ -121,6 +122,13 @@ public class RobotController : MonoBehaviour
                 {
                     // 充電がなくなったら時の処理
                     robotBattery.NonEnergy();
+                }
+                break;
+            case State.Deposit:
+                if(stateEnter)
+                {
+                    // アイテムを倉庫に入れる
+                    robotDeposit.Deposite();
                 }
                 break;
         }
@@ -171,10 +179,12 @@ public class RobotController : MonoBehaviour
         robotSearch = GetComponent<RobotSearch>();
         robotBattery = GetComponent<RobotBattery>();
         robotCmdExecute = GetComponent<RobotCommandExecute>();
+        robotDeposit = GetComponent<RobotDeposit>();
 
 
         // 初期化処理を開始
         _base.battery_status = batteryData.battery_values[0];   // 一番弱いバッテリーを最初に装着させておく
+        _base.StatusUp_EnergyMax();
         _base.currentEnergy = _base.maxEnergy;  // 充電をMaxにする
         _base.base_MaxEnergy = _base.maxEnergy; // 最大充電量を別の変数に格納しておく
         _eslider.maxValue = _base.maxEnergy;    // スライダーの最大値を個々の充電量を反映
@@ -186,8 +196,7 @@ public class RobotController : MonoBehaviour
         robotMove.GameInit(this);               // 移動用スクリプト
         robotSearch.GameInit(this,robotMove);   // 資源探し用スクリプト
         robotBattery.GameInit(this);            // バッテリー用スクリプト
-
-        _base.StatusUp_EnergyMax();
+        robotDeposit.GameInit(this);
 
         // 非アクティブ状態系は最後に実行
         gSlider.SetActive(false);   // 非アクティブ状態にする
@@ -206,7 +215,7 @@ public class RobotController : MonoBehaviour
         {
             // 収集速度のスライダーの位置を更新
             gSlider.transform.position =
-            new Vector3(transform.position.x, transform.position.y + 0.6f);
+            new Vector3(transform.position.x, transform.position.y + 0.7f);
         }
     }
 

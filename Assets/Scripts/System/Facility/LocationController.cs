@@ -287,7 +287,7 @@ public class LocationController : MonoBehaviour
 
                 // enumの名前をswitchで日本語に変換する
                 slTexts[ii].statusName_texts.text = $"{scSO.StatusSelectName(statusParam[ii].selectStatus)}";
-                slTexts[ii].statusValue_value.text = "" + statusParam[ii].statusLimited_value;
+                slTexts[ii].statusValue_value.text = "+" + statusParam[ii].statusLimited_value;
             }
             else    // 中身が空っぽだったらテキストを非アクティブ状態にする
             {

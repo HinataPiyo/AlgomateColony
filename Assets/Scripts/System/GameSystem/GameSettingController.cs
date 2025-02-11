@@ -7,6 +7,7 @@ public class GameSettingController : MonoBehaviour
     [SerializeField] Transform cangePanel_parent;
     [SerializeField] GameObject gameSetting_obj;
     [SerializeField] GameObject audioSetting_obj;
+    [SerializeField] GameObject commandList_obj;
 
     ButtonSlotVarticalHorizontal[] changePanel_slot;
     
@@ -37,6 +38,7 @@ public class GameSettingController : MonoBehaviour
 
         gameSetting_obj.SetActive(true);
         audioSetting_obj.SetActive(false);
+        commandList_obj.SetActive(false);
     }
 
     void Update()
@@ -56,11 +58,22 @@ public class GameSettingController : MonoBehaviour
                 gameSetting_obj.SetActive(true);
 
                 audioSetting_obj.SetActive(false);
+
+                commandList_obj.SetActive(false);
                 break;
             case 1:
                 gameSetting_obj.SetActive(false);
 
                 audioSetting_obj.SetActive(true);
+
+                commandList_obj.SetActive(false);
+                break;
+            case 2:
+                gameSetting_obj.SetActive(false);
+
+                audioSetting_obj.SetActive(false);
+
+                commandList_obj.SetActive(true);
                 break;
         }
     }

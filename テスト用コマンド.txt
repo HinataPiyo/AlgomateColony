@@ -1,0 +1,10 @@
+テスト用コマンド
+
+MoveTo(rock);
+GatherTo(rock);
+MoveTo(warehouse);
+DepositTo(rock, 30);
+MoveTo(matel);
+GatherTo(matel);
+MoveTo(warehouse);
+DepositTo(matel, 30);

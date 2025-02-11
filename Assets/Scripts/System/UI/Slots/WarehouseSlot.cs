@@ -6,7 +6,7 @@ public class WarehouseSlot : MonoBehaviour
 {
     // 確認するためSerializeFieldする
     MaterialSO mateSO;
-    uint mateAmount;
+    int mateAmount;
 
     AccessoryData acceData;
 
@@ -61,5 +61,5 @@ public class WarehouseSlot : MonoBehaviour
 
     public MaterialSO GetMaterialSO() { return mateSO; }
     public AccessoryData GetAccessoryData() { return acceData; }
-    public uint GetHaveAmount() { return mateAmount; }
+    public int GetHaveAmount() { return mateAmount; }
 }

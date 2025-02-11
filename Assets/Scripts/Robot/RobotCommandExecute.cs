@@ -5,18 +5,20 @@ using UnityEngine;
 // コマンド実行処理
 public class RobotCommandExecute : MonoBehaviour
 {
-    CommandDictionary cmdDic;
+    [SerializeField] CommandSO commandSO;
     RobotController robotCont;
     string[] proctext;      // 処理内容を格納
 
-    public string[] Set_ProcText { set{ proctext = value; } }
+    // 個々のロボットで処理を実行するために自身の処理内容を格納する
+    public string[] ProcText { get{ return proctext; } set{ proctext = value; } }
 
-    bool stateEndFlag;
-    public bool StateEndFlag { set{ stateEndFlag = value; } }
+    bool stateEndFlag;          // ステートが終了したらこのフラグが " true " になある
+    public bool StateEndFlag { get{ return stateEndFlag; } set{ stateEndFlag = value; } }
+
+    const string looping = "Loop();";
 
     private void Start() {
         robotCont = GetComponent<RobotController>();
-        cmdDic = new CommandDictionary();
     }
 
     private void Update() {
@@ -36,50 +38,72 @@ public class RobotCommandExecute : MonoBehaviour
     /// <param name="specifytext"></param>
     IEnumerator CommandToExecution()
     {
-        while(true)
+        LogController.instance.SetLog(robotCont.GetBaseStatus(), "コマンドを実行します");
+        int ii = 0;
+        while (true)
         {
-            for(int ii = 0; ii < proctext.Length; ii++)
+            stateEndFlag = false;
+
+            P(proctext[ii]);
+            yield return new WaitUntil(() => stateEndFlag);
+
+            // 最後の行であればループするか終了
+            if (ii == proctext.Length - 1)
             {
-                P(proctext[ii]);
-
-                yield return new WaitUntil(() => stateEndFlag);
-
-                // 最後の行の処理を行ったら
-                if(proctext[ii] == proctext[proctext.Length - 1])
+                if (proctext[ii] == looping)
                 {
-                    // コルーチンを抜ける
-                    yield break;
+                    ii = 0; // ループ
+                }
+                else
+                {
+                    // 何もしない状態に移行する
+                    robotCont.ChangeState(RobotController.State.DoNon);
+                    yield break; // 終了
                 }
             }
-            yield return null;
+            else
+            {
+                ii++;
+            }
         }
-        
     }
+
 
     void P(string _pText)
     {
-        string specifytext = CommandDictionary.MatchParenthesesCommand(_pText);
+        string specifytext = CommandSO.MatchParenthesesCommand(_pText);
 
-        // move_toのコマンドを使用されていた場合
-        if(_pText == CommandDictionary.moveTo + $"({specifytext});")
+        if (_pText == CommandSO.moveTo + $"({specifytext});")
         {
-            robotCont.ObjectName = specifytext;      // ()内に書かれた名前を設定する
-            Debug.Log($"{specifytext}に移動します。");
+            robotCont.ObjectName = specifytext;
             robotCont.ChangeState(RobotController.State.Search);
         }
 
-        // gatherのコマンドを使用されていた場合
-        if(_pText == CommandDictionary.gatherTo + $"({specifytext});")
+        if (_pText == CommandSO.gatherTo + $"({specifytext});")
         {
-            switch(specifytext)
-            {
-                case "rock":
-                    Debug.Log($"{specifytext}を取集します。");
-                    break;
-                case "tree":
-                    Debug.Log($"{specifytext}を取集します。");
-                    break;
-            }
+            robotCont.ObjectName = specifytext;
+            robotCont.ChangeState(RobotController.State.GatherResource);
         }
+
+        if (_pText == CommandSO.depositTo + $"({specifytext});")
+        {
+            // DepositToコマンドの処理
+            robotCont.DepsiteName = Deposite_NameAndAmount(specifytext);
+            robotCont.ChangeState(RobotController.State.Deposit);
+        }
+    }
+
+
+    string[] Deposite_NameAndAmount(string _text)
+    {
+        string[] splitResult = _text.Split(',');
+
+        // 各要素の前後の空白を削除
+        for (int i = 0; i < splitResult.Length; i++)
+        {
+            splitResult[i] = splitResult[i].Trim();
+        }
+
+        return splitResult;
     }
 }

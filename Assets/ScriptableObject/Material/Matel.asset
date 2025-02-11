@@ -18,4 +18,5 @@ MonoBehaviour:
   maxHp: 30
   gatherTime: 50
   EquipmentToMatch: 1
-  exp: "\u91D1\u5C5E"
+  exp: "\u62E0\u70B9\u3084\u30D0\u30C3\u30C6\u30EA\u30FC\u3001\u30A2\u30AF\u30BB\u30B5\u30EA\u30FC\u3001\u88C5\u5099\u54C1\u306E\u5F37\u5316\u7D20\u6750\u3068\u306A\u308B"
+  mateTagName: 2

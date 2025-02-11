@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b26a69f1f368372449063f0d00801500, type: 3}
   m_Name: SystemControlSO
   m_EditorClassIdentifier: 
-  playerName: Anpanman
+  playerName: "\u3042\u3093\u3053\u30E1\u30ED\u30F3"
   nluSO: {fileID: 11400000, guid: d9c12c66f671a1d4387f8e9a47c7e55a, type: 2}
-  LocationLevel: 0
+  LocationLevel: 1
   upgread_chargingTime: 1
   potential_class:
     MOVESPEED_MAX: 2.0000002
@@ -22,98 +22,4 @@ MonoBehaviour:
     ENERGY_MAX: 10
     GATHERSTRENGTH_MAX: 2.9999998
     GATHERRATE_MAX: 0.3
-  robot_list:
-  - _runk: '- E -'
-    totalScore: 62
-    robotName: 
-    moveSpeed: 1
-    recharge_MAX: 10
-    currentEnergy: 50
-    base_MaxEnergy: 50
-    maxEnergy: 80
-    gatherSterngth: 1
-    gatherRate: 5
-    recharge_battery: 0
-    currentRecharged: 0
-    needchange_battery: 0
-    slots:
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    equipment_value:
-      equipment_name: 0
-      icon: {fileID: 0}
-      _name: 
-      level: 0
-      statusup_name: 
-      statusup_value: 0
-      levelupPitch: 0
-    unlock_accessory_slot: 0
-    acceData_list:
-    - {fileID: 0}
-    - {fileID: 0}
-    battery_status:
-      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
-      battery_level: 2
-      energyMax_Up: 30
-      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
-      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
-  - _runk: '- E -'
-    totalScore: 62
-    robotName: 
-    moveSpeed: 1
-    recharge_MAX: 10
-    currentEnergy: 50
-    base_MaxEnergy: 50
-    maxEnergy: 80
-    gatherSterngth: 1
-    gatherRate: 5
-    recharge_battery: 0
-    currentRecharged: 0
-    needchange_battery: 0
-    slots:
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    equipment_value:
-      equipment_name: 0
-      icon: {fileID: 0}
-      _name: 
-      level: 0
-      statusup_name: 
-      statusup_value: 0
-      levelupPitch: 0
-    unlock_accessory_slot: 0
-    acceData_list:
-    - {fileID: 0}
-    - {fileID: 0}
-    battery_status:
-      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
-      battery_level: 2
-      energyMax_Up: 30
-      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
-      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  robot_list: []

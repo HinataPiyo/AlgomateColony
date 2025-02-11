@@ -11,7 +11,7 @@ public class WarkshopNeedMaterialSlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI needAmount_text;       // 必要個数
 
     // 所持数,必要個数(RangeはDebug用)
-    [SerializeField] uint stockAmo, needAmo;
+    [SerializeField] int stockAmo, needAmo;
 
     private void Update() {
         // テスト
@@ -24,7 +24,7 @@ public class WarkshopNeedMaterialSlot : MonoBehaviour
     /// <param name="_mateSO"> 素材のデータ </param>
     /// <param name="_stockAmo"> 現在所持している素材の数 </param>
     /// <param name="_needAmo"> 必要個数 </param>
-    public void SetSlotMaterial(MaterialSO _mateSO, uint _needAmo)
+    public void SetSlotMaterial(MaterialSO _mateSO, int _needAmo)
     {
         if(_mateSO != null)
         {
@@ -80,7 +80,7 @@ public class WarkshopNeedMaterialSlot : MonoBehaviour
     /// 現在所持している素材の数を取得
     /// </summary>
     /// <param name="amo"></param>
-    public void SetStockAmount(uint amo)
+    public void SetStockAmount(int amo)
     {
         stockAmo = amo;
         stockAmount_text.text = "" + stockAmo;

@@ -30,6 +30,9 @@ public class WarkshopSlot : MonoBehaviour
         icon.sprite = processing_status.mateSO.icon;        // アイコンの設定
         name_text.text = processing_status.mateSO.materialName;     // 名前
         exp_text.text = processing_status.mateSO.exp;       // 加工の説明
+
+        statusUp_name.text = "";
+        statusUp_value.text = "";
     }
 
     public void SetAccessory_NumAndScript(AccessoryController _script, AccessorySO.NEED_ACCESSORY_STATUS a_status)

@@ -9,16 +9,16 @@ public class InputCommand : MonoBehaviour
 
     [Header("コマンド")]
     private string cmd = "cmd:";
-    private string location = "Location";
-    private string setting = "Setting";
+    private string location = "location";
+    private string setting = "setting";
 
     private string confirmedText;
     [Header("補完候補")]
     private Dictionary<string, string> shortcuts = new Dictionary<string, string>
     {
         { "c", "cmd:" },
-        { "cmd:L", "cmd:Location" },
-        { "cmd:S", "cmd:Setting" }
+        { "cmd:l", "cmd:location" },
+        { "cmd:s", "cmd:setting" }
     };
 
     private void Start() {
