@@ -32,6 +32,7 @@ public class PcsCommandSlot : MonoBehaviour
     /// </summary>
     void DetailButtonClick()
     {
+        SoundManager.instance.PlayAudio("ButtonClick");
         commandList.SetDetail(cmd_Detail);
     }
 

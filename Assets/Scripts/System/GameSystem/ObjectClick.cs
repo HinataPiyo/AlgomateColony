@@ -16,6 +16,10 @@ public class ObjectClick : MonoBehaviour, IPointerClickHandler
             {
                 Debug.Log($"オブジェクト {name} がクリックされました。");
                 FacilityManager.instance.CanvasEnabled(CanvasName.Location, true);
+                if(TutorialController.insrance.BigTaskNumber == 2)
+                {
+                    TutorialController.insrance.TutorialCheck(2, 0);
+                }
             }
             else if(gameObject.CompareTag("warehouse"))
             {
@@ -40,6 +44,7 @@ public class ObjectClick : MonoBehaviour, IPointerClickHandler
             RobotController _robot = GetComponent<RobotController>();
             RobotStatusPanelManager.instance.SetRobotStatus(_robot);
             FacilityManager.instance.CanvasEnabled(CanvasName.RobotStatus, true);
+            TutorialController.insrance.TutorialCheck(0, 0);
         }
     }
 }

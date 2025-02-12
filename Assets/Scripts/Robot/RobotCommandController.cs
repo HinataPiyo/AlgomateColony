@@ -108,7 +108,7 @@ public class RobotCommandController : MonoBehaviour
     {
         // コマンドを実行する
         robotCmdExecute.StartCoroutine_CommandToExecution();
-        
+        RobotStatusPanelManager.instance.BackButtonOnClick();
         Debug.Log("出力します。");
     }
 
@@ -128,6 +128,10 @@ public class RobotCommandController : MonoBehaviour
         for (int i = 0; i < lines.Length; i++)
         {
             Debug.Log($"Line {i + 1}: {lines[i]}");
+        }
+        if(lines[0] == "MoveTo(location);")
+        {
+            TutorialController.insrance.TutorialCheck(0, 2);
         }
 
         return lines;

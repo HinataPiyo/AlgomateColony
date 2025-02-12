@@ -43,6 +43,7 @@ public class CommandList : MonoBehaviour
 
     void BackButtonOnClick()
     {
+        SoundManager.instance.PlayAudio("SelectObject");
         cmdDetailPanel.SetActive(false);
     }
 }

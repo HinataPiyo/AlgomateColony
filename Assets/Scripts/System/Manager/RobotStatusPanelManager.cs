@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class RobotStatusPanelManager : MonoBehaviour
@@ -40,10 +41,8 @@ public class RobotStatusPanelManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI maxGatherStrength_potentialtext;
     [SerializeField] TextMeshProUGUI maxGatherRate_potentialtext;
     
-
     const int ROBOT_STATUSPANEL_WIDTH_CLOSE = 450;
     const int ROBOT_STATUSPANEL_WIDTH_OPEN = 850;
-
 
 
     void Awake()
@@ -179,7 +178,7 @@ public class RobotStatusPanelManager : MonoBehaviour
     /// <summary>
     /// Backボタンを押したときの処理
     /// </summary>
-    void BackButtonOnClick()
+    public void BackButtonOnClick()
     {
         ResetText();
         FacilityManager.instance.CanvasEnabled(CanvasName.RobotStatus, false);
@@ -200,7 +199,7 @@ public class RobotStatusPanelManager : MonoBehaviour
             robotCodingObj.SetActive(false);    // CodingPanelを非アクティブ状態にする
             SetWidth(ROBOT_STATUSPANEL_WIDTH_CLOSE);
         }
-       
+        TutorialController.insrance.TutorialCheck(0, 1);
     }
 
     /// <summary>

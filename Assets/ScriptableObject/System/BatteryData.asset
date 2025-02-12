@@ -15,7 +15,7 @@ MonoBehaviour:
   battery_values:
   - _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
     battery_level: 2
-    energyMax_Up: 99999
+    energyMax_Up: 1005
     statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
     icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
   - _name: "\u30D0\u30C3\u30C6\u30EA\u30FC\uFF08\u4E2D\uFF09"

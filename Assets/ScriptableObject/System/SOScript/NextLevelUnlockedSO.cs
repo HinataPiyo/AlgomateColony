@@ -14,6 +14,8 @@ public class NextLevelUnlockedSO : ScriptableObject
 public class BASE_NEXT_UNLOCK
 {
     public Sprite icon;         // スロットに表示させるアイコン
+    public Vector2 objPos;
+    public GameObject creatObj; // 生成させるオブジェクト
     public string name_text;    // オブジェクトの名前
     [TextArea(3, 10)]
     public string exp_text;     // オブジェクトの説明

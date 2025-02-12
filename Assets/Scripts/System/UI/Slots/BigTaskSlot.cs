@@ -11,6 +11,18 @@ public class BigTaskSlot : MonoBehaviour
     TutorialSO.TutorialTask task;
 
     string fullText;
+    void Awake()
+    {
+        task_text.text = "";
+    }
+
+    void Update()
+    {
+        if(task != null)
+        {
+            completToggle.isOn = task.completionFlag;
+        }
+    }
 
     public void SetText(TutorialSO.TutorialTask _task)
     {

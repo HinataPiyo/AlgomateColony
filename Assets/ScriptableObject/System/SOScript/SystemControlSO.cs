@@ -14,7 +14,8 @@ public class SystemControlSO : ScriptableObject
     public List<BaseStatus> robot_list = new List<BaseStatus>();
     public List<SettingDetail> settingDetails = new List<SettingDetail>();
 
-    public int GetLocationLevel() { return LocationLevel; }
+    public int GetLocationLevel { get{return LocationLevel;} set{ LocationLevel = value; } }
+    public List<BaseStatus> RobotStatusList { get{ return robot_list; } }
     public float GetBatteryChargingTime() { return upgread_chargingTime; }
     public NextLevelUnlockedSO GetNextLevelUnlockedSO() { return nluSO; }
 
@@ -64,6 +65,10 @@ public class SystemControlSO : ScriptableObject
         BASE_NEXT_UNLOCK.StatusParam[] _statusParams = null;
         if(LocationLevel < nluSO.GetBaseNextUnlocks_List().Count)
         {
+            if(LocationLevel == 1)
+            {
+                Instantiate(nluSO.GetBaseNextUnlocks_List()[1].creatObj, nluSO.GetBaseNextUnlocks_List()[1].objPos, Quaternion.identity);
+            }
             // 現在のレベルに合わせたStatusParamを取得する
             _statusParams = nluSO.GetBaseNextUnlocks_List()[LocationLevel].statusParam;
         }

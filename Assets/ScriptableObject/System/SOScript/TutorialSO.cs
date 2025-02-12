@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TutorialSO", menuName = "TutorialSO")]
 public class TutorialSO : ScriptableObject
 {
-    public bool tutorialFlag;       // treu : チュートリアル終了, false : チュートリアルがまだ　
+    public bool tutorialEndFlag;       // treu : チュートリアル終了, false : チュートリアルがまだ　
     // チュートリアルで行うTaskをリストにまとめておく
     public List<TutorialTask> tutorialTasks = new List<TutorialTask>();
 

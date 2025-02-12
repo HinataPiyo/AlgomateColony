@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ef972d0712614e1408060204517d5aaa
+guid: 07741499a75931247b34feafbbec5a81
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3949327089529648890
-    second: tye-nnso- 32_0
+      213: 6641836301203711586
+    second: tye-nnso- 3222_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,10 +100,10 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tye-nnso- 32_0
+      name: tye-nnso- 3222_0
       rect:
         serializedVersion: 2
-        x: 39
+        x: 59
         y: 19
         width: 542
         height: 562
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: af6fd314014dec630800000000000000
-      internalID: 3949327089529648890
+      spriteID: 266aa8d0dea8c2c50800000000000000
+      internalID: 6641836301203711586
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tye-nnso- 32_0: 3949327089529648890
+      tye-nnso- 3222_0: 6641836301203711586
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

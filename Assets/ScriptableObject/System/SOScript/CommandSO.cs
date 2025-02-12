@@ -77,19 +77,22 @@ public class CommandSO : ScriptableObject
         }
 
         // DepositToコマンドのチェック（個数も含めて）
-        string depositCommand = MatchParenthesesCommand(_proctext);
-        if (depositCommand != null)
+        if (_proctext.StartsWith(depositTo))
         {
-            // 正規表現で個数を確認する
-            string[] args = depositCommand.Split(',');
-            if (args.Length == 2)
+            string depositCommand = MatchParenthesesCommand(_proctext);
+            if (depositCommand != null)
             {
-                string mate = args[0].Trim();
-                string quantityStr = args[1].Trim();
-
-                if (gatherName.ContainsKey(mate) && int.TryParse(quantityStr, out int quantity))
+                // 正規表現で個数を確認する
+                string[] args = depositCommand.Split(',');
+                if (args.Length == 2)
                 {
-                    return _proctext;  // 有効なDepositToコマンド（オブジェクト名, 個数）
+                    string mate = args[0].Trim();
+                    string quantityStr = args[1].Trim();
+
+                    if (gatherName.ContainsKey(mate) && int.TryParse(quantityStr, out int quantity))
+                    {
+                        return _proctext;  // 有効なDepositToコマンド（オブジェクト名, 個数）
+                    }
                 }
             }
         }

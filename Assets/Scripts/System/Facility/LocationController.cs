@@ -71,7 +71,7 @@ public class LocationController : MonoBehaviour
         wlist = wc.GetWarehouseSO().GetMaterial_WarehouseList();
 
         // 最初に行う処理
-        CheckSet_NeedMaterial(scSO.GetLocationLevel());     // 現在の必要個数を所持数と比べる
+        CheckSet_NeedMaterial(scSO.GetLocationLevel);     // 現在の必要個数を所持数と比べる
         locationLevelUp_button.interactable = false;        // ボタンの押下を出来ないようにする
         
         
@@ -79,14 +79,14 @@ public class LocationController : MonoBehaviour
         locationLevelUp_button.onClick.AddListener(BottonOnClick_LocationLevelUp);
         backButton.onClick.AddListener(ButtonOnClick_Back);
 
-        GameManager.instance.Set_PlayerName_LocationLevel(scSO.playerName, scSO.GetLocationLevel());
+        GameManager.instance.Set_PlayerName_LocationLevel(scSO.playerName, scSO.GetLocationLevel);
     }
 
     private void Update() {
         if(updateTime.UpdateTime() == true)
         {
             Check_CompletionAllMaterials();                         // 必要素材がそろっているか確認する
-            CheckSet_NeedMaterial(scSO.GetLocationLevel());         // LocationLevelに応じて必要素材を変える
+            CheckSet_NeedMaterial(scSO.GetLocationLevel);         // LocationLevelに応じて必要素材を変える
             Sync_HaveMaterialToText();                              // 素材の所持数を必要素材のテキストに反映させる
         }
     }
@@ -101,7 +101,7 @@ public class LocationController : MonoBehaviour
         {
             locationLevel_text.text = "" + location_level;      // テキストのレベル表示を更新する
             // 左上のPlayerNameとLocationLevelを設定する
-            GameManager.instance.Set_PlayerName_LocationLevel(scSO.playerName, scSO.GetLocationLevel());
+            GameManager.instance.Set_PlayerName_LocationLevel(scSO.playerName, scSO.GetLocationLevel);
             SetNeedMate(location_level);                        // 必要個数をスロットに設定する
             TextSet_NextLevelUnlock(location_level);            // 次のレベルでｒ
             oldlevel = location_level;
@@ -342,6 +342,7 @@ public class LocationController : MonoBehaviour
         {
             // レベルアップボタンを押せるようにする
             locationLevelUp_button.interactable = true;
+            TutorialController.insrance.TutorialCheck(2, 1);
         }
         else if(check_needAmoOverFlag == false && OverSet_MaterialList == true)
         {
@@ -355,6 +356,8 @@ public class LocationController : MonoBehaviour
     {
         // 連続でボタンを押されるのを防ぐ
         locationLevelUp_button.interactable = false;
+        TutorialController.insrance.TutorialCheck(2, 2);
+        TutorialController.insrance.BigTaskCheck(2);
         
         // 倉庫の所持数を必要個数分だけ減らす
         for(int ii = 0; ii < needmate_root.need_materials.Length; ii++)
@@ -369,7 +372,7 @@ public class LocationController : MonoBehaviour
         scSO.LocationLevelUp();
 
         // LocationLevelに応じて必要素材を変える
-        CheckSet_NeedMaterial(scSO.GetLocationLevel());
+        CheckSet_NeedMaterial(scSO.GetLocationLevel);
 
         // テキストの反映
         Sync_HaveMaterialToText();

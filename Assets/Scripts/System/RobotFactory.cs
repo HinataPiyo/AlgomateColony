@@ -7,14 +7,14 @@ public class RobotFactory : MonoBehaviour
     [SerializeField] GameObject robotPrefab;    // ロボットのPrefab
     [SerializeField] Transform spawnPoint;      // スポーン地点
 
-    [SerializeField] bool flag;
+    [SerializeField] bool CreatFlag;
 
     private void Start() {
         Initialize();
     }
     
     private void Update() {
-        if(flag) { CreateRobot(); flag = false; }
+        if(CreatFlag) { CreateRobot(); CreatFlag = false; }
     }
 
     void Initialize()

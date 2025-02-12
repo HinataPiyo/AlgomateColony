@@ -153,6 +153,9 @@ public class RobotGather : MonoBehaviour
                 robotCont.ChangeState(RobotController.State.DoNon);     // 何もしない状態に遷移
                 checkHitInfo = false;       // hitInfoが存在しているか否か
                 ChangeEquipment(null);      // 収集が終わったので装備を外す
+
+                // !オブジェクトの指定を行っていないからチュートリアル以外を収集してもクリアしてしまう
+                TutorialController.insrance.TutorialCheck(1, 0);
                 robotCont.Get_RobotCommandExecute.StateEndFlag = true;
             }
 

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class TutorialController : MonoBehaviour
 {
+    public static TutorialController insrance;
+    [SerializeField] SystemControlSO scSO;
     [SerializeField] TutorialSO tutorialSO;
     List<TutorialSO.TutorialTask> tTaskList;
     [Header("チュートリアルパネル")]
@@ -21,18 +23,35 @@ public class TutorialController : MonoBehaviour
     string fullText; // 全文
     Vector2 textPos;
     Coroutine typingCoroutine;
-    int currentListNumber;
+    int current_BigListNumber;
+    int current_FineListNumber;
     [SerializeField] AnimEndFlag_AnimStat animEndFlag;
+    bool fineText_allActiv;
+
+    public int BigTaskNumber { get{ return current_BigListNumber; } }
+
+    void Awake()
+    {
+        insrance = this;
+
+        // チュートリアルが終了したフラグが立っていなければ
+        if(tutorialSO.tutorialEndFlag == false)
+        {
+            // 諸々初期化する
+            ResetSystem();
+        }
+    }
 
 
     void Start()
     {
+
         tTaskList = tutorialSO.tutorialTasks;
         task_text.text = "";
-
         // チュートリアルをまだ実行していなければ
-        if(tutorialSO.tutorialFlag == false)
+        if(tutorialSO.tutorialEndFlag == false)
         {
+            ResetTutorial();
             // チュートリアル開始
             StartCoroutine(TutorialProgress());
         }
@@ -49,24 +68,33 @@ public class TutorialController : MonoBehaviour
             {
                 // 大きなタスクを先に表示
                 bigTask.SetText(tTaskList[ii]);
-                currentListNumber = ii;
+                current_BigListNumber = ii;
 
                 // 大きなタスクの説明文が全て表示されたら
                 yield return new WaitUntil(() => tTaskList[ii].textAllActiv);
+
+                if(ii == tTaskList.Count - 1)
+                {
+                    tTaskList[tTaskList.Count - 1].completionFlag = true;
+                }
 
                 yield return new WaitForSeconds(2f);
 
 
                 // 小さなタスクを表示させていく
-                foreach(var _fine in tTaskList[ii].fineTasks)
+                for(int qq = 0; qq < tTaskList[ii].fineTasks.Count; qq++)
                 {
                     panel.SetActive(true);
                     panel_anim.SetTrigger("PanelOpen");     // パネルを開くアニメーション
 
                     yield return new WaitForSeconds(1f);
-                    SetText(_fine.taskExp, _fine.textPos);
+                    SetText(tTaskList[ii].fineTasks[qq].taskExp, tTaskList[ii].fineTasks[qq].textPos);
+                    current_FineListNumber = qq;
+                    
+                    // テキストが全て表示し終わったか確認する
+                    yield return new WaitUntil(() => fineText_allActiv);
                     // 細かいタスクが完了するまで待機
-                    yield return new WaitUntil(() => _fine.completionFlag);
+                    yield return new WaitUntil(() => tTaskList[ii].fineTasks[qq].completionFlag);
 
                     panel_anim.SetTrigger("PanelClose");     // パネルを開くアニメーション
 
@@ -75,13 +103,20 @@ public class TutorialController : MonoBehaviour
                     panel.SetActive(false);
                     animEndFlag.panelCloseFlag = false;
                     task_text.text = "";
+
+                    if(tTaskList[ii].completionFlag == true)
+                    {
+                        yield return new WaitForSeconds(3f);
+                    }
                 }
             }
             yield return null;
         }
 
         // チュートリアルが終了したことを知らせる
-        tutorialSO.tutorialFlag = true;
+        tutorialSO.tutorialEndFlag = true;
+
+        yield break;
     }
 
     /// <summary>
@@ -110,12 +145,49 @@ public class TutorialController : MonoBehaviour
     {
         task_text.text = "";        // テキストを空にする
         task_text.rectTransform.anchoredPosition = textPos;     // テキストの表示位置を設定
+        fineText_allActiv = false;
         foreach (char c in fullText)
         {
             task_text.text += c; // 1文字ずつ追加
             yield return new WaitForSeconds(typeSpeed); // 指定の速度で待機
         }
+
+        fineText_allActiv = true;
     }
 
-    
+    public void TutorialCheck(int _bigNum, int _fineNum)
+    {
+        if(tTaskList[_bigNum].fineTasks[_fineNum].completionFlag == false)
+        {
+            tTaskList[_bigNum].fineTasks[_fineNum].completionFlag = true;
+        }
+    }
+
+    public void BigTaskCheck(int _bigNum)
+    {
+        if(tTaskList[_bigNum].completionFlag == false)
+        {
+            tTaskList[_bigNum].completionFlag = true;
+        }
+    }
+
+
+    void ResetTutorial()
+    {
+        foreach(var _big in tTaskList)
+        {
+            _big.textAllActiv = false;
+            _big.completionFlag = false;
+            foreach(var _fine in _big.fineTasks)
+            {
+                _fine.completionFlag = false;
+            }
+        }
+    }
+
+    void ResetSystem()
+    {
+        scSO.GetLocationLevel = 1;          // 初期レベルに戻す
+        scSO.RobotStatusList.Clear();       // ロボットのステータスデータを全て空にする
+    }
 }

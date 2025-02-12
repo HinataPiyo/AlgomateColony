@@ -71,7 +71,9 @@ public class RobotDeposit : MonoBehaviour
                         wCont.SetMaterial_WarehouseSlot(slot.mateSO, quantity);
                         slot.itemStackAmount -= quantity;
                         LogController.instance.SetLog(_base, $"倉庫に{slot.mateSO.materialName}を{quantity}入れました");
-
+                        
+                        TutorialController.insrance.TutorialCheck(1, 1);
+                        TutorialController.insrance.BigTaskCheck(1);
                         
                         if(slot.itemStackAmount == 0)
                         {
