@@ -33,6 +33,6 @@ public class RobotFactory : MonoBehaviour
         RobotController _robot = newRobot.GetComponent<RobotController>();
         _robot.Initialize();
         scSO.robot_list.Add(_robot.GetBaseStatus());
-        _robot.GetBaseStatus().robotName = $"アルゴメイト{scSO.robot_list.Count}";
+        _robot.SetRobotName($"アルゴメイト{scSO.robot_list.Count}");
     }
 }

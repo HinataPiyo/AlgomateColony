@@ -175,31 +175,31 @@ public class WarehouseController : MonoBehaviour
     public void SetMaterial_WarehouseSlot(MaterialSO _mateSO, int _amo)
     {
         WarehouseSO.MATERIAL_WAREHOUSE_SLOT warehouse_slot = new WarehouseSO.MATERIAL_WAREHOUSE_SLOT();
-
-        // 構造体に値を設定
         warehouse_slot.mateSO = _mateSO;
         warehouse_slot.mateAmount = _amo;
 
-        for(int ii = 0; ii < wlist.Count; ii++)
+        if (wlist.Count == 0)
         {
-            // 追加しようとしている素材のシリアル番号と既にある素材のシリアル番号が一致しているか調べる
-            if(wlist[ii].mateSO.serialNum == _mateSO.serialNum)
+            wlist.Add(warehouse_slot);
+            SetSlot_MaterialInventory();
+            return;  // ← 関数を終了（ループの有無に関係なく）
+        }
+
+        for (int ii = 0; ii < wlist.Count; ii++)
+        {
+            if (wlist[ii].mateSO.serialNum == _mateSO.serialNum)
             {
                 wlist[ii].mateAmount += _amo;
-                SetSlot_MaterialInventory();       // 倉庫内を更新する
-                break;
-            }
-            // シリアル番号が一致していなければ　かつ　最後までスロットを調べた後
-            else if(wlist[ii].mateSO.serialNum != _mateSO.serialNum
-            && ii == wlist.Count - 1)
-            {
-                // 新規なのでリストに追加してあげる
-                wlist.Add(warehouse_slot);
-                SetSlot_MaterialInventory();       // 倉庫内を更新する
-                break;
+                SetSlot_MaterialInventory();
+                return;  // ← 関数を終了（新規追加の処理に進まない）
             }
         }
+
+        // ループを抜けた後、新規追加
+        wlist.Add(warehouse_slot);
+        SetSlot_MaterialInventory();
     }
+
 
     /// <summary>
     /// 素材を消費する
@@ -220,7 +220,7 @@ public class WarehouseController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log($"素材が足りません。現在の所持数は {wlist[ii].mateAmount} です。");
+                    LogController.instance.SetLog(null, $"素材が足りません。現在の所持数は {wlist[ii].mateAmount} です。");
                 }
             }
         }

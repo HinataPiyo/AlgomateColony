@@ -22,4 +22,1110 @@ MonoBehaviour:
     ENERGY_MAX: 10
     GATHERSTRENGTH_MAX: 2.9999998
     GATHERRATE_MAX: 0.3
-  robot_list: []
+  robot_list:
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C81"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C82"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C83"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C84"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C85"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C86"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C87"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C88"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C89"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C810"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C811"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C812"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C813"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C814"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C815"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C816"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C817"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C818"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C819"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C820"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C821"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C822"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  - _runk: '- S -'
+    totalScore: 100011
+    robotName: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C823"
+    moveSpeed: 1
+    recharge_MAX: 10
+    currentEnergy: 99999
+    base_MaxEnergy: 99999
+    maxEnergy: 99999
+    gatherSterngth: 1
+    gatherRate: 5
+    recharge_battery: 0
+    currentRecharged: 0
+    needchange_battery: 0
+    slots:
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    - mateSO: {fileID: 0}
+      ITEM_STACK_MAX: 100
+      itemStackAmount: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    unlock_accessory_slot: 0
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
+    battery_status:
+      _name: "\u30D0\u30C3\u30C6\u30EA\u30FC(\u5F31)"
+      battery_level: 2
+      energyMax_Up: 99999
+      statusup_name: "- \u6700\u5927\u30D0\u30C3\u30C6\u30EA\u30FC\u5BB9\u91CF"
+      icon: {fileID: -5690138227423850406, guid: 79f9272d48361964e894db3ea7827951, type: 3}
+  settingDetails:
+  - icon: {fileID: 2091520269900815616, guid: 11779d4d9ee0b8145bec2079a3c611c4, type: 3}
+    _name: "\u62E0\u70B9(location)"
+    cmd: MoveTo();
+  - icon: {fileID: 649548601045151705, guid: 2cb1e9978c16226458c22ab5bdee8b7d, type: 3}
+    _name: "\u5009\u5EAB(warehouse)"
+    cmd: MoveTo(); / Deposit();
+  - icon: {fileID: 7829964744592400310, guid: 5841312830566804c8ce2027148fab8b, type: 3}
+    _name: "\u5145\u96FB\u5BA4(chargingroom)"
+    cmd: Nothing
+  - icon: {fileID: 7829964744592400310, guid: 5841312830566804c8ce2027148fab8b, type: 3}
+    _name: "\u751F\u7523\u5BA4(processingroom)"
+    cmd: Nothing
+  - icon: {fileID: 3920414366916468192, guid: 11f9cc7ebb42ca34fa277e4acab6fed1, type: 3}
+    _name: "\u77F3(rock)"
+    cmd: MoveTo(); / GatherTo(); / DepositTo();
+  - icon: {fileID: 5586023482547687954, guid: d383ede3d50ccce409a65044ef6d234c, type: 3}
+    _name: "\u6728(tree)"
+    cmd: MoveTo(); / GatherTo(); / DepositTo();
+  - icon: {fileID: -6784378384513535675, guid: 8da735538152eb146aef0007004f2ead, type: 3}
+    _name: "\u9244\u9271\u77F3(ironore)"
+    cmd: MoveTo(); / GatherTo(); / DepositTo();
+  - icon: {fileID: 21300000, guid: 64b63f11935118f419a0e04327d24c76, type: 3}
+    _name: "\u7167\u660E"
+    cmd: Nothing

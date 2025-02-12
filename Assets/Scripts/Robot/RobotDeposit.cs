@@ -68,13 +68,16 @@ public class RobotDeposit : MonoBehaviour
                     // 所持している数量と照らし合わせる
                     if (slot.itemStackAmount >= quantity)
                     {
-                        Debug.Log("slot.mateSO : " + slot.mateSO);
-                        Debug.Log("quantity : " + quantity);
-                        Debug.Log("wCont : " + wCont);
                         wCont.SetMaterial_WarehouseSlot(slot.mateSO, quantity);
                         slot.itemStackAmount -= quantity;
-
                         LogController.instance.SetLog(_base, $"倉庫に{slot.mateSO.materialName}を{quantity}入れました");
+
+                        
+                        if(slot.itemStackAmount == 0)
+                        {
+                            slot.mateSO = null;
+                        }
+                        
 
                         // コマンドが終了したことを知らせる
                         robotCont.Get_RobotCommandExecute.StateEndFlag = true;

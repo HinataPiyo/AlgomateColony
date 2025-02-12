@@ -62,7 +62,7 @@ public class RobotStatusPanelManager : MonoBehaviour
 
         // CodingPanelを非アクティブ状態にする
         robotCodingObj.SetActive(false);
-        SetHeight(ROBOT_STATUSPANEL_WIDTH_CLOSE);
+        SetWidth(ROBOT_STATUSPANEL_WIDTH_CLOSE);
     }
 
     void ResetText()
@@ -184,20 +184,30 @@ public class RobotStatusPanelManager : MonoBehaviour
         ResetText();
         FacilityManager.instance.CanvasEnabled(CanvasName.RobotStatus, false);
         robotCodingObj.SetActive(false);    // CodingPanelを非アクティブ状態にする
-        SetHeight(ROBOT_STATUSPANEL_WIDTH_CLOSE);
+        SetWidth(ROBOT_STATUSPANEL_WIDTH_CLOSE);
     }
 
     private void CommandButtonClick()
     {
-        robotCodingObj.SetActive(true);    // CodingPanelをアクティブ状態にする
-        SetHeight(ROBOT_STATUSPANEL_WIDTH_OPEN);
+        SoundManager.instance.PlayAudio("ButtonClick");
+        if(robotCodingObj.activeSelf == false)
+        {
+            robotCodingObj.SetActive(true);    // CodingPanelをアクティブ状態にする
+            SetWidth(ROBOT_STATUSPANEL_WIDTH_OPEN);
+        }
+        else
+        {
+            robotCodingObj.SetActive(false);    // CodingPanelを非アクティブ状態にする
+            SetWidth(ROBOT_STATUSPANEL_WIDTH_CLOSE);
+        }
+       
     }
 
     /// <summary>
     /// パネルの高さの幅を変える
     /// </summary>
     /// <param name="newHeight"></param>
-    void SetHeight(float newWidth)
+    void SetWidth(float newWidth)
     {
         // 現在のsizeDeltaの幅を保持して高さのみ変更
         Vector2 size = robotStatusPanel.sizeDelta;

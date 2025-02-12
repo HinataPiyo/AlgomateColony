@@ -35,7 +35,8 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         reset_button.onClick.AddListener(ResetVolume);
-        bgm_AudioSource.PlayOneShot(soundSO.bgms[0]);
+        bgm_AudioSource.clip = soundSO.bgms[0];
+        bgm_AudioSource.Play();
 
         // 初期値をAudioMixerから取得
         audioMixer.GetFloat("METER_Volume", out master_vol);

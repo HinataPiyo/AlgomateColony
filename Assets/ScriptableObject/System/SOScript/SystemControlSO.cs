@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SystemControlSO", menuName = "CreatScriptableObject/SystemControlSO")]
@@ -11,6 +12,7 @@ public class SystemControlSO : ScriptableObject
     [SerializeField] POTENTIAL potential_class;         // 潜在能力のクラス
 
     public List<BaseStatus> robot_list = new List<BaseStatus>();
+    public List<SettingDetail> settingDetails = new List<SettingDetail>();
 
     public int GetLocationLevel() { return LocationLevel; }
     public float GetBatteryChargingTime() { return upgread_chargingTime; }
@@ -96,7 +98,13 @@ public class SystemControlSO : ScriptableObject
         LocationLevel++;        // 拠点のレベルを上げる
     }
 
-    
+    [System.Serializable]
+    public class SettingDetail
+    {
+        public Sprite icon;
+        public string _name;
+        public string cmd;
+    }
 }
 
 [System.Flags]

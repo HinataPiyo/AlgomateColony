@@ -20,7 +20,7 @@ public class LogController : MonoBehaviour
 
     public void SetLog(BaseStatus _base, string _log)
     {
-        string _t = $"{_base.robotName} : {_log}";
+        string _t = $"{_base?.robotName} : {_log}";
         logs.Add(_t);
 
         // 新しいログを追加する前に、最大ログ数を超えていれば先頭のログを削除

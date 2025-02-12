@@ -21,7 +21,7 @@ MonoBehaviour:
     fineTasks:
     - focusPos: {x: 0, y: 0}
       textPos: {x: 0, y: 0}
-      completionFlag: 1
+      completionFlag: 0
       taskExp: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C8\u3092\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u304F\u3060\u3055\u3044"
     - focusPos: {x: 0, y: 0}
       textPos: {x: 0, y: 0}

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,7 +45,7 @@ public class RobotController : MonoBehaviour
 
     // Searchで取得してきたhitInfoを格納しておく為の変数
     Collider2D hitInfo;
-
+    [SerializeField] TextMeshPro robotname_text;
 
     string objectName;
     string[] depsiteName;
@@ -198,6 +199,8 @@ public class RobotController : MonoBehaviour
         robotBattery.GameInit(this);            // バッテリー用スクリプト
         robotDeposit.GameInit(this);
 
+        _base.TotalStatus();                    // 総合ステータスを生成
+
         // 非アクティブ状態系は最後に実行
         gSlider.SetActive(false);   // 非アクティブ状態にする
     }
@@ -215,10 +218,15 @@ public class RobotController : MonoBehaviour
         {
             // 収集速度のスライダーの位置を更新
             gSlider.transform.position =
-            new Vector3(transform.position.x, transform.position.y + 0.7f);
+            new Vector3(transform.position.x, transform.position.y + 0.65f);
         }
     }
 
+    public void SetRobotName(string _name)
+    {
+        _base.robotName = _name;
+        robotname_text.text = _base.robotName;
+    }
 
     public BaseStatus GetBaseStatus() { return _base; }
     public BaseStatus.Slot[] GetSlot() { return _base.slots; }

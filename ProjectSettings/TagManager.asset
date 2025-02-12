@@ -15,6 +15,7 @@ TagManager:
   - chargingroom
   - processingroom
   - ironore
+  - NightLight
   layers:
   - Default
   - TransparentFX

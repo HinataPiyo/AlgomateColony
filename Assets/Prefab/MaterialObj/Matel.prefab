@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 722d64494ddfc95438de71d2f2d947b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mateSO: {fileID: 11400000, guid: 00481e47ccea5764c9ae29101199e96a, type: 2}
+  mateSO: {fileID: 11400000, guid: 2d7d5f2e89d25654291cd54df7087c6f, type: 2}
 --- !u!61 &6011991840570174231
 BoxCollider2D:
   m_ObjectHideFlags: 0

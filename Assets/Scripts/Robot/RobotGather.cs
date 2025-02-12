@@ -149,7 +149,8 @@ public class RobotGather : MonoBehaviour
                 // コマンドが終了したことを知らせる
                 Debug.Log($"{_base.robotName}が資源を収集完了しました。");
                 LogController.instance.SetLog(_base, "資源を収集完了しました");
-                robotCont.ChangeState(RobotController.State.DoNon);   // 何もしない状態に遷移
+                robotCont.GetGatherSliderObject().SetActive(false);     // 収集が完了したらスライダーを非表示にする
+                robotCont.ChangeState(RobotController.State.DoNon);     // 何もしない状態に遷移
                 checkHitInfo = false;       // hitInfoが存在しているか否か
                 ChangeEquipment(null);      // 収集が終わったので装備を外す
                 robotCont.Get_RobotCommandExecute.StateEndFlag = true;

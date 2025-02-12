@@ -6,4 +6,9 @@ public class AnimEndFlag_AnimStat : MonoBehaviour
     {
         panelCloseFlag = true;
     }
+
+    public void GameObjectActivait()
+    {
+        gameObject.SetActive(false);
+    }
 }
