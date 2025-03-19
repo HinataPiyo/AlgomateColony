@@ -22,7 +22,7 @@ public class RobotCommandExecute : MonoBehaviour
     }
 
     private void Update() {
-        Debug.Log("flag : " + stateEndFlag);
+        Debug.Log($"State End Flag: {stateEndFlag}");
     }
 
     // コルーチン実行関数
@@ -39,66 +39,71 @@ public class RobotCommandExecute : MonoBehaviour
     IEnumerator CommandToExecution()
     {
         LogController.instance.SetLog(robotCont.GetBaseStatus(), "コマンドを実行します");
-        int ii = 0;
+        int commandIndex = 0;
+
         while (true)
         {
             stateEndFlag = false;
 
-            P(proctext[ii]);
+            ExecuteCommand(proctext[commandIndex]);
             yield return new WaitUntil(() => stateEndFlag);
 
-            // 最後の行であればループするか終了
-            if (ii == proctext.Length - 1)
+            if (IsLastCommand(commandIndex))
             {
-                if (proctext[ii] == looping)
+                if (proctext[commandIndex] == looping)
                 {
-                    ii = 0; // ループ
+                    commandIndex = 0; // ループ
                 }
                 else
                 {
-                    // 何もしない状態に移行する
-                    robotCont.ChangeState(RobotController.State.DoNon);
-                    yield break; // 終了
+                    robotCont.ChangeState(RobotController.State.DoNon); // 終了
+                    yield break;
                 }
             }
             else
             {
-                ii++;
+                commandIndex++;
             }
         }
     }
 
-
-    void P(string _pText)
+    private bool IsLastCommand(int index)
     {
-        string specifytext = CommandSO.MatchParenthesesCommand(_pText);
+        return index == proctext.Length - 1;
+    }
 
-        if (_pText == CommandSO.moveTo + $"({specifytext});")
+    /// <summary>
+    /// コマンドを実行する
+    /// </summary>
+    /// <param name="commandText"></param>
+    void ExecuteCommand(string commandText)
+    {
+        string specifytext = CommandSO.MatchParenthesesCommand(commandText);
+
+        if (commandText == CommandSO.moveTo + $"({specifytext});")
         {
             robotCont.ObjectName = specifytext;
             robotCont.ChangeState(RobotController.State.Search);
         }
-
-        if (_pText == CommandSO.gatherTo + $"({specifytext});")
+        else if (commandText == CommandSO.gatherTo + $"({specifytext});")
         {
             robotCont.ObjectName = specifytext;
             robotCont.ChangeState(RobotController.State.GatherResource);
         }
-
-        if (_pText == CommandSO.depositTo + $"({specifytext});")
+        else if (commandText == CommandSO.depositTo + $"({specifytext});")
         {
-            // DepositToコマンドの処理
-            robotCont.DepsiteName = Deposite_NameAndAmount(specifytext);
+            robotCont.DepsiteName = ParseDepositParameters(specifytext);
             robotCont.ChangeState(RobotController.State.Deposit);
         }
     }
 
-
-    string[] Deposite_NameAndAmount(string _text)
+    /// <summary>
+    /// デポジットのパラメータを解析する
+    /// </summary>
+    string[] ParseDepositParameters(string parameters)
     {
-        string[] splitResult = _text.Split(',');
+        string[] splitResult = parameters.Split(',');
 
-        // 各要素の前後の空白を削除
         for (int i = 0; i < splitResult.Length; i++)
         {
             splitResult[i] = splitResult[i].Trim();

@@ -32,55 +32,70 @@ public class RobotCommandController : MonoBehaviour
 
     private void Start()
     {
+        AddButtonListeners();
+        executeButton.interactable = false; // 実行ボタンを最初は押せない状態にする
+    }
+
+    private void AddButtonListeners()
+    {
         executeButton.onClick.AddListener(OnClick_CommandExecute);
         checkButton.onClick.AddListener(OnClick_CommandCheck);
-
-        executeButton.interactable = false;     // 実行ボタンを最初は押せない状態にする
     }
 
     public void Reset_Buttons()
     {
-        executeButton.interactable = false;
-        check_text.text = "チェック";
-        check_text.color = Color.white;
+        UpdateButtonState(false, "チェック", Color.white);
     }
 
     /// <summary>
     /// コマンドがしっかりと動作するか確認する
     /// </summary>
-    /// <param name="proctext"></param>
+    /// <param name="proctext">ユーザーが入力したコマンドの配列</param>
     public bool InputCommand(string[] proctext)
     {
+        // もし、何も入力されていなかった場合
         if (string.IsNullOrEmpty(inputField.text))
         {
             UpdateButtonState(false, "失敗", Color.red);
             return false;
         }
 
+        // コマンドの検証
         int validCommandCount = 0;
-        foreach (var command in proctext)
+        foreach (var command in proctext)       // 入力されたコマンドを一つずつ確認する
         {
+            // コマンドが正しいかどうかを確認する
             string commandText = commandSO.CheckCommand(command);
+
+            // コマンドが正しい場合
             if (commandText != null)
             {
-                validCommandCount++;
+                validCommandCount++;    // 正しいコマンドの数をカウントする
             }
-            else
+            else    // コマンドが間違っていた場合
             {
                 Debug.Log($"[ {command} ]コマンドが間違えています。");
             }
         }
 
+        // 全てのコマンドが正しい場合
         if (validCommandCount == proctext.Length)
         {
             UpdateButtonState(true, "成功", Color.green);
             return true;
         }
 
+        // 一つでもコマンドが間違っていた場合
         UpdateButtonState(false, "失敗", Color.red);
         return false;
     }
 
+    /// <summary>
+    /// ボタンの状態を更新する
+    /// </summary>
+    /// <param name="isEnabled">正しいか正しくないか</param>
+    /// <param name="message">テキスト</param>
+    /// <param name="color">配色</param>
     private void UpdateButtonState(bool isEnabled, string message, Color color)
     {
         executeButton.interactable = isEnabled;
@@ -88,22 +103,36 @@ public class RobotCommandController : MonoBehaviour
         check_text.color = color;
     }
 
-
+    /// <summary>
+    /// コマンドを確認する
+    /// </summary>
     void OnClick_CommandCheck()
     {
-        robotCmdExecute.ProcText = null;
-        robotCmdExecute.StateEndFlag  = false;
+        ResetRobotCommandExecute();          // ロボットのコマンドをリセットする
 
-        proctext = CheckTextCommand(inputField);        // 行ごとに文字列を取得する
-        complete = InputCommand(proctext);              // コマンドが正確か否かを判断する
+        proctext = CheckTextCommand(inputField); // 行ごとに文字列を取得する
+        complete = InputCommand(proctext);       // コマンドが正確か否かを判断する
 
-        if(complete == true)
+        // コマンドが正確な場合
+        if (complete)
         {
-            robotCmdExecute.ProcText = proctext;
-            executeButton.interactable = true;
+            robotCmdExecute.ProcText = proctext;        // ロボットのコマンドを設定する
+            executeButton.interactable = true;          // 実行ボタンを押せる状態にする
         }
     }
 
+    /// <summary>
+    /// ロボットのコマンドをリセットする
+    /// </summary>
+    private void ResetRobotCommandExecute()
+    {
+        robotCmdExecute.ProcText = null;
+        robotCmdExecute.StateEndFlag = false;
+    }
+
+    /// <summary>
+    /// コマンドを実行する
+    /// </summary>
     void OnClick_CommandExecute()
     {
         // コマンドを実行する
@@ -119,22 +148,30 @@ public class RobotCommandController : MonoBehaviour
     /// <returns></returns>
     string[] CheckTextCommand(TMP_InputField _input)
     {
-        string _proctext = _input.text;
+        // 改行ごとに文字列を取得する
+        string[] lines = _input.text.Split(new[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
 
-        // 改行ごとにテキストを分割
-        string[] lines = _proctext.Split(new[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
-
-        // 各行をログに表示
+        // 行ごとに文字列を取得する
         for (int i = 0; i < lines.Length; i++)
         {
             Debug.Log($"Line {i + 1}: {lines[i]}");
         }
-        if(lines[0] == "MoveTo(location);")
+
+        // チュートリアルの条件を確認する
+        CheckTutorialCondition(lines);
+        return lines;
+    }
+
+    /// <summary>
+    /// チュートリアルの条件を確認する
+    /// </summary>
+    /// <param name="lines">コマンド</param>
+    private void CheckTutorialCondition(string[] lines)
+    {
+        if (lines.Length > 0 && lines[0] == "MoveTo(location);")
         {
             TutorialController.insrance.TutorialCheck(0, 2);
         }
-
-        return lines;
     }
 }
 
