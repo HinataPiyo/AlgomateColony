@@ -12,7 +12,7 @@ public class RobotGather : MonoBehaviour
     BaseStatus _base;
     Slider _gslider;        // 収集スライダー
 
-    public void GameInit(RobotController _robotCont)
+    public void Initialize(RobotController _robotCont)
     {
         robotCont = _robotCont;
         _base = robotCont.GetBaseStatus();

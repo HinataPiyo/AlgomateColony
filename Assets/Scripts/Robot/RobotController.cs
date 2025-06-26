@@ -145,7 +145,7 @@ public class RobotController : MonoBehaviour
     public void Set_BaseStatus(BaseStatus _basestatus)
     {
         _base = _basestatus;
-        GameInit();
+        Initialize();
     }
 
     /// <summary>
@@ -193,11 +193,11 @@ public class RobotController : MonoBehaviour
         ChangeState(State.DoNon);               // ステートを何もしない状態にする
 
         // 最初に実行される初期化処理
-        robotGather.GameInit(this);             // 収集用スクリプト
-        robotMove.GameInit(this);               // 移動用スクリプト
-        robotSearch.GameInit(this,robotMove);   // 資源探し用スクリプト
-        robotBattery.GameInit(this);            // バッテリー用スクリプト
-        robotDeposit.GameInit(this);
+        robotGather.Initialize(this);             // 収集用スクリプト
+        robotMove.Initialize(this);               // 移動用スクリプト
+        robotSearch.Initialize(this,robotMove);   // 資源探し用スクリプト
+        robotBattery.Initialize(this);            // バッテリー用スクリプト
+        robotDeposit.Initialize(this);
 
         _base.TotalStatus();                    // 総合ステータスを生成
 

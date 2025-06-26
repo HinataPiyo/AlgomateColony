@@ -17,7 +17,7 @@ public class RobotDeposit : MonoBehaviour
         wCont = FacilityManager.instance.wController;
     }
 
-    public void GameInit(RobotController _robotCont)
+    public void Initialize(RobotController _robotCont)
     {
         robotCont = _robotCont;
         _base = robotCont.GetBaseStatus();

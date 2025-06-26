@@ -50,7 +50,7 @@ public class RobotMovement : MonoBehaviour
     /// <summary>
     /// 初期化処理
     /// </summary>
-    public void GameInit(RobotController _robotCont)
+    public void Initialize(RobotController _robotCont)
     {
         robotCont = _robotCont;
         _base = robotCont.GetBaseStatus();
