@@ -53,5 +53,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Robot
+    uniqueID: 4264287729
+    locked: 0
+  - name: Material
+    uniqueID: 386241909
+    locked: 0
   m_RenderingLayers:
   - Default

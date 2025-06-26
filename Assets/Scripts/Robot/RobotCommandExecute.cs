@@ -78,19 +78,19 @@ public class RobotCommandExecute : MonoBehaviour
     /// <param name="commandText"></param>
     void ExecuteCommand(string commandText)
     {
-        string specifytext = CommandSO.MatchParenthesesCommand(commandText);
+        string specifytext = CommandHandler.MatchParenthesesCommand(commandText);
 
-        if (commandText == CommandSO.moveTo + $"({specifytext});")
+        if (commandText == CommandHandler.Move + $"({specifytext});")
         {
             robotCont.ObjectName = specifytext;
             robotCont.ChangeState(RobotController.State.Search);
         }
-        else if (commandText == CommandSO.gatherTo + $"({specifytext});")
+        else if (commandText == CommandHandler.Gather + $"({specifytext});")
         {
             robotCont.ObjectName = specifytext;
             robotCont.ChangeState(RobotController.State.GatherResource);
         }
-        else if (commandText == CommandSO.depositTo + $"({specifytext});")
+        else if (commandText == CommandHandler.Deposit + $"({specifytext});")
         {
             robotCont.DepsiteName = ParseDepositParameters(specifytext);
             robotCont.ChangeState(RobotController.State.Deposit);

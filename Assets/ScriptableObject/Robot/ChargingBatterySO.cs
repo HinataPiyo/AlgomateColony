@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// スクリプタブルオブジェクトの作成
+/// s
 /// </summary>
 [CreateAssetMenu(fileName = "ChargingBatterySO", menuName = "CreatScriptableObject/ChargingBatterySO")]
 public class ChargingBatterySO : ScriptableObject

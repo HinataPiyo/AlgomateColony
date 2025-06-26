@@ -1,0 +1,7 @@
+[
+  { "command": "location", "description": "拠点" },
+  { "command": "warehouse", "description": "倉庫" },
+  { "command": "rock", "description": "石" },
+  { "command": "tree", "description": "木" },
+  { "command": "ironOre", "description": "鉄鉱石" }
+]

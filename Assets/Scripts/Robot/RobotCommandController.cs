@@ -65,7 +65,7 @@ public class RobotCommandController : MonoBehaviour
         foreach (var command in proctext)       // 入力されたコマンドを一つずつ確認する
         {
             // コマンドが正しいかどうかを確認する
-            string commandText = commandSO.CheckCommand(command);
+            string commandText = CommandHandler.CheckCommand(command);
 
             // コマンドが正しい場合
             if (commandText != null)
