@@ -1,8 +1,10 @@
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// Moveコマンドが入力されたらターゲットにヒットするまで範囲を生成しターゲットを取得する
+/// </summary>
+[RequireComponent(typeof(RobotController))]
+[RequireComponent(typeof(RobotMovement))]
 public class RobotSearch : MonoBehaviour
 {
     RobotController robotCont;
@@ -15,11 +17,10 @@ public class RobotSearch : MonoBehaviour
     Collider2D[] hitInfo;
     bool hitObject;       // 資源が見つかっているか否か
 
-
-    public void Initialize(RobotController _robotCont, RobotMovement _robotMove)
+    void Awake()
     {
-        robotCont = _robotCont;
-        robotMove = _robotMove;
+        robotCont = GetComponent<RobotController>();
+        robotMove = GetComponent<RobotMovement>();
     }
 
     /// <summary>
@@ -27,13 +28,13 @@ public class RobotSearch : MonoBehaviour
     /// </summary>
     public Collider2D Search(string _name)
     {
-        
+
         // 範囲の生成
         hitInfo = Physics2D.OverlapCircleAll(transform.position, infoRadius, layerMask);
 
-        foreach(Collider2D hit in hitInfo)
+        foreach (Collider2D hit in hitInfo)
         {
-            if(hitInfo != null && hitObject == false && hit.CompareTag(_name))
+            if (hitInfo != null && hitObject == false && hit.CompareTag(_name))
             {
 
                 infoRadius = 0;         // 0に初期化する
@@ -47,7 +48,7 @@ public class RobotSearch : MonoBehaviour
                 Debug.Log("searchが完了しました");
 
                 return hit;
-            }        
+            }
         }
         infoRadius += INCREASE_RADIUS;  // 半径を広げる
         hitObject = false;    // マテリアルが見つかりませんでした

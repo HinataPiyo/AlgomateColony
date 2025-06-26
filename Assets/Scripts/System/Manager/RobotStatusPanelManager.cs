@@ -1,7 +1,6 @@
 using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class RobotStatusPanelManager : MonoBehaviour
@@ -16,7 +15,7 @@ public class RobotStatusPanelManager : MonoBehaviour
     [SerializeField] Button commandButton;
     [SerializeField] RectTransform robotStatusPanel;
     [SerializeField] GameObject robotCodingObj;
-    RobotCommandController robotCmdCont;
+    RobotCommandUIController robotCmdCont;
 
     [Header("親のオブジェ")]
     [SerializeField] Transform slotsParent;
@@ -48,15 +47,16 @@ public class RobotStatusPanelManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+
+        rSlot = slotsParent.GetComponentsInChildren<RobotSlot>();
+        robotCmdCont = GetComponent<RobotCommandUIController>();
+
+        backButton.onClick.AddListener(BackButtonOnClick);
+        commandButton.onClick.AddListener(CommandButtonClick);
     }
 
     void Start()
     {
-        backButton.onClick.AddListener(BackButtonOnClick);
-        commandButton.onClick.AddListener(CommandButtonClick);
-        rSlot = slotsParent.GetComponentsInChildren<RobotSlot>();
-        robotCmdCont = GetComponent<RobotCommandController>();
-
         ResetText();
 
         // CodingPanelを非アクティブ状態にする

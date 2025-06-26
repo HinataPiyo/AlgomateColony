@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// RobotMovement はロボットの移動処理を管理するクラスです。
-/// PathfindingSystem によって経路生成を行い、ObstacleAvoidanceHelper によって障害物回避を行います。
+/// RobotMovement はロボットの移動処理を管理するクラス
+/// PathfindingSystem によって経路生成を行い、ObstacleAvoidanceHelper によって障害物回避を行う
 /// </summary>
-public class RobotMovement : MonoBehaviour
+[RequireComponent(typeof(RobotController))]
+public class RobotMovement : MonoBehaviour, IRobotInitializable
 {
     [Header("ロボットの画像"), SerializeField] SpriteRenderer charImg;
 
@@ -24,35 +25,33 @@ public class RobotMovement : MonoBehaviour
     bool isMoving;
 
     // 経路点のキュー
-    private Queue<Vector2> _waypoints = new();
+    Queue<Vector2> _waypoints = new();
     // 最後に計算したターゲット位置
-    private Vector2 _calcedTargetPos = Vector2.positiveInfinity;
-    private float _elapsed;
-    private float _reCalcTime = 0.5f;
+    Vector2 _calcedTargetPos = Vector2.positiveInfinity;
+    float _elapsed;
+    float _reCalcTime = 0.5f;
     // 最後の移動方向
-    private Vector2 lastMoveDir = Vector2.right;
+    Vector2 lastMoveDir = Vector2.right;
 
     // 障害物回避フラグ・タイマー・方向
-    private bool isAvoiding = false;
-    private float avoidTimer = 0f;
+    bool isAvoiding = false;
+    float avoidTimer = 0f;
     private Vector2 avoidDirection;
 
-    private ObstacleAvoidanceHelper avoidanceHelper;
-    private PathfindingSystem pathfinder;
+    ObstacleAvoidanceHelper avoidanceHelper;
+    PathfindingSystem pathfinder;
 
     void Awake()
     {
+        robotCont = GetComponent<RobotController>();
+
         _waypoints.Clear();
         avoidanceHelper = new ObstacleAvoidanceHelper();
         pathfinder = new PathfindingSystem(10);
     }
 
-    /// <summary>
-    /// 初期化処理
-    /// </summary>
-    public void Initialize(RobotController _robotCont)
+    public void Initialize()
     {
-        robotCont = _robotCont;
         _base = robotCont.GetBaseStatus();
         robot_anim = robotCont.GetRobotAnim();
     }

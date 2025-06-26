@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RobotCommandController : MonoBehaviour
+/// <summary>
+/// コマンドを入力する箇所を管理するクラス
+/// </summary>
+[RequireComponent(typeof(RobotCommandExecute))]
+public class RobotCommandUIController : MonoBehaviour
 {
-    public static RobotCommandController instance;
-    [SerializeField] CommandSO commandSO;
     [Header("確認ボタン")]
     [SerializeField] Button checkButton;
     [SerializeField] TextMeshProUGUI check_text;
@@ -27,24 +26,15 @@ public class RobotCommandController : MonoBehaviour
     [SerializeField] string[] proctext;
 
     RobotCommandExecute robotCmdExecute;
-    public RobotCommandExecute Set_RobotCommandExecute { set{robotCmdExecute = value;} }
-    public TMP_InputField InputCommandField { get{return inputField;} }
+    public RobotCommandExecute Set_RobotCommandExecute { set { robotCmdExecute = value; } }
+    public TMP_InputField InputCommandField { get { return inputField; } }
 
-    private void Start()
+    void Awake()
     {
-        AddButtonListeners();
+        executeButton.onClick.AddListener(ExecuteButtonOnClick);
+        checkButton.onClick.AddListener(CommandCheckButtonOnClick);
+
         executeButton.interactable = false; // 実行ボタンを最初は押せない状態にする
-    }
-
-    private void AddButtonListeners()
-    {
-        executeButton.onClick.AddListener(OnClick_CommandExecute);
-        checkButton.onClick.AddListener(OnClick_CommandCheck);
-    }
-
-    public void Reset_Buttons()
-    {
-        UpdateButtonState(false, "チェック", Color.white);
     }
 
     /// <summary>
@@ -62,19 +52,19 @@ public class RobotCommandController : MonoBehaviour
 
         // コマンドの検証
         int validCommandCount = 0;
-        foreach (var command in proctext)       // 入力されたコマンドを一つずつ確認する
+        foreach (var com in proctext)       // 入力されたコマンドを一つずつ確認する
         {
             // コマンドが正しいかどうかを確認する
-            string commandText = CommandHandler.CheckCommand(command);
+            string _command = CommandHandler.CheckCommand(com);
 
             // コマンドが正しい場合
-            if (commandText != null)
+            if (_command != null)
             {
                 validCommandCount++;    // 正しいコマンドの数をカウントする
             }
             else    // コマンドが間違っていた場合
             {
-                Debug.Log($"[ {command} ]コマンドが間違えています。");
+                Debug.Log($"[ {com} ]コマンドが間違えています。");
             }
         }
 
@@ -104,48 +94,54 @@ public class RobotCommandController : MonoBehaviour
     }
 
     /// <summary>
-    /// コマンドを確認する
+    /// チェックボタンを押したときの処理
     /// </summary>
-    void OnClick_CommandCheck()
+    void CommandCheckButtonOnClick()
     {
-        ResetRobotCommandExecute();          // ロボットのコマンドをリセットする
+        ResetRobotCommandExecute();                 // ロボットのコマンドをリセットする
 
-        proctext = CheckTextCommand(inputField); // 行ごとに文字列を取得する
-        complete = InputCommand(proctext);       // コマンドが正確か否かを判断する
+        proctext = CheckTextCommand(inputField);    // 行ごとに文字列を取得する
+        complete = InputCommand(proctext);          // コマンドが正確か否かを判断する
 
         // コマンドが正確な場合
         if (complete)
         {
-            robotCmdExecute.ProcText = proctext;        // ロボットのコマンドを設定する
-            executeButton.interactable = true;          // 実行ボタンを押せる状態にする
+            robotCmdExecute.ProcText = proctext;    // ロボットのコマンドを設定する
+            executeButton.interactable = true;      // 実行ボタンを押せる状態にする
         }
     }
 
     /// <summary>
-    /// ロボットのコマンドをリセットする
+    /// チェックボタンをリセットする
     /// </summary>
-    private void ResetRobotCommandExecute()
+    public void Reset_Buttons()
     {
-        robotCmdExecute.ProcText = null;
-        robotCmdExecute.StateEndFlag = false;
+        UpdateButtonState(false, "チェック", Color.white);
     }
 
     /// <summary>
     /// コマンドを実行する
     /// </summary>
-    void OnClick_CommandExecute()
+    void ExecuteButtonOnClick()
     {
         // コマンドを実行する
         robotCmdExecute.StartCoroutine_CommandToExecution();
         RobotStatusPanelManager.instance.BackButtonOnClick();
-        Debug.Log("出力します。");
+    }
+
+    /// <summary>
+    /// ロボットのコマンドをリセットする
+    /// </summary>
+    void ResetRobotCommandExecute()
+    {
+        // InputFieldとは別にstring[]で行ごとに管理している変数をnullにする
+        robotCmdExecute.ProcText = null;
+        robotCmdExecute.StateEndFlag = false;
     }
 
     /// <summary>
     /// 一行ずつコマンドを確認する
     /// </summary>
-    /// <param name="_input"></param>
-    /// <returns></returns>
     string[] CheckTextCommand(TMP_InputField _input)
     {
         // 改行ごとに文字列を取得する

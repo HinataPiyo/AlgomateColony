@@ -31,7 +31,7 @@ public class RobotFactory : MonoBehaviour
     {
         GameObject newRobot = Instantiate(robotPrefab, spawnPoint.position, Quaternion.identity);
         RobotController _robot = newRobot.GetComponent<RobotController>();
-        _robot.Initialize();
+        _robot.SpawnInit();
         scSO.robot_list.Add(_robot.GetBaseStatus());
         _robot.SetRobotName($"アルゴメイト{scSO.robot_list.Count}");
     }

@@ -52,7 +52,78 @@ public class RobotController : MonoBehaviour
     public string[] DepsiteName { get{ return depsiteName; } set{ depsiteName = value; }}
     public string ObjectName { get{return objectName;} set{ objectName = value; } }
     public RobotCommandExecute Get_RobotCommandExecute { get{ return robotCmdExecute; } }
-#region ステート管理
+
+    void Awake()
+    {
+        robot_anim = GetComponentInChildren<Animator>();
+        robotGather = GetComponent<RobotGather>();
+        robotMove = GetComponent<RobotMovement>();
+        robotSearch = GetComponent<RobotSearch>();
+        robotBattery = GetComponent<RobotBattery>();
+        robotCmdExecute = GetComponent<RobotCommandExecute>();
+        robotDeposit = GetComponent<RobotDeposit>();
+    }
+
+    /// <summary>
+    /// 他から "再度生成" するときに使用するメソッド
+    /// </summary>
+    /// <param name="_basestatus"></param>
+    public void Initialize(BaseStatus _basestatus)
+    {
+        _base = _basestatus;
+        UIInitialize();
+    }
+
+    /// <summary>
+    /// 生成時に行う処理(新規生成)
+    /// </summary>
+    public void SpawnInit()
+    {
+        _base = new BaseStatus();               // 自身にクラスを生成
+        _base.RandomStatusProc();               // ランダムでステータスを決める
+        _base.GeneratInventorySlots();          // インベントリを生成
+        _base.GenerateEquipmentSlots();         // 装備スロットを生成
+        _base.GeneratAccessorySlots();          // アクセサリースロットを生成
+        _base.GenerateBatterySlots();           // バッテリースロットを生成
+        _base.TotalStatus();                    // 総合ステータスを生成
+
+        UIInitialize();
+    }
+
+    void UIInitialize()
+    {
+        sliderCanvas = GameManager.instance.sliderCanvas;   // スライダーを表示するキャンバスを取得
+        // スライダーの生成 / バッテリーを示すスライダー
+        eSlider = Instantiate(energySlider, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, sliderCanvas.transform);
+        // 資源収集を行うときのスライダー
+        gSlider = Instantiate(gatherSlider, new Vector2(transform.position.x, transform.position.y + 0.6f), Quaternion.identity, sliderCanvas.transform);
+
+        // コンポーネントの取得
+        _eslider = eSlider.GetComponent<Slider>();
+
+        // 初期化処理を開始
+        _base.battery_status = batteryData.battery_values[0];   // 一番弱いバッテリーを最初に装着させておく
+        _base.StatusUp_EnergyMax();
+        _base.currentEnergy = _base.maxEnergy;  // 充電をMaxにする
+        _base.base_MaxEnergy = _base.maxEnergy; // 最大充電量を別の変数に格納しておく
+        _eslider.maxValue = _base.maxEnergy;    // スライダーの最大値を個々の充電量を反映
+        _eslider.value = _eslider.maxValue;     // スライダーのvalueをMaxに設定
+        ChangeState(State.DoNon);               // ステートを何もしない状態にする
+
+        _base.TotalStatus();                    // 総合ステータスを生成
+
+        // 他のスクリプトの初期化
+        IRobotInitializable[] init = GetComponents<IRobotInitializable>();
+        foreach (var i in init)
+        {
+            i.Initialize();
+        }
+
+        // 非アクティブ状態系は最後に実行
+            gSlider.SetActive(false);   // 非アクティブ状態にする
+    }
+
+    #region ステート管理
     void LateUpdate()
     {
         if(stateTime != 0)
@@ -70,11 +141,11 @@ public class RobotController : MonoBehaviour
     }
 #endregion
 
-    private void Update()
+    void Update()
     {
 
         // ロボットの充電がなくなったか調べる
-        robotBattery.Check_CurrentEnergy();
+        robotBattery?.Check_CurrentEnergy();
 
         // ステート管理
         stateTime += Time.deltaTime;
@@ -136,73 +207,6 @@ public class RobotController : MonoBehaviour
         
         // スライダーの位置を設定する
         Set_SliderPosition();
-    }
-
-    /// <summary>
-    /// 他から "再度生成" するときに使用するメソッド
-    /// </summary>
-    /// <param name="_basestatus"></param>
-    public void Set_BaseStatus(BaseStatus _basestatus)
-    {
-        _base = _basestatus;
-        Initialize();
-    }
-
-    /// <summary>
-    /// 生成時に行う処理(新規生成)
-    /// </summary>
-    public void Initialize()
-    {
-        _base = new BaseStatus();               // 自身にクラスを生成
-        _base.RandomStatusProc();               // ランダムでステータスを決める
-        _base.GeneratInventorySlots();          // インベントリを生成
-        _base.GenerateEquipmentSlots();         // 装備スロットを生成
-        _base.GeneratAccessorySlots();          // アクセサリースロットを生成
-        _base.GenerateBatterySlots();           // バッテリースロットを生成
-        _base.TotalStatus();                    // 総合ステータスを生成
-
-        MemberInit();
-    }
-
-    void MemberInit()
-    {
-        sliderCanvas = GameManager.instance.sliderCanvas;   // スライダーを表示するキャンバスを取得
-        // スライダーの生成 / バッテリーを示すスライダー
-        eSlider = Instantiate(energySlider, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, sliderCanvas.transform);
-        // 資源収集を行うときのスライダー
-        gSlider = Instantiate(gatherSlider, new Vector2(transform.position.x, transform.position.y + 0.6f), Quaternion.identity, sliderCanvas.transform);
-
-        // コンポーネントの取得
-        _eslider = eSlider.GetComponent<Slider>();
-        robot_anim = GetComponentInChildren<Animator>();
-        robotGather = GetComponent<RobotGather>();
-        robotMove = GetComponent<RobotMovement>();
-        robotSearch = GetComponent<RobotSearch>();
-        robotBattery = GetComponent<RobotBattery>();
-        robotCmdExecute = GetComponent<RobotCommandExecute>();
-        robotDeposit = GetComponent<RobotDeposit>();
-
-
-        // 初期化処理を開始
-        _base.battery_status = batteryData.battery_values[0];   // 一番弱いバッテリーを最初に装着させておく
-        _base.StatusUp_EnergyMax();
-        _base.currentEnergy = _base.maxEnergy;  // 充電をMaxにする
-        _base.base_MaxEnergy = _base.maxEnergy; // 最大充電量を別の変数に格納しておく
-        _eslider.maxValue = _base.maxEnergy;    // スライダーの最大値を個々の充電量を反映
-        _eslider.value = _eslider.maxValue;     // スライダーのvalueをMaxに設定
-        ChangeState(State.DoNon);               // ステートを何もしない状態にする
-
-        // 最初に実行される初期化処理
-        robotGather.Initialize(this);             // 収集用スクリプト
-        robotMove.Initialize(this);               // 移動用スクリプト
-        robotSearch.Initialize(this,robotMove);   // 資源探し用スクリプト
-        robotBattery.Initialize(this);            // バッテリー用スクリプト
-        robotDeposit.Initialize(this);
-
-        _base.TotalStatus();                    // 総合ステータスを生成
-
-        // 非アクティブ状態系は最後に実行
-        gSlider.SetActive(false);   // 非アクティブ状態にする
     }
 
     void Set_SliderPosition()

@@ -51,14 +51,6 @@ public class ChargingBatteryPanel : MonoBehaviour
             possible_chargeAmount_text.text = $"{Check_InSlot()}/{cbSO.possible_chargeAmount}";
             Creat_RobotSlot();
         }
-
-
-        // テスト
-        // if(flag == true)
-        // {
-        //     Creat_RobotSlot();
-        //     flag = false;
-        // }
     }
 
     // ※充電回数がMAXの場合で充電施設に入れないようにする
@@ -83,16 +75,6 @@ public class ChargingBatteryPanel : MonoBehaviour
                 robotSlots.Add(cbSlot);
             }
         }
-
-        // RobotController _robot = FindAnyObjectByType<RobotController>();
-
-        // if(_robot != null)
-        // {
-        //     // テスト
-        //     robotSlots[0].InSlot(_robot.GetBaseStatus());
-
-        //     Destroy(_robot.gameObject,1f);
-        // }
     }
 
     /// <summary>
@@ -144,7 +126,7 @@ public class ChargingBatteryPanel : MonoBehaviour
     {
         GameObject _robotObj = Instantiate(robot_prefab, new Vector2(spawn_pos.position.x, spawn_pos.position.y - 1.5f), Quaternion.identity);
         RobotController _script = _robotObj.GetComponent<RobotController>();
-        _script.Set_BaseStatus(robotBase);
+        _script.Initialize(robotBase);
 
         Initialization_RobotSlot(cbrSlot);     // スロット内をクリアする
         SetActive_PutOutPanel(false);       // Yes or No ボタンパネルを非アクティブ状態にする
