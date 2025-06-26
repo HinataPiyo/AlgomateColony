@@ -161,10 +161,10 @@ public class RobotController : MonoBehaviour
         _base.GenerateBatterySlots();           // バッテリースロットを生成
         _base.TotalStatus();                    // 総合ステータスを生成
 
-        GameInit();
+        MemberInit();
     }
 
-    void GameInit()
+    void MemberInit()
     {
         sliderCanvas = GameManager.instance.sliderCanvas;   // スライダーを表示するキャンバスを取得
         // スライダーの生成 / バッテリーを示すスライダー
