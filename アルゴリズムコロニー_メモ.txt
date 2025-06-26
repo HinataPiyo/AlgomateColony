@@ -117,7 +117,7 @@
     プレイヤーが効率的な分業を考える楽しみが増える。
 
 <コマンド一覧>
-1, move_to, gather	            初期設定。資源を指定の場所に集めるタスクをクリア。
+1, move, gather	            初期設定。資源を指定の場所に集めるタスクをクリア。
 2, build(structure)	            資源を使って簡単な建物を建設。
 3, if, else（条件分岐）	        「エネルギーが50未満なら充電、そうでなければ作業を続ける」プログラムを書く。
 4, for, while(ループ構文)        同じタスクを繰り返す効率的なコードを要求。
@@ -133,6 +133,6 @@
 
 例:条件分岐
     if energy < 20:
-        move_to("charging_station");
+        move("charging_station");
     else:
         gather("wood");
