@@ -1,20 +1,27 @@
 using System.Collections;
-using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RobotGather : MonoBehaviour
+/// <summary>
+/// 素材を収集する処理
+/// </summary>
+[RequireComponent(typeof(RobotController))]
+public class RobotGather : MonoBehaviour, IRobotInitializable
 {
     [SerializeField] EquipmentSO equipmentSO;
     [SerializeField] SpriteRenderer equipment_sprite;
-    
+
     RobotController robotCont;
     BaseStatus _base;
     Slider _gslider;        // 収集スライダー
 
-    public void Initialize(RobotController _robotCont)
+    void Awake()
     {
-        robotCont = _robotCont;
+        robotCont = GetComponent<RobotController>();
+    }
+
+    public void Initialize()
+    {
         _base = robotCont.GetBaseStatus();
         _gslider = robotCont.GetGatherSliderObject().GetComponent<Slider>();
         ChangeEquipment(null);
@@ -25,7 +32,7 @@ public class RobotGather : MonoBehaviour
     /// </summary>
     public void StartCoroutine_GatherResource()
     {
-        if(robotCont.GetHitInfo() == null)
+        if (robotCont.GetHitInfo() == null)
         {
             Debug.Log("対象のオブジェクトを発見できませんでした。");
             LogController.instance.SetLog(_base, "対象のオブジェクトを発見できませんでした");
@@ -42,7 +49,7 @@ public class RobotGather : MonoBehaviour
     {
         bool checkHitInfo = true;
 
-        if(robotCont.ObjectName != robotCont.GetHitInfo().tag)
+        if (robotCont.ObjectName != robotCont.GetHitInfo().tag)
         {
             Debug.Log("設定した名前は対象の名前と異なります。");
             LogController.instance.SetLog(_base, "設定した名前は対象の名前と異なります");
@@ -50,16 +57,16 @@ public class RobotGather : MonoBehaviour
         }
 
         Debug.Log(_base.robotName + "が資源を収集しています。");
-        
-        
+
+
         // 収集処理
-        while(checkHitInfo == true && _base.recharge_battery == false)
+        while (checkHitInfo == true && _base.recharge_battery == false)
         {
             // 収集時間を表すスライダーを表示する
-            if(robotCont.GetHitInfo() != null)     // 資源が存在していれば
+            if (robotCont.GetHitInfo() != null)     // 資源が存在していれば
             {
                 // 全てのスロットがスタックMaxだった場合
-                if(_base.CheckAllStackMax() == BaseStatus.SLOT_STACK.ALL_STACK_MAX)
+                if (_base.CheckAllStackMax() == BaseStatus.SLOT_STACK.ALL_STACK_MAX)
                 {
                     Debug.Log(_base.robotName + "のインベントリがいっぱいです。");
                     LogController.instance.SetLog(_base, "インベントリがいっぱいです");
@@ -81,7 +88,7 @@ public class RobotGather : MonoBehaviour
                 _gslider.value = _gslider.maxValue;
 
                 // 資源に設定されてある時間より経過時間が小さければ
-                while(time < _baseMate.mateSO.gatherTime)
+                while (time < _baseMate.mateSO.gatherTime)
                 {
                     // ! 収集速度を上昇させるか確認する
                     UpGread_GatharRate(_baseMate.mateSO);
@@ -90,29 +97,29 @@ public class RobotGather : MonoBehaviour
                     _gslider.value = _gslider.maxValue - time;         // 減少させるようにスライダーの値を設定
 
                     // 時間経過中に収集中のモノがなくなったら
-                    if(robotCont.GetHitInfo() == null) 
+                    if (robotCont.GetHitInfo() == null)
                     {
                         robotCont.ChangeState(RobotController.State.DoNon);
                         yield break;                // コルーチンを抜ける
                     }
-                    
+
                     yield return null;                      // 次のフレームまで待機
                 }
 
                 // 資源にダメージを与える
                 _baseMate.TakeDamage(_base.gatherSterngth);
-                
+
                 // 収集している資源のシリアル番号が同一か確かめる
-                foreach(var _slot in _base.slots)
+                foreach (var _slot in _base.slots)
                 {
                     // スタック数がMaxではなかったら
-                    if(_base.CheckStackMax() == BaseStatus.SLOT_STACK.STACK_TRUE)
+                    if (_base.CheckStackMax() == BaseStatus.SLOT_STACK.STACK_TRUE)
                     {
                         // スロット内に同一のシリアル番号がなければ
-                        if(_slot.mateSO?.serialNum != _baseMate.mateSO.serialNum)
+                        if (_slot.mateSO?.serialNum != _baseMate.mateSO.serialNum)
                         {
                             // 空のスロットを見つける
-                            if(_slot.mateSO == null)
+                            if (_slot.mateSO == null)
                             {
                                 // スロット(インベントリ)に格納する
                                 _slot.mateSO = _baseMate.mateSO;
@@ -129,18 +136,18 @@ public class RobotGather : MonoBehaviour
                         }
                     }
                     // スタックがMaxだった場合
-                    else if(_base.CheckStackMax() == BaseStatus.SLOT_STACK.STACK_MAX)
+                    else if (_base.CheckStackMax() == BaseStatus.SLOT_STACK.STACK_MAX)
                     {
 
                         // 空のスロットを探す
-                        if(_slot.mateSO == null)
+                        if (_slot.mateSO == null)
                         {
                             // スロット(インベントリ)に格納する
                             _slot.mateSO = _baseMate.mateSO;
                             // スタック数を増やす
                             _slot.itemStackAmount += _baseMate.GetAmo();
                             break;      // foreachを抜ける
-                        }             
+                        }
                     }
                 }
             }
@@ -165,7 +172,7 @@ public class RobotGather : MonoBehaviour
         yield break;        // コルーチンを抜ける
     }
 
-    
+
     /// <summary>
     /// 収集速度ステータスの上昇
     /// 収集速度は値が増えるほど速くなる
@@ -174,7 +181,7 @@ public class RobotGather : MonoBehaviour
     public void UpGread_GatharRate(MaterialSO _mateSO)
     {
         // 装備している装備の名前を引数で渡し、名前に合った値を返してくる
-        _base.gatherRate = _base.GetGatherRate_Min() + 
+        _base.gatherRate = _base.GetGatherRate_Min() +
             equipmentSO.GetEquipmentTotalValue(_base.equipment_value, _mateSO);
     }
 
@@ -184,7 +191,7 @@ public class RobotGather : MonoBehaviour
     /// <param name="_baseMate"></param>
     void ChangeEquipment(BaseMaterial _baseMate)
     {
-        if(_baseMate == null)
+        if (_baseMate == null)
         {
             equipment_sprite.sprite = null;
             equipment_sprite.enabled = false;
@@ -193,7 +200,7 @@ public class RobotGather : MonoBehaviour
 
         MaterialSO mateSo = _baseMate.mateSO;
 
-        switch(mateSo.EquipmentToMatch)
+        switch (mateSo.EquipmentToMatch)
         {
             case EQUIPMENT_NAME.NONE:
                 equipment_sprite.sprite = null;

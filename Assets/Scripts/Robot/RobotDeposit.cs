@@ -1,10 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RobotDeposit : MonoBehaviour
+/// <summary>
+/// 所持アイテムを倉庫に格納する処理
+/// </summary>
+[RequireComponent(typeof(RobotController))]
+public class RobotDeposit : MonoBehaviour, IRobotInitializable
 {
     WarehouseController wCont;
-    
+
     RobotController robotCont;
     BaseStatus _base;
     BaseStatus.Slot[] slots;
@@ -13,17 +16,21 @@ public class RobotDeposit : MonoBehaviour
     [SerializeField] float radius;
     [SerializeField] LayerMask layerMask;
 
-    private void Start() {
-        wCont = FacilityManager.instance.wController;
+    void Awake()
+    {
+        robotCont = GetComponent<RobotController>();
     }
 
-    public void Initialize(RobotController _robotCont)
+    public void Initialize()
     {
-        robotCont = _robotCont;
         _base = robotCont.GetBaseStatus();
         slots = _base.slots;
     }
 
+    private void Start()
+    {
+        wCont = FacilityManager.instance.wController;
+    }
 
     /// <summary>
     /// 倉庫に素材を入れる
@@ -71,15 +78,15 @@ public class RobotDeposit : MonoBehaviour
                         wCont.SetMaterial_WarehouseSlot(slot.mateSO, quantity);
                         slot.itemStackAmount -= quantity;
                         LogController.instance.SetLog(_base, $"倉庫に{slot.mateSO.materialName}を{quantity}入れました");
-                        
+
                         TutorialController.insrance.TutorialCheck(1, 1);
                         TutorialController.insrance.BigTaskCheck(1);
-                        
-                        if(slot.itemStackAmount == 0)
+
+                        if (slot.itemStackAmount == 0)
                         {
                             slot.mateSO = null;
                         }
-                        
+
 
                         // コマンドが終了したことを知らせる
                         robotCont.Get_RobotCommandExecute.StateEndFlag = true;

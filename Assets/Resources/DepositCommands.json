@@ -1,0 +1,5 @@
+[
+  { "command": "rock", "description": "石" },
+  { "command": "tree", "description": "木" },
+  { "command": "ironOre", "description": "鉄鉱石" }
+]

@@ -1,14 +1,19 @@
 using UnityEngine;
 
-public class RobotBattery : MonoBehaviour
+[RequireComponent(typeof(RobotController))]
+public class RobotBattery : MonoBehaviour, IRobotInitializable
 {
     RobotController robotCont;
     BaseStatus _base;
     Animator robot_anim;
 
-    public void Initialize(RobotController _robotCont)
+    void Awake()
     {
-        robotCont = _robotCont;
+        robotCont = GetComponent<RobotController>();
+    }
+
+    public void Initialize()
+    {
         _base = robotCont.GetBaseStatus();
         robot_anim = robotCont.GetRobotAnim();
     }
@@ -18,9 +23,9 @@ public class RobotBattery : MonoBehaviour
     /// </summary>
     public void Check_CurrentEnergy()
     {
-        if(_base.currentEnergy > 0)
+        if (_base.currentEnergy > 0)
         {
-            if(robotCont.GetCurrentStat() != RobotController.State.DoNon
+            if (robotCont.GetCurrentStat() != RobotController.State.DoNon
             && robotCont.GetHitInfo() != null)
             {
                 // エネルギー消費
@@ -41,7 +46,7 @@ public class RobotBattery : MonoBehaviour
     public void Check_NeedRecharge()
     {
         // 最大充電回数より低ければ
-        if(_base.currentRecharged < _base.recharge_MAX)
+        if (_base.currentRecharged < _base.recharge_MAX)
         {
             // 充電可能にする
             _base.needchange_battery = false;
@@ -52,7 +57,7 @@ public class RobotBattery : MonoBehaviour
             _base.needchange_battery = true;
         }
     }
-    
+
 
     /// <summary>
     /// バッテリーを充電します
@@ -60,7 +65,7 @@ public class RobotBattery : MonoBehaviour
     public void RechargeBattery()
     {
         // バッテリー交換が必要なければ充電する
-        if(_base.needchange_battery == false)
+        if (_base.needchange_battery == false)
         {
             // Mathf.Minは最大値である"maxEnergy"を超えないようにしている
             _base.currentEnergy = Mathf.Min(_base.currentEnergy + 1, _base.maxEnergy);
