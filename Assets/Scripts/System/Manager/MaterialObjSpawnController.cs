@@ -13,8 +13,7 @@ public class MaterialObjSpawnController : MonoBehaviour
     [SerializeField] GameObject[] material;
     public List<GameObject> materials = new List<GameObject>();
     
-    int MATERIAL_SPAWN_MAX = 100;
-    int currentSpawnObj;
+    [SerializeField] int MATERIAL_SPAWN_MAX = 200;
     int SPAWN_WID = 100;
     int SPAWN_HIG = 100;
 

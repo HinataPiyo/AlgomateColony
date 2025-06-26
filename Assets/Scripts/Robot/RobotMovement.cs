@@ -1,126 +1,225 @@
-using UnityEditor.PackageManager;
+using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// RobotMovement はロボットの移動処理を管理するクラスです。
+/// PathfindingSystem によって経路生成を行い、ObstacleAvoidanceHelper によって障害物回避を行います。
+/// </summary>
 public class RobotMovement : MonoBehaviour
 {
-    RobotController robotCont;
-    BaseStatus _base;
-    Animator robot_anim;
-    
-    Transform targetPos;      // 移動先の目標座標
-    bool isMoving;          // 移動中かどうか
     [Header("ロボットの画像"), SerializeField] SpriteRenderer charImg;
 
     [Header("移動先にオブジェクトがないか確認する")]
     [SerializeField] float destinationRadius = 0.3f;
     [SerializeField] LayerMask destinationObjLayer;
+    [SerializeField] LayerMask obstacleLayer;
+    [SerializeField] float rayLength = 0.5f;
+    [SerializeField] float avoidDuration = 1.0f;
 
+    RobotController robotCont;
+    BaseStatus _base;
+    Animator robot_anim;
 
+    Transform targetPos;
+    bool isMoving;
 
-    public void GameInit(RobotController _robotCont)
+    // 経路点のキュー
+    private Queue<Vector2> _waypoints = new();
+    // 最後に計算したターゲット位置
+    private Vector2 _calcedTargetPos = Vector2.positiveInfinity;
+    private float _elapsed;
+    private float _reCalcTime = 0.5f;
+    // 最後の移動方向
+    private Vector2 lastMoveDir = Vector2.right;
+
+    // 障害物回避フラグ・タイマー・方向
+    private bool isAvoiding = false;
+    private float avoidTimer = 0f;
+    private Vector2 avoidDirection;
+
+    private ObstacleAvoidanceHelper avoidanceHelper;
+    private PathfindingSystem pathfinder;
+
+    void Awake()
+    {
+        _waypoints.Clear();
+        avoidanceHelper = new ObstacleAvoidanceHelper();
+        pathfinder = new PathfindingSystem(10);
+    }
+
+    /// <summary>
+    /// 初期化処理
+    /// </summary>
+    public void Initialize(RobotController _robotCont)
     {
         robotCont = _robotCont;
         _base = robotCont.GetBaseStatus();
         robot_anim = robotCont.GetRobotAnim();
     }
 
+    /// <summary>
+    /// ターゲット位置と移動フラグの設定
+    /// </summary>
     public void Set_TargetPosition(Transform _target, bool flag)
     {
         targetPos = _target;
         isMoving = flag;
+        _calcedTargetPos = Vector2.positiveInfinity;
     }
 
     /// <summary>
-    /// 目標位置まで移動します
+    /// ターゲットへの移動処理
     /// </summary>
     public void MoveToTarget()
     {
-        // 現在の充電量が0以下なら
-        if (_base.currentEnergy <= 0 && _base.recharge_battery == false)
+        // エネルギー切れやターゲット未設定時は移動しない
+        if (_base.currentEnergy <= 0 && !_base.recharge_battery) { isMoving = false; return; }
+        if (targetPos == null) { isMoving = false; return; }
+
+        UpdatePathIfNeeded();
+        if (ReachedDestination()) { StopAtDestination(); return; }
+
+        Vector2 currentPos = transform.position;
+        // 経路点に到達したら次の点へ
+        if (_waypoints.Count > 0 && Vector2.Distance(_waypoints.Peek(), currentPos) < 0.05f)
+            _waypoints.Dequeue();
+
+        Vector2 moveDir;
+
+        // 障害物回避中
+        if (isAvoiding)
         {
-            isMoving = false;       // 移動停止
-            return;     // ここで終了
-        }
-        // 範囲の生成
-        Collider2D _hit = Physics2D.OverlapCircle(transform.position, destinationRadius, destinationObjLayer);
-        if(_hit != null)    // 自身の周りにオブジェクトが存在していたら
-        {
-            // 距離が近ければ移動終了
-            if (_hit.CompareTag(robotCont.ObjectName)) // Vector3.Distance(transform.position, targetPos) < 2.5f)
+            // 障害物があれば回避方向を再決定
+            bool hit = Physics2D.Raycast(currentPos, avoidDirection, rayLength, obstacleLayer);
+            if (hit)
             {
-                // 収集ステートに移行
-                robotCont.ChangeState(RobotController.State.DoNon);
-                
-                robot_anim.SetBool("Run", false);
-                isMoving = false;       // 移動停止
-
-                if(_hit.CompareTag("location"))
-                {
-                    TutorialController.insrance.TutorialCheck(0, 3);
-                    TutorialController.insrance.BigTaskCheck(0);        // 大きなタスク（目標）をクリア
-                }
-
-                robotCont.Get_RobotCommandExecute.StateEndFlag = true;      // 移動処理が終了したときにフラグを立てる
-                return;
+                avoidTimer = avoidDuration;
+                Vector2? newDir = avoidanceHelper.FindBestFromBlockedDirection(currentPos, avoidDirection, rayLength, obstacleLayer);
+                avoidDirection = newDir ?? avoidDirection;
             }
 
-            // 中心座標
-            Vector3 hitCenter = _hit.transform.position;
-            Vector3 dir = (hitCenter - transform.position).normalized;
-            
-            // 一旦保留-------------------------------------------
-            transform.position += -dir * 5f * Time.deltaTime;
-            // ---------------------------------------------------
-            robot_anim.SetBool("Run", true);
+            moveDir = avoidDirection;
+            avoidTimer -= Time.deltaTime;
 
-            return;
+            if (avoidTimer <= 0f || !avoidanceHelper.HasAnyObstacle(currentPos, rayLength, obstacleLayer))
+            {
+                isAvoiding = false;
+                CalculatePath();
+            }
         }
-        else    // 自身の周りにオブジェクトが存在していなければ
+        else if (_waypoints.Count > 0)
         {
-            // ターゲット位置へ移動
-            transform.position = Vector3.MoveTowards(transform.position, targetPos.position, _base.moveSpeed * Time.deltaTime);
+            // 経路に沿って移動
+            Vector2 next = _waypoints.Peek();
+            Vector2 forward = (next - currentPos).normalized;
+            // 障害物があれば回避開始
+            if (Physics2D.Raycast(currentPos, forward, rayLength, obstacleLayer))
+            {
+                isAvoiding = true;
+                avoidTimer = avoidDuration;
+                Vector2? newDir = avoidanceHelper.FindBestFromBlockedDirection(currentPos, forward, rayLength, obstacleLayer);
+                avoidDirection = newDir ?? forward;
+                moveDir = avoidDirection;
+            }
+            else moveDir = forward;
+        }
+        else return;
 
-            // 反転処理
-            if(transform.position.x >= targetPos.position.x) charImg.flipX = true;
-            else charImg.flipX = false;
+        // 実際の移動処理
+        transform.position += (Vector3)(moveDir * _base.moveSpeed * Time.deltaTime);
+        lastMoveDir = moveDir;
 
-            robot_anim.SetBool("Run", true);
+        // アニメーション・画像反転
+        robot_anim.SetBool("Run", true);
+        charImg.flipX = (moveDir.x < 0);
+    }
+
+    /// <summary>
+    /// ターゲット位置が変化した場合や一定時間ごとに経路を再計算
+    /// </summary>
+    private void UpdatePathIfNeeded()
+    {
+        if ((Vector2)targetPos.position != _calcedTargetPos)
+        {
+            _elapsed += Time.deltaTime;
+            if (_elapsed > _reCalcTime)
+            {
+                _elapsed = 0;
+                CalculatePath();
+                _calcedTargetPos = targetPos.position;
+            }
         }
     }
 
     /// <summary>
-    /// 何もしないステートの時に処理
+    /// 目的地到達判定
     /// </summary>
-    public void DoNonPosition()
+    private bool ReachedDestination()
     {
-        // 移動を行わない
-        isMoving = false;
+        Collider2D _hit = Physics2D.OverlapCircle(transform.position, destinationRadius, destinationObjLayer);
+        return _hit != null && _hit.transform == targetPos;
     }
 
     /// <summary>
-    /// ロボットの移動処理
+    /// 目的地到達時の処理
+    /// </summary>
+    private void StopAtDestination()
+    {
+        robotCont.ChangeState(RobotController.State.DoNon);
+        robot_anim.SetBool("Run", false);
+        isMoving = false;
+
+        // チュートリアル進行チェック
+        if (targetPos.CompareTag("location"))
+        {
+            TutorialController.insrance.TutorialCheck(0, 3);
+            TutorialController.insrance.BigTaskCheck(0);
+        }
+        robotCont.Get_RobotCommandExecute.StateEndFlag = true;
+    }
+
+    /// <summary>
+    /// 経路計算
+    /// </summary>
+    private void CalculatePath()
+    {
+        _waypoints = pathfinder.GeneratePath(transform.position, targetPos.position);
+    }
+
+    /// <summary>
+    /// 移動停止
+    /// </summary>
+    public void DoNonPosition() => isMoving = false;
+
+    /// <summary>
+    /// 移動実行
     /// </summary>
     public void Moveing()
     {
-        // 移動可能なら かつ ターゲットが見つかっているなら
-        if (isMoving && targetPos != null)
-        {
-            // 移動処理を実行する
-            MoveToTarget();
-        }
+        if (isMoving && targetPos != null) MoveToTarget();
         else
         {
-            Debug.Log("ターゲットが見つかりませんでした。移動できません。");   // ターゲットが見つからなかった場合
+            Debug.Log("ターゲットが見つかりませんでした。移動できません。");
             LogController.instance.SetLog(_base, "ターゲットが見つかりませんでした, 移動できません");
         }
     }
 
     /// <summary>
-    /// Gizmosを表示する
+    /// デバッグ用Gizmos描画
     /// </summary>
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, destinationRadius);
+
+        if (_waypoints != null)
+        {
+            Gizmos.color = Color.yellow;
+            foreach (var point in _waypoints)
+                Gizmos.DrawSphere(point, 0.05f);
+        }
+
+        if (avoidanceHelper != null)
+            avoidanceHelper.DrawDebugRays(transform.position, lastMoveDir.normalized, rayLength, obstacleLayer);
     }
 }

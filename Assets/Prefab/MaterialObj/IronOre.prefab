@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2155508237757067821}
   - component: {fileID: 2087075224552966757}
   - component: {fileID: 3329193529835933541}
-  - component: {fileID: 6011991840570174231}
+  - component: {fileID: 1492003855837096606}
   m_Layer: 7
-  m_Name: Matel
+  m_Name: IronOre
   m_TagString: ironore
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,8 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mateSO: {fileID: 11400000, guid: 2d7d5f2e89d25654291cd54df7087c6f, type: 2}
---- !u!61 &6011991840570174231
-BoxCollider2D:
+--- !u!58 &1492003855837096606
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -136,15 +136,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.046904087, y: -0.0067121983}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.72, y: 3.97}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1.1251156, y: 2.4408011}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 1.985

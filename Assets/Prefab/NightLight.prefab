@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5553728381975052997}
   - component: {fileID: 3140276449803709573}
   - component: {fileID: 3023582870505323915}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NightLight
   m_TagString: NightLight
   m_Icon: {fileID: 0}

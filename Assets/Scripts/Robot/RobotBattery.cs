@@ -6,7 +6,7 @@ public class RobotBattery : MonoBehaviour
     BaseStatus _base;
     Animator robot_anim;
 
-    public void GameInit(RobotController _robotCont)
+    public void Initialize(RobotController _robotCont)
     {
         robotCont = _robotCont;
         _base = robotCont.GetBaseStatus();

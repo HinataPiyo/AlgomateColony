@@ -214,6 +214,11 @@ MonoBehaviour:
   destinationObjLayer:
     serializedVersion: 2
     m_Bits: 192
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 192
+  rayLength: 0.7
+  avoidDuration: 3
 --- !u!114 &-8489009368509014225
 MonoBehaviour:
   m_ObjectHideFlags: 0

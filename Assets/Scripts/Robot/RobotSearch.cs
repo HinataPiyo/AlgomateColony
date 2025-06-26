@@ -16,7 +16,7 @@ public class RobotSearch : MonoBehaviour
     bool hitObject;       // 資源が見つかっているか否か
 
 
-    public void GameInit(RobotController _robotCont, RobotMovement _robotMove)
+    public void Initialize(RobotController _robotCont, RobotMovement _robotMove)
     {
         robotCont = _robotCont;
         robotMove = _robotMove;
