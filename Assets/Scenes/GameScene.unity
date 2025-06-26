@@ -5833,7 +5833,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 39715588}
+  m_AnchoredPosition: {x: 0, y: 39942590}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &310716312
@@ -6291,7 +6291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 39955560}
+  m_AnchoredPosition: {x: 0, y: 40323480}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &335414107
@@ -14166,7 +14166,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 32441400}
+  m_AnchoredPosition: {x: 0, y: 32739268}
   m_SizeDelta: {x: 0, y: 405}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &821631324
@@ -64077,7 +64077,7 @@ MonoBehaviour:
   backButton: {fileID: 862965838}
   locationLevel_text: {fileID: 374174048}
   materialSlot_parent: {fileID: 1339628301}
-  needMateSO: {fileID: 11400000, guid: 78d3b5ce676b87148885508736d4a992, type: 2}
+  needMateSO: {fileID: 11400000, guid: 4341a1a501a41c14d85c00d7fb0c57bc, type: 2}
   unlockSlot_obj: {fileID: 807878527}
   allUnlocked_text: {fileID: 892878814}
   icon: {fileID: 9099754929421474334}
@@ -64164,7 +64164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a45705ea3ced1a48b575d3fca3c5350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cbSO: {fileID: 11400000, guid: 11660683ff0a05344a4cf86ad81abc7b, type: 2}
+  cbSO: {fileID: 11400000, guid: 87e6d69138cf38d4db785de7fe352294, type: 2}
   possible_chargeAmount_text: {fileID: 837502319}
   robotslots_parent: {fileID: 388940883}
   robotslot_prefab: {fileID: 3983855423852894993, guid: b97cc03f22f06224f983b76263d4834d, type: 3}
@@ -64190,7 +64190,7 @@ MonoBehaviour:
   warkshopSlot_prefab: {fileID: 2845543191662026923, guid: 455cf006c50044e4e9a5ae1132c81871, type: 3}
   warkshopSlot_parent: {fileID: 295157288}
   processingSlots_list: []
-  processingSO: {fileID: 11400000, guid: 4383663c5c068744d8b92d9c693c229b, type: 2}
+  processingSO: {fileID: 11400000, guid: 15acee96b24a7884c8d4e332a26131a4, type: 2}
   select_icon: {fileID: 7219108929824408100}
   selectName_text: {fileID: 611313219490503169}
   selectExp_text: {fileID: 48318540538087111}
@@ -64212,7 +64212,7 @@ MonoBehaviour:
   warkshopSlot_prefab: {fileID: 2845543191662026923, guid: 455cf006c50044e4e9a5ae1132c81871, type: 3}
   warkshopSlot_parent: {fileID: 310716311}
   processingSlots_list: []
-  accessorySO: {fileID: 11400000, guid: 0d3744b0793354c41bbba88416b5a5ed, type: 2}
+  accessorySO: {fileID: 11400000, guid: 15acee96b24a7884c8d4e332a26131a4, type: 2}
   select_icon: {fileID: 807805296}
   selectName_text: {fileID: 25622247}
   selectExp_text: {fileID: 1704125300}
@@ -69800,7 +69800,6 @@ GameObject:
   - component: {fileID: 2090481647}
   - component: {fileID: 2090481648}
   - component: {fileID: 2090481650}
-  - component: {fileID: 2090481652}
   - component: {fileID: 2090481651}
   m_Layer: 0
   m_Name: Root_RobotStatusCanvas
@@ -69939,7 +69938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c9b54c7162872047a9e4b0549f56973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentSO: {fileID: 11400000, guid: c79b726fa38e6c942979de1585e25b30, type: 2}
+  equipmentSO: {fileID: 11400000, guid: f175e1c8a38310b42999c07447070a0b, type: 2}
   equipmentSlots: {fileID: 686736772}
 --- !u!114 &2090481648
 MonoBehaviour:
@@ -69953,7 +69952,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09cc89804c088984d87a873c17c9be0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessorySO: {fileID: 11400000, guid: 0d3744b0793354c41bbba88416b5a5ed, type: 2}
+  accessorySO: {fileID: 11400000, guid: 15acee96b24a7884c8d4e332a26131a4, type: 2}
   accessorySlots:
   - {fileID: 1921923875}
   - {fileID: 1589412975}
@@ -69969,9 +69968,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b67cb076f98a8e142bf7f278bed739f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentSO: {fileID: 11400000, guid: c79b726fa38e6c942979de1585e25b30, type: 2}
-  accessorySO: {fileID: 11400000, guid: 0d3744b0793354c41bbba88416b5a5ed, type: 2}
-  batteryData: {fileID: 11400000, guid: 42915cfa5fade6a42a545c81325bfbe3, type: 2}
+  equipmentSO: {fileID: 11400000, guid: f175e1c8a38310b42999c07447070a0b, type: 2}
+  accessorySO: {fileID: 11400000, guid: 15acee96b24a7884c8d4e332a26131a4, type: 2}
+  batteryData: {fileID: 11400000, guid: f83467dfc535e2c4291d1d002a2cd49c, type: 2}
   back_button: {fileID: 350718576}
   backButton_obj: {fileID: 2043169633}
   equipment_ScrollView: {fileID: 1887327225}
@@ -70003,71 +70002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24aa697a5c7de4043a9a8fbed598fdad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandSO: {fileID: 0}
---- !u!114 &2090481652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2090481643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 365a2ee2e63001f4cb7ae6d7585f6a61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energySlider: {fileID: 4249589918113511865, guid: 055de1bda11bf934f9f2e07ba4de34eb, type: 3}
-  gatherSlider: {fileID: 4249589918113511865, guid: adc46a6c5e28cb44a8a34c938d2083a0, type: 3}
-  batteryData: {fileID: 0}
-  _base:
-    _runk: 
-    totalScore: 0
-    robotName: 
-    moveSpeed: 0
-    recharge_MAX: 0
-    currentEnergy: 0
-    base_MaxEnergy: 0
-    maxEnergy: 0
-    gatherSterngth: 0
-    gatherRate: 0
-    recharge_battery: 0
-    currentRecharged: 0
-    needchange_battery: 0
-    slots:
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    - mateSO: {fileID: 0}
-      ITEM_STACK_MAX: 100
-      itemStackAmount: 0
-    equipment_value:
-      equipment_name: 0
-      icon: {fileID: 0}
-      _name: 
-      level: 0
-      statusup_name: 
-      statusup_value: 0
-      levelupPitch: 0
-    unlock_accessory_slot: 0
-    acceData_list:
-    - {fileID: 0}
-    - {fileID: 0}
-    battery_status:
-      _name: 
-      battery_level: 0
-      energyMax_Up: 0
-      statusup_name: 
-      icon: {fileID: 0}
-  robotname_text: {fileID: 0}
+  commandSO: {fileID: 11400000, guid: 90f53193ebd214a43b8640f5bd2a98db, type: 2}
 --- !u!1 &2091097899
 GameObject:
   m_ObjectHideFlags: 0

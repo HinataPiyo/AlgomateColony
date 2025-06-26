@@ -5,7 +5,6 @@ using UnityEngine;
 /// ロボット自身につけるスクリプト
 /// コマンド実行処理
 /// </summary>
-[RequireComponent(typeof(RobotController))]
 public class RobotCommandExecute : MonoBehaviour
 {
     [SerializeField] CommandSO commandSO;
@@ -19,11 +18,6 @@ public class RobotCommandExecute : MonoBehaviour
     public bool StateEndFlag { get { return stateEndFlag; } set { stateEndFlag = value; } }
 
     const string looping = "Loop();";
-
-    void Awake()
-    {
-        robotCont = GetComponent<RobotController>();
-    }
 
 
     // コルーチン実行関数
