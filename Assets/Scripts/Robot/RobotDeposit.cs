@@ -89,7 +89,7 @@ public class RobotDeposit : MonoBehaviour, IRobotInitializable
 
 
                         // コマンドが終了したことを知らせる
-                        robotCont.Get_RobotCommandExecute.StateEndFlag = true;
+                        robotCont.RobotCommandExecute.StateEndFlag = true;
                         break;
                     }
                     else

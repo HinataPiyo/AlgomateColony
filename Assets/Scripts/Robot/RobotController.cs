@@ -51,7 +51,7 @@ public class RobotController : MonoBehaviour
     string[] depsiteName;
     public string[] DepsiteName { get{ return depsiteName; } set{ depsiteName = value; }}
     public string ObjectName { get{return objectName;} set{ objectName = value; } }
-    public RobotCommandExecute Get_RobotCommandExecute { get{ return robotCmdExecute; } }
+    public RobotCommandExecute RobotCommandExecute => robotCmdExecute;
 
     void Awake()
     {

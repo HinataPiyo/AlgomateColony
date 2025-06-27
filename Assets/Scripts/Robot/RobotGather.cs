@@ -163,7 +163,7 @@ public class RobotGather : MonoBehaviour, IRobotInitializable
 
                 // !オブジェクトの指定を行っていないからチュートリアル以外を収集してもクリアしてしまう
                 TutorialController.insrance.TutorialCheck(1, 0);
-                robotCont.Get_RobotCommandExecute.StateEndFlag = true;
+                robotCont.RobotCommandExecute.StateEndFlag = true;
             }
 
             yield return null;              // 次のフレームまで待機

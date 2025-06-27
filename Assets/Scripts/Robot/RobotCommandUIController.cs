@@ -26,7 +26,6 @@ public class RobotCommandUIController : MonoBehaviour
     [SerializeField] string[] proctext;
 
     RobotCommandExecute robotCmdExecute;
-    public RobotCommandExecute Set_RobotCommandExecute { set { robotCmdExecute = value; } }
     public TMP_InputField InputCommandField { get { return inputField; } }
 
     void Awake()
@@ -35,6 +34,15 @@ public class RobotCommandUIController : MonoBehaviour
         checkButton.onClick.AddListener(CommandCheckButtonOnClick);
 
         executeButton.interactable = false; // 実行ボタンを最初は押せない状態にする
+    }
+
+    /// <summary>
+    /// ロボットの情報をセットする
+    /// </summary>
+    public void SetRobot(RobotCommandExecute excute, RobotController ctrl)
+    {
+        robotCmdExecute = excute;
+        excute.SetRobotController(ctrl);
     }
 
     /// <summary>

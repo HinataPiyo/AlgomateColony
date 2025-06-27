@@ -156,7 +156,7 @@ public class RobotStatusPanelManager : MonoBehaviour
             robotCmdCont.Reset_Buttons();
 
             // ロボット自身にアタッチしてあるスクリプトを取得する
-            robotCmdCont.Set_RobotCommandExecute = robot.gameObject.GetComponent<RobotCommandExecute>();
+            robotCmdCont.SetRobot(robot.RobotCommandExecute, robot);
 
             // 入力されているコマンドを押されたロボットの内容にする
             RobotCommandExecute _execute = robot.GetComponent<RobotCommandExecute>();

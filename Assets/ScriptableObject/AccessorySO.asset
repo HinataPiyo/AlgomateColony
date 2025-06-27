@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a563629b2a96e4148999854f0c3f11de, type: 3}
   m_Name: AccessorySO
   m_EditorClassIdentifier: 
-  stop_sprite: {fileID: 0}
+  stop_sprite: {fileID: 1547804281730946603, guid: 3d4ddbc0205189047a117f260180c4c6, type: 3}
   processing_status:
   - mateSO: {fileID: 11400000, guid: 45cba4d29a190a04aa1d413d10aab7ad, type: 2}
     need_mate_list:

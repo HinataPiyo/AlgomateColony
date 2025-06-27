@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public class RobotCommandExecute : MonoBehaviour
 {
-    [SerializeField] CommandSO commandSO;
     RobotController robotCont;
     string[] proctext;      // 処理内容を格納
 
@@ -19,6 +18,13 @@ public class RobotCommandExecute : MonoBehaviour
 
     const string looping = "Loop();";
 
+    /// <summary>
+    /// ロボットを管理するクラスを取得する
+    /// </summary>
+    public void SetRobotController(RobotController ctrl)
+    {
+        robotCont = ctrl;
+    }
 
     // コルーチン実行関数
     public void StartCoroutine_CommandToExecution()
@@ -33,6 +39,8 @@ public class RobotCommandExecute : MonoBehaviour
     /// <param name="specifytext"></param>
     IEnumerator CommandToExecution()
     {
+        if (robotCont == null) yield break;
+
         LogController.instance.SetLog(robotCont.GetBaseStatus(), "コマンドを実行します");
         int commandIndex = 0;
 
