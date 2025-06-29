@@ -158,6 +158,7 @@ public class AccessoryController : MonoBehaviour
                 // 必要素材と倉庫の素材のシリアル番号が同一だった場合
                 if(needMate_slots[ii].GetMaterialSO()?.serialNum == warkManager.GetWarehouseList()[qq].mateSO.serialNum)
                 {
+                    if (ii <= warkManager.GetWarehouseList().Count) return;
                     // 素材の所持数を反映させる
                     needMate_slots[ii].SetStockAmount(warkManager.GetWarehouseList()[ii].mateAmount);
                     break;

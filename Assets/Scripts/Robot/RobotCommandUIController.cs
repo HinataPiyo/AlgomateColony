@@ -172,7 +172,7 @@ public class RobotCommandUIController : MonoBehaviour
     /// <param name="lines">コマンド</param>
     private void CheckTutorialCondition(string[] lines)
     {
-        if (lines.Length > 0 && lines[0] == "MoveTo(location);")
+        if (lines.Length > 0 && lines[0] == "Move(location);")
         {
             TutorialController.insrance.TutorialCheck(0, 2);
         }
