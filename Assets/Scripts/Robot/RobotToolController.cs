@@ -1,19 +1,21 @@
 using UnityEngine;
 
-// ロボットにつけるスクリプト
+/// <summary>
+/// ロボットのツール関連を管理するクラス
+/// ロボット自身にアタッチする
+/// </summary>
 public class RobotToolController : MonoBehaviour
 {
-    [SerializeField] EquipmentSO equipmentSO;                                // 装備の核、スクリプタブルオブジェクト
-    EquipmentSO.EQUIPMENT_STATUS[] e_status;                // 装備のステータスをまとめる場所
+    EquipmentDatabase equipmentDB;      // 装備のデータベース
     
-    [Header("装備")]
-    [SerializeField] ToolSlot equipmentSlots;          // 装備スロットのスクリプト(個々)
+    [Header("装備スロット")]
+    [SerializeField] RobotStatusToolSlot equipmentSlots;          // 装備スロットのスクリプト
 
-
+    public RobotStatusToolSlot ToolSlot => equipmentSlots;
 
     private void Start()
     {
-        e_status = equipmentSO.equipment_values;
+        equipmentDB = DataManager.instance.EquipmentDB;
 
         equipmentSlots.icon.sprite = null;
         equipmentSlots.icon.enabled = false;
@@ -25,9 +27,9 @@ public class RobotToolController : MonoBehaviour
     /// <param name="_name"></param>
     public void SetText_EquipmentInfo()
     {
-        for(int ii = 0; ii < e_status.Length; ii++)
+        for(int ii = 0; ii < equipmentDB.DB.Length; ii++)
         {
-            EquipmentManager.instance.GetEquipmentSelectSlot()[ii].SetText_EquipmentInfo_Equipment(e_status[ii]);
+            EquipmentManager.instance.EquipSlot[ii].SetText_EquipmentInfo_Equipment(equipmentDB.DB[ii]);
         }
     }
 
@@ -37,9 +39,9 @@ public class RobotToolController : MonoBehaviour
     /// </summary>
     /// <param name="selectslot_Nomber">選択された装備欄のスロット</param>
     /// <param name="_value"></param>
-    public void SetEquipmentSlot(EquipmentSO.EQUIPMENT_STATUS _value)
+    public void SetEquipmentSlot(EquipmentType.DATA _value)
     {
-        EquipmentManager.instance.GetRobotStatus().equipment_value = _value;
+        EquipmentManager.instance.RobotStatus.equipment_value = _value;
         equipmentSlots.SetText_ToolValue(_value);
     }
 
@@ -60,7 +62,5 @@ public class RobotToolController : MonoBehaviour
             equipmentSlots.icon.enabled = true;
         }
     }
-
-    public ToolSlot GetToolSlot() { return equipmentSlots; }
     
 }

@@ -15,8 +15,9 @@ MonoBehaviour:
   icon: {fileID: 4619248598060133510, guid: 9e78a528120f9cb42bc9dcd97bec5335, type: 3}
   serialNum: 1
   materialName: "\u77F3"
+  tagName: rock
   maxHp: 30
   gatherTime: 30
-  EquipmentToMatch: 1
+  equipmentToMatch: 1
   exp: 
-  mateTagName: 0
+  need_mate_list: []

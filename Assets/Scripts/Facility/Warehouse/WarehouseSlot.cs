@@ -36,10 +36,10 @@ public class WarehouseSlot : MonoBehaviour
     /// スロットに素材を追加する
     /// </summary>
     /// <param name="_baseWarehouse_Slot"></param>
-    public void AddMaterialToSlot(WarehouseSO.MATERIAL_WAREHOUSE_SLOT _baseWarehouse_Slot)
+    public void AddMaterialToSlot(DataType.WAREHOUSE_SLOT _baseWarehouse_Slot)
     {
         mateSO = _baseWarehouse_Slot.mateSO;
-        mateAmount = _baseWarehouse_Slot.mateAmount;
+        mateAmount = _baseWarehouse_Slot.hasAmount;
 
         icon.enabled = true;
         icon.sprite = mateSO.icon;

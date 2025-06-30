@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AccessoryData", menuName = "AccessoryData")]
+[CreateAssetMenu(fileName = "AccessoryData", menuName = "Data/AccessoryData")]
 public class AccessoryData : ScriptableObject
 {
     public Sprite icon;
@@ -11,4 +11,7 @@ public class AccessoryData : ScriptableObject
     public string exp;
     public float statusup_value;    // GatherRateに適応する値
     public float levelupPitch;      // レベル上昇時の上り幅
+
+    [Header("素材のデータ/必要個数")]
+    public DataType.NEED_MATERIAL[] need_mate_list;
 }

@@ -15,8 +15,11 @@ MonoBehaviour:
   icon: {fileID: -4703339797335653900, guid: bae0bd13c61779c43854da2d89d0639b, type: 3}
   serialNum: 6
   materialName: "\u89D2\u6750"
+  tagName: squareTimber
   maxHp: 0
   gatherTime: 0
-  EquipmentToMatch: 0
+  equipmentToMatch: 0
   exp: "\u62E0\u70B9\u3084\u30A2\u30AF\u30BB\u30B5\u30EA\u30FC\u306E\u5F37\u5316\u7D20\u6750\u3068\u306A\u308B"
-  mateTagName: 1
+  need_mate_list:
+  - mateSO: {fileID: 11400000, guid: 6e2f2b0d0e287b74797f240d07e7755c, type: 2}
+    needAmo: 30

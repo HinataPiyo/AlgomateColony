@@ -13,9 +13,9 @@ public class EquipmentManager : MonoBehaviour
     BaseStatus robotbase;
 
     [Header("Robotのステータス画面で表示する装備など")]
-    [SerializeField] EquipmentSO equipmentSO;
-    [SerializeField] AccessorySO accessorySO;
-    [SerializeField] BatteryData batteryData;
+    EquipmentDatabase equipmentDB;
+    AccessoryDatabase accessoryDB;
+    BatteryDatabase batteryDB;
 
     // アクセサリーのステータスをまとめる場所(スロット)
     AccessoryData[] acceDatas;
@@ -27,16 +27,21 @@ public class EquipmentManager : MonoBehaviour
     [SerializeField] GameObject equipment_ScrollView;       // 装備選択画面のスクロールビュー
     [SerializeField] GameObject select_slot_Prefab;         // 装備スロットを生成する為のPrefab(装備)
     [SerializeField] Transform equipmentselect_parent;      // 装備選択スロットの親オブジェクト
-    EquipmentSelectSlot[] e_select_slots;                   // 装備選択スロット(個々)
+    RobotStatusEquipSlot[] equip_Slot;                      // 装備選択スロット
 
     public List<GameObject> select_objs = new List<GameObject>();
 
-    [SerializeField] BatterySlot b_slot;    // バッテリー用スロット（装備スロット）
+    [SerializeField] RobotStatusBatterySlot b_Slot;    // バッテリー用スロット（装備スロット）
 
 
-    private void Awake() {
-        if(instance == null) instance = this;
-        else { Destroy(this); }
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+        else Destroy(this);
+
+        equipmentDB = DataManager.instance.EquipmentDB;
+        accessoryDB = DataManager.instance.AccessoryDB;
+        batteryDB   = DataManager.instance.BatteryDB;
     }
 
     private void Start()
@@ -50,9 +55,9 @@ public class EquipmentManager : MonoBehaviour
         back_button.onClick.AddListener(OnClick_BackButton);
         
         // もし生成したスロット数が装備の最大数より小さければ追加で生成する(装備)
-        if(select_objs.Count < equipmentSO.equipment_values.Length)
+        if(select_objs.Count < equipmentDB.DB.Length)
         {
-            int index = equipmentSO.equipment_values.Length - select_objs.Count;
+            int index = equipmentDB.DB.Length - select_objs.Count;
             for(int ii = 0; ii < index; ii++)
             {
                 // SOで作成したアクセサリーの数に合わせて選択スロットを生成する
@@ -62,7 +67,7 @@ public class EquipmentManager : MonoBehaviour
         }
 
         // 装備スロットを取得
-        e_select_slots = equipmentselect_parent.GetComponentsInChildren<EquipmentSelectSlot>();
+        equip_Slot = equipmentselect_parent.GetComponentsInChildren<RobotStatusEquipSlot>();
 
         // パネル類を非表示
         backButton_obj.SetActive(false);
@@ -84,7 +89,7 @@ public class EquipmentManager : MonoBehaviour
         Set_BatterySlot();
 
         // ロボットが装備しているツールをスロットに反映させる
-        toolC.GetToolSlot().SetText_ToolValue(_robotBase.equipment_value);
+        toolC.ToolSlot.SetText_ToolValue(_robotBase.equipment_value);
 
         // アクセサリーの処理
         for(int ii = 0; ii < accessoryC.GetAccessorySlots().Length; ii++)
@@ -103,7 +108,7 @@ public class EquipmentManager : MonoBehaviour
     public void Set_BatterySlot()
     {
         // ロボットが装備しているバッテリーを装備スロットに反映させる
-        b_slot.SetSlot_BatteryStatus(robotbase.battery_status);
+        b_Slot.SetSlot_BatteryStatus(robotbase.battery_status);
     }
 
 #region スロットを表示/非表示にするか調べる
@@ -134,7 +139,7 @@ public class EquipmentManager : MonoBehaviour
         for(int ii = 0; ii < select_objs.Count; ii++)
         {
             // 装備の数分アクティブ状態にする
-            if(ii < equipmentSO.equipment_values.Length)
+            if(ii < equipmentDB.DB.Length)
             {
                 select_objs[ii].SetActive(true);
             }
@@ -181,11 +186,10 @@ public class EquipmentManager : MonoBehaviour
         SetActive_Equipment_ScrollView(false);
     }
 
-    public BaseStatus GetRobotStatus() { return robotbase; }
-    public RobotAccessoryController GetAccessoryController() { return accessoryC; }
-    public RobotToolController GetToolController() { return toolC; }
-    public RobotBatteryController GetRobotBatteryController() { return batteryC; }
+    public BaseStatus RobotStatus => robotbase;
+    public RobotAccessoryController AccessoryController => accessoryC;
+    public RobotToolController ToolController => toolC;
 
-    public EquipmentSelectSlot[] GetEquipmentSelectSlot() { return e_select_slots; }
-    public AccessoryData[] GetAccessoryStatusSlot() { return acceDatas;}
+    public RobotStatusEquipSlot[] EquipSlot => equip_Slot;
+    public AccessoryData[] AccessoryStatusSlot => acceDatas;
 }

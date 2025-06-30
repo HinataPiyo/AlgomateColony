@@ -11,10 +11,8 @@ public class WarehouseController : MonoBehaviour
 {
     UpdateTime_Class updateTime = new UpdateTime_Class();
 
-    [SerializeField] WarehouseSO warehouseSO; // 倉庫データ
-    FacilityManager fm; // ファシリティマネージャー
-    List<WarehouseSO.MATERIAL_WAREHOUSE_SLOT> wlist; // 素材倉庫リスト
-    List<AccessoryData> acceData_list; // アクセサリー倉庫リスト
+    List<DataType.WAREHOUSE_SLOT> w_list = new List<DataType.WAREHOUSE_SLOT>();        // 素材倉庫リスト
+    List<AccessoryData> a_list = new List<AccessoryData>();          // アクセサリー倉庫リスト
 
     [Header("戻るボタン")]
     [SerializeField] Button back_button;
@@ -22,7 +20,7 @@ public class WarehouseController : MonoBehaviour
     [Header("メインキャンバスに表示するスロット")]
     [SerializeField] GameObject slot_prefab;
     [SerializeField] Transform maincanvas_parent;
-    [SerializeField] List<HaveMaterialSlot> maincanvas_wlistSlots = new List<HaveMaterialSlot>();
+    [SerializeField] List<HaveMaterialSlot> maincanvas_w_listSlots = new List<HaveMaterialSlot>();
 
     [Header("パネルの高さ設定")]
     [SerializeField] RectTransform panel_rect;
@@ -41,15 +39,12 @@ public class WarehouseController : MonoBehaviour
     ButtonSlotVarticalHorizontal[] changeButtons;
     [SerializeField] GameObject[] changePael;
 
-    /// <summary>
-    /// 初期化処理
-    /// </summary>
-    void Start()
+    public List<DataType.WAREHOUSE_SLOT> HasMaterials => w_list;
+    public List<AccessoryData> HasAccessory => a_list;
+
+    void Awake()
     {
         // コンポーネントの取得
-        fm = GetComponent<FacilityManager>();
-        wlist = warehouseSO.GetMaterial_WarehouseList();
-        acceData_list = warehouseSO.GetAccessory_WarehouseList();
         warehouseSlots = warehouseSlot_parent.GetComponentsInChildren<WarehouseSlot>();
         slot_acce = warehouse_AcceParent.GetComponentsInChildren<WarehouseSlot>();
         changeButtons = changeButton_parent.GetComponentsInChildren<ButtonSlotVarticalHorizontal>();
@@ -97,7 +92,7 @@ public class WarehouseController : MonoBehaviour
     void CreatSlot_MainCanvas_HaveMaterial()
     {
         // スロット数の差分を計算し、必要に応じて生成または削除
-        int diff = wlist.Count - maincanvas_wlistSlots.Count;
+        int diff = w_list.Count - maincanvas_w_listSlots.Count;
 
         if (diff > 0)
         {
@@ -105,16 +100,16 @@ public class WarehouseController : MonoBehaviour
             {
                 GameObject slot_clone = Instantiate(slot_prefab, maincanvas_parent);
                 HaveMaterialSlot haveSlot = slot_clone.GetComponent<HaveMaterialSlot>();
-                maincanvas_wlistSlots.Add(haveSlot);
+                maincanvas_w_listSlots.Add(haveSlot);
                 SetHeight(hieght_panel);
             }
         }
         else if (diff < 0)
         {
-            for (int ii = maincanvas_wlistSlots.Count - 1; ii >= wlist.Count; ii--)
+            for (int ii = maincanvas_w_listSlots.Count - 1; ii >= w_list.Count; ii--)
             {
-                Destroy(maincanvas_wlistSlots[ii].gameObject);
-                maincanvas_wlistSlots.RemoveAt(ii);
+                Destroy(maincanvas_w_listSlots[ii].gameObject);
+                maincanvas_w_listSlots.RemoveAt(ii);
                 SetHeight(-hieght_panel);
             }
         }
@@ -140,13 +135,13 @@ public class WarehouseController : MonoBehaviour
         // リストとスロットを同期
         for (int ii = 0; ii < warehouseSlots.Length; ii++)
         {
-            if (ii < wlist.Count)
+            if (ii < w_list.Count)
             {
                 if (warehouseSlots[ii].GetMaterialSO() == null)
-                    warehouseSlots[ii].AddMaterialToSlot(wlist[ii]);
+                    warehouseSlots[ii].AddMaterialToSlot(w_list[ii]);
 
                 if (warehouseSlots[ii].GetHaveAmount() == 0)
-                    wlist.RemoveAt(ii);
+                    w_list.RemoveAt(ii);
             }
         }
     }
@@ -156,11 +151,11 @@ public class WarehouseController : MonoBehaviour
     /// </summary>
     void Check_WarehouseMaterialAmount()
     {
-        for (int ii = 0; ii < maincanvas_wlistSlots.Count; ii++)
+        for (int ii = 0; ii < maincanvas_w_listSlots.Count; ii++)
         {
-            maincanvas_wlistSlots[ii].ClearSlot();
-            if (ii < wlist.Count)
-                maincanvas_wlistSlots[ii].SetHaveMaterial(wlist[ii].mateSO, wlist[ii].mateAmount);
+            maincanvas_w_listSlots[ii].ClearSlot();
+            if (ii < w_list.Count)
+                maincanvas_w_listSlots[ii].SetHaveMaterial(w_list[ii].mateSO, w_list[ii].hasAmount);
         }
     }
 
@@ -169,29 +164,29 @@ public class WarehouseController : MonoBehaviour
     /// </summary>
     public void SetMaterial_WarehouseSlot(MaterialSO _mateSO, int _amo)
     {
-        WarehouseSO.MATERIAL_WAREHOUSE_SLOT warehouse_slot = new WarehouseSO.MATERIAL_WAREHOUSE_SLOT();
+        DataType.WAREHOUSE_SLOT warehouse_slot = new DataType.WAREHOUSE_SLOT();
         warehouse_slot.mateSO = _mateSO;
-        warehouse_slot.mateAmount = _amo;
+        warehouse_slot.hasAmount = _amo;
 
-        if (wlist.Count == 0)
+        if (w_list.Count == 0)
         {
-            wlist.Add(warehouse_slot);
+            w_list.Add(warehouse_slot);
             SetSlot_MaterialInventory();
             return;  // ← 関数を終了（ループの有無に関係なく）
         }
 
-        for (int ii = 0; ii < wlist.Count; ii++)
+        for (int ii = 0; ii < w_list.Count; ii++)
         {
-            if (wlist[ii].mateSO.serialNum == _mateSO.serialNum)
+            if (w_list[ii].mateSO.serialNum == _mateSO.serialNum)
             {
-                wlist[ii].mateAmount += _amo;
+                w_list[ii].hasAmount += _amo;
                 SetSlot_MaterialInventory();
                 return;  // ← 関数を終了（新規追加の処理に進まない）
             }
         }
 
         // ループを抜けた後、新規追加
-        wlist.Add(warehouse_slot);
+        w_list.Add(warehouse_slot);
         SetSlot_MaterialInventory();
     }
 
@@ -200,19 +195,19 @@ public class WarehouseController : MonoBehaviour
     /// </summary>
     public void UseMaterial(MaterialSO _mateSO, int _useAmo)
     {
-        for(int ii = 0; ii < wlist.Count; ii++)
+        for(int ii = 0; ii < w_list.Count; ii++)
         {
-            if(wlist[ii].mateSO.serialNum == _mateSO.serialNum)
+            if(w_list[ii].mateSO.serialNum == _mateSO.serialNum)
             {
                 // 使用量が所持量より大きければ
-                if(wlist[ii].mateAmount >= _useAmo)
+                if(w_list[ii].hasAmount >= _useAmo)
                 {
                     // 素材を消費する
-                    wlist[ii].mateAmount -= _useAmo;
+                    w_list[ii].hasAmount -= _useAmo;
                 }
                 else
                 {
-                    LogController.instance.SetLog(null, $"素材が足りません。現在の所持数は {wlist[ii].mateAmount} です。");
+                    LogController.instance.SetLog(null, $"素材が足りません。現在の所持数は {w_list[ii].hasAmount} です。");
                 }
             }
         }
@@ -236,14 +231,14 @@ public class WarehouseController : MonoBehaviour
         for (int ii = 0; ii < slot_acce.Length; ii++)
         {
             // リストの上限を超えないようにする
-            if(ii < acceData_list.Count)
+            if(ii < a_list.Count)
             {
-                slot_acce[ii].AddAccessorySlot(acceData_list[ii]);
+                slot_acce[ii].AddAccessorySlot(a_list[ii]);
 
                 if(slot_acce[ii].GetAccessoryData() == null)
                 {
                     // リストから除外する
-                    acceData_list.Remove(acceData_list[ii]);
+                    a_list.Remove(a_list[ii]);
                 }
             }
         }
@@ -254,10 +249,10 @@ public class WarehouseController : MonoBehaviour
     /// </summary>
     public void SetAccessory_WarehouseSlot(AccessoryData _mateSO, uint _amo)
     {
-        for(int ii = 0; ii < wlist.Count; ii++)
+        for(int ii = 0; ii < w_list.Count; ii++)
         {
             // 新規なのでリストに追加してあげる
-            acceData_list.Add(_mateSO);
+            a_list.Add(_mateSO);
 
             // 倉庫内を更新する
             SetSlot_AccessoryInventory();
@@ -270,7 +265,7 @@ public class WarehouseController : MonoBehaviour
     public void UseAccessory()
     {
         // !   アクセサリーを選択したときの処理（倉庫のスロット・ロボットのスロット）
-        for(int ii = 0; ii < acceData_list.Count; ii++)
+        for(int ii = 0; ii < a_list.Count; ii++)
         {
         }
     }
@@ -313,14 +308,6 @@ public class WarehouseController : MonoBehaviour
     /// </summary>
     void ButtonOnClick_Back()
     {
-        fm.CanvasEnabled(CanvasName.Warehouse, false);
-    }
-
-    /// <summary>
-    /// 倉庫データを取得
-    /// </summary>
-    public WarehouseSO GetWarehouseSO()
-    {
-        return warehouseSO;
+        FacilityManager.instance.CanvasEnabled(CanvasName.Warehouse, false);
     }
 }

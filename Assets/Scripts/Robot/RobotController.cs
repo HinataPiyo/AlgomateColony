@@ -30,7 +30,6 @@ public class RobotController : MonoBehaviour
     GameObject gSlider;     // 位置を調整するため(収集ゲージ)
 
     [Header("コンポーネント")]
-    [SerializeField] BatteryData batteryData;
     [SerializeField] BaseStatus _base;
 
     RobotGather robotGather;
@@ -92,7 +91,7 @@ public class RobotController : MonoBehaviour
 
     void UIInitialize()
     {
-        sliderCanvas = GameManager.instance.sliderCanvas;   // スライダーを表示するキャンバスを取得
+        sliderCanvas = GameManager.instance.SliderCanvas;   // スライダーを表示するキャンバスを取得
         // スライダーの生成 / バッテリーを示すスライダー
         eSlider = Instantiate(energySlider, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, sliderCanvas.transform);
         // 資源収集を行うときのスライダー
@@ -102,7 +101,7 @@ public class RobotController : MonoBehaviour
         _eslider = eSlider.GetComponent<Slider>();
 
         // 初期化処理を開始
-        _base.battery_status = batteryData.battery_values[0];   // 一番弱いバッテリーを最初に装着させておく
+        _base.battery_status = DataManager.instance.BatteryDB.DB[0];   // 一番弱いバッテリーを最初に装着させておく
         _base.StatusUp_EnergyMax();
         _base.currentEnergy = _base.maxEnergy;  // 充電をMaxにする
         _base.base_MaxEnergy = _base.maxEnergy; // 最大充電量を別の変数に格納しておく

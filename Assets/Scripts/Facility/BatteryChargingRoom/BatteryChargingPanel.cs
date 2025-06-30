@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class BatteryChargingPanel : MonoBehaviour
 {
     UpdateTime_Class updateTime = new UpdateTime_Class();
-    [SerializeField] ChargingBatterySO cbSO;
     [SerializeField] TextMeshProUGUI possible_chargeAmount_text;
 
     [SerializeField] Transform robotslots_parent;               // スロットを格納する親オブジェクト
@@ -26,11 +25,7 @@ public class BatteryChargingPanel : MonoBehaviour
     [SerializeField] GameObject robot_prefab;
     [SerializeField] Transform spawn_pos;
 
-    // 一時的に格納しておくもの（スロットから送られてくる）
-    RobotController robot;
     BaseStatus robotBase;
-
-    [SerializeField] bool flag;
 
 
     void Start()
@@ -48,7 +43,7 @@ public class BatteryChargingPanel : MonoBehaviour
         if(updateTime.UpdateTime() == true)
         {
             // 充電可能数を確認する
-            possible_chargeAmount_text.text = $"{Check_InSlot()}/{cbSO.possible_chargeAmount}";
+            possible_chargeAmount_text.text = $"{Check_InSlot()}/{DataManager.instance.ChargingBatterySO.possible_chargeAmount}";
             Creat_RobotSlot();
         }
     }
@@ -59,10 +54,10 @@ public class BatteryChargingPanel : MonoBehaviour
     /// </summary>
     void Creat_RobotSlot()
     {
-        for(int ii = 0; ii < cbSO.possible_chargeAmount; ii++)
+        for(int ii = 0; ii < DataManager.instance.ChargingBatterySO.possible_chargeAmount; ii++)
         {
             // 既に生成されてあるスロットの数より充電可能数が大きければ
-            if(cbSO.possible_chargeAmount > robotSlots.Count)
+            if(DataManager.instance.ChargingBatterySO.possible_chargeAmount > robotSlots.Count)
             {
                 // スロットを生成する
                 GameObject _slot = Instantiate(robotslot_prefab, robotslots_parent);

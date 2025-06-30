@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TutorialSO", menuName = "TutorialSO")]
+[CreateAssetMenu(fileName = "TutorialSO", menuName = "System/TutorialSO")]
 public class TutorialSO : ScriptableObject
 {
     public bool tutorialEndFlag;       // treu : チュートリアル終了, false : チュートリアルがまだ　

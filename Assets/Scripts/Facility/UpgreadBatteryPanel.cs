@@ -6,9 +6,6 @@ public class UpgreadBatteryPanel : MonoBehaviour
 {
     UpdateTime_Class updateTime = new UpdateTime_Class();
 
-    // ロボットの出現数を取得するため
-    [SerializeField] SystemControlSO scSO;
-
     [Header("Text")]
     [SerializeField] TextMeshProUGUI robotAmo_text;
 
@@ -41,7 +38,7 @@ public class UpgreadBatteryPanel : MonoBehaviour
     /// </summary>
     void Check_RobotAmount()
     {
-        robotAmo_text.text = $"{scSO.robot_list.Count}";
+        robotAmo_text.text = $"{GameManager.instance.RobotList.Count}";
     }
 
     /// <summary>
@@ -50,7 +47,7 @@ public class UpgreadBatteryPanel : MonoBehaviour
     void Creat_Slot()
     {
         // ロボットの出現数と生成しているスロット数の差異を計算する
-        int diff =  scSO.robot_list.Count - slot_lists.Count;
+        int diff = GameManager.instance.RobotList.Count - slot_lists.Count;
 
         // スロットの数がロボットの出現数より小さかったら
         if(diff > 0)
@@ -65,7 +62,7 @@ public class UpgreadBatteryPanel : MonoBehaviour
         // スロット数の方がロボットの出現数より大きかった場合
         else if(diff < 0)
         {
-            for(int ii = slot_lists.Count - 1; ii >= scSO.robot_list.Count; ii--)
+            for(int ii = slot_lists.Count - 1; ii >= GameManager.instance.RobotList.Count; ii--)
             {
                 // 大きかった分だけ破棄
                 Destroy(slot_lists[ii]);
@@ -78,13 +75,13 @@ public class UpgreadBatteryPanel : MonoBehaviour
 
     void SetSlot()
     {
-        for(int ii = 0; ii < scSO.robot_list.Count; ii++)
+        for(int ii = 0; ii < GameManager.instance.RobotList.Count; ii++)
         {
             UpgreadBatteryRobotSlot slot_cs = slot_lists[ii].GetComponent<UpgreadBatteryRobotSlot>();
             slot_cs.ClearSlot();
             if(slot_cs.RobotBase == null)
             {
-                slot_cs.InSlot(scSO.robot_list[ii]);
+                slot_cs.InSlot(GameManager.instance.RobotList[ii]);
             }
         }
     }

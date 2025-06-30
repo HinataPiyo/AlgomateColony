@@ -15,7 +15,11 @@ MonoBehaviour:
   icon: {fileID: 144807091098716867, guid: 82e4a1e8f76af1d468f9ee75c8868cdc, type: 3}
   serialNum: 5
   materialName: "\u30B3\u30F3\u30AF\u30EA\u30FC\u30C8"
+  tagName: concrete
   maxHp: 0
   gatherTime: 0
-  EquipmentToMatch: 1
+  equipmentToMatch: 0
   exp: "\u62E0\u70B9\u3084\u30A2\u30AF\u30BB\u30B5\u30EA\u30FC\u306E\u5F37\u5316\u7D20\u6750\u3068\u306A\u308B"
+  need_mate_list:
+  - mateSO: {fileID: 11400000, guid: 380daebfc203ddc468e185a5c341a12c, type: 2}
+    needAmo: 30

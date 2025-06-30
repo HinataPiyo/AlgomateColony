@@ -3,8 +3,6 @@ using UnityEngine;
 // ロボットにつけるスクリプト
 public class RobotAccessoryController : MonoBehaviour
 {
-    [SerializeField] AccessorySO accessorySO;               // アクセアリーの核、スクリプタブルオブジェクト
-
     // 手動で設定してある
     [SerializeField] AccessorySlot[] accessorySlots;
 
@@ -22,10 +20,10 @@ public class RobotAccessoryController : MonoBehaviour
     /// <param name="_name"></param>
     public void SetText_AccessoryInfo()
     {
-        for(int ii = 0; ii < EquipmentManager.instance.GetAccessoryStatusSlot().Length; ii++)
+        for(int ii = 0; ii < EquipmentManager.instance.AccessoryStatusSlot.Length; ii++)
         {
-            EquipmentManager.instance.GetEquipmentSelectSlot()[ii].
-            SetText_EquipmentInfo_Accessory(EquipmentManager.instance.GetAccessoryStatusSlot()[ii]);
+            EquipmentManager.instance.EquipSlot[ii].
+            SetText_EquipmentInfo_Accessory(EquipmentManager.instance.AccessoryStatusSlot[ii]);
         }
     }
 
@@ -37,7 +35,7 @@ public class RobotAccessoryController : MonoBehaviour
     /// <param name="_acceData"></param>
     public void SetEquipmentSlot(AccessoryData _acceData, int _slotNo)
     {
-        EquipmentManager.instance.GetRobotStatus().acceData_list[_slotNo] = _acceData;
+        EquipmentManager.instance.RobotStatus.acceData_list[_slotNo] = _acceData;
         accessorySlots[_slotNo].SetText_AccessoryValue(_acceData);
     }
 
@@ -65,7 +63,7 @@ public class RobotAccessoryController : MonoBehaviour
             if(ii < _slotNo)
             {
                 // 押せないときの画像が設定されていれば
-                if(accessorySlots[ii].icon.sprite == accessorySO.stop_sprite)
+                if(accessorySlots[ii].icon.sprite == DataManager.instance.AccessoryDB.StopSprite)
                 {
                     // スロットの中身を空にする
                     accessorySlots[ii].icon.sprite = null;
@@ -87,7 +85,7 @@ public class RobotAccessoryController : MonoBehaviour
             else
             {
                 // 押せないときに表示する画像を設定する
-                accessorySlots[ii].icon.sprite = accessorySO.stop_sprite;
+                accessorySlots[ii].icon.sprite = DataManager.instance.AccessoryDB.StopSprite;
                 accessorySlots[ii].icon.enabled = true;
 
                 // ボタンを押せるようにする

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SoundSO", menuName = "GameSystem/SoundSO")]
+[CreateAssetMenu(fileName = "SoundSO", menuName = "System/SoundSO")]
 public class SoundSO : ScriptableObject
 {
     [Header("BGM")]

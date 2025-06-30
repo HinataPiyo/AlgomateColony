@@ -33,13 +33,6 @@ public class TutorialController : MonoBehaviour
     void Awake()
     {
         insrance = this;
-
-        // チュートリアルが終了したフラグが立っていなければ
-        if(tutorialSO.tutorialEndFlag == false)
-        {
-            // 諸々初期化する
-            ResetSystem();
-        }
     }
 
 
@@ -183,11 +176,5 @@ public class TutorialController : MonoBehaviour
                 _fine.completionFlag = false;
             }
         }
-    }
-
-    void ResetSystem()
-    {
-        scSO.GetLocationLevel = 1;          // 初期レベルに戻す
-        scSO.RobotStatusList.Clear();       // ロボットのステータスデータを全て空にする
     }
 }

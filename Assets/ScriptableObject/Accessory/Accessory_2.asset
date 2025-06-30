@@ -15,8 +15,13 @@ MonoBehaviour:
   icon: {fileID: -6621304728671135691, guid: 1c89e25dfc74bbc45a98721c7145a6c3, type: 3}
   serialNum: 0
   _name: "\u30A2\u30AF\u30BB\u30B52"
-  level: 31
+  level: 1
   statusup_name: "\u79FB\u52D5\u901F\u5EA6\u4E0A\u6607"
   exp: "\u79FB\u52D5\u901F\u5EA6\u3092\u4E0A\u6607\u3055\u305B\u308B"
   statusup_value: 2
   levelupPitch: 0
+  need_mate_list:
+  - mateSO: {fileID: 11400000, guid: 00481e47ccea5764c9ae29101199e96a, type: 2}
+    needAmo: 30
+  - mateSO: {fileID: 11400000, guid: 380daebfc203ddc468e185a5c341a12c, type: 2}
+    needAmo: 60

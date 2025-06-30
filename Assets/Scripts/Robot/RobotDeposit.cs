@@ -67,7 +67,7 @@ public class RobotDeposit : MonoBehaviour, IRobotInitializable
         {
             if (slot.mateSO == null) continue;
 
-            if ($"{slot.mateSO.mateTagName}" == robotCont.DepsiteName[0])
+            if ($"{slot.mateSO.tagName}" == robotCont.DepsiteName[0])
             {
                 int quantity;
                 if (int.TryParse(robotCont.DepsiteName[1], out quantity))

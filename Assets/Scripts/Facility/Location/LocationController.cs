@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,10 +17,7 @@ public class LocationController : MonoBehaviour
     const int oneHight = 260, twoHight = 340, threeHight = 420, fourHight = 500;
     [Header("非素材のスロットの行数"), SerializeField] SlotLine current_slotline;
 
-    FacilityManager fm;         // 施設のマネージャースクリプト
-    WarehouseController wc;     // 倉庫のスクリプト
-    SystemControlSO scSO;       // ゲーム進行を管理するSO
-    NextLevelUnlockedSO nextUnlockSO;
+    WarehouseController warehouseCtrl;     // 倉庫のスクリプト
     UpdateTime_Class updateTime = new UpdateTime_Class();
     
 
@@ -32,10 +28,8 @@ public class LocationController : MonoBehaviour
     [SerializeField] TextMeshProUGUI locationLevel_text;    // レベルアップテキスト（押下できるかできないかを切り替える）
 
     [Header("必要素材")]
-    NeedMaterialSO.NEED_MATERIAL_ROOT needmate_root;        // 必要素材のリストの宣言
     [SerializeField] Transform materialSlot_parent;         // LocationMaterialSlotの親のTransform
     LocationMaterialSlot[] mateSlots;      // 素材を表示させるスロット
-    [Header("必要素材をまとめて格納してあるSO"), SerializeField] NeedMaterialSO needMateSO;
     int oldlevel = -1;
     bool OverSet_MaterialList;      // true : 必要素材リストを超えた,false : まだ超えていない
 
@@ -55,23 +49,17 @@ public class LocationController : MonoBehaviour
         public TextMeshProUGUI statusValue_value;
     }
 
-    [Header("倉庫リスト")] 
-    List<WarehouseSO.MATERIAL_WAREHOUSE_SLOT> wlist;
-
-    
+    void Awake()
+    {
+        warehouseCtrl = GetComponent<WarehouseController>();
+    }
 
     void Start()
     {
-        // コンポーネントの取得
-        fm = GetComponent<FacilityManager>();
-        wc = GetComponent<WarehouseController>();
         mateSlots = materialSlot_parent.GetComponentsInChildren<LocationMaterialSlot>();
-        scSO = GameManager.instance.GetSystemControlSO();
-        nextUnlockSO = scSO.GetNextLevelUnlockedSO();
-        wlist = wc.GetWarehouseSO().GetMaterial_WarehouseList();
 
         // 最初に行う処理
-        CheckSet_NeedMaterial(scSO.GetLocationLevel);     // 現在の必要個数を所持数と比べる
+        CheckSet_NeedMaterial(DataManager.instance.SystemControlSO.LocationLevel);     // 現在の必要個数を所持数と比べる
         locationLevelUp_button.interactable = false;        // ボタンの押下を出来ないようにする
         
         
@@ -79,14 +67,17 @@ public class LocationController : MonoBehaviour
         locationLevelUp_button.onClick.AddListener(BottonOnClick_LocationLevelUp);
         backButton.onClick.AddListener(ButtonOnClick_Back);
 
-        GameManager.instance.Set_PlayerName_LocationLevel(scSO.playerName, scSO.GetLocationLevel);
+        GameManager.instance.Set_PlayerName_LocationLevel(
+            DataManager.instance.SystemControlSO.playerName,
+            DataManager.instance.SystemControlSO.LocationLevel
+        );
     }
 
     private void Update() {
         if(updateTime.UpdateTime() == true)
         {
             Check_CompletionAllMaterials();                         // 必要素材がそろっているか確認する
-            CheckSet_NeedMaterial(scSO.GetLocationLevel);         // LocationLevelに応じて必要素材を変える
+            CheckSet_NeedMaterial(DataManager.instance.SystemControlSO.LocationLevel);         // LocationLevelに応じて必要素材を変える
             Sync_HaveMaterialToText();                              // 素材の所持数を必要素材のテキストに反映させる
         }
     }
@@ -101,7 +92,10 @@ public class LocationController : MonoBehaviour
         {
             locationLevel_text.text = "" + location_level;      // テキストのレベル表示を更新する
             // 左上のPlayerNameとLocationLevelを設定する
-            GameManager.instance.Set_PlayerName_LocationLevel(scSO.playerName, scSO.GetLocationLevel);
+            GameManager.instance.Set_PlayerName_LocationLevel(
+                DataManager.instance.SystemControlSO.playerName,
+                DataManager.instance.SystemControlSO.LocationLevel
+            );
             SetNeedMate(location_level);                        // 必要個数をスロットに設定する
             TextSet_NextLevelUnlock(location_level);            // 次のレベルでｒ
             oldlevel = location_level;
@@ -155,12 +149,22 @@ public class LocationController : MonoBehaviour
             Debug.Log("初期化されました");
             _slot.SetSlotMaterial(null, 0);
         }
-        
+
         // numがリストのカウント数より小さければ
-        if(location_level < needMateSO.need_mate_root.Count)
+        if (location_level < DataManager.instance.levelupUnlockTB.NextUnlock.Length)
         {
+            DataType.NEED_MATERIAL[] needmate = DataManager.instance.levelupUnlockTB.NextUnlock[location_level].needMaterials;
+            int maxneed_mate = needmate.Length;
+
+            for (int ii = 0; ii < maxneed_mate; ii++)
+            {
+                mateSlots[ii].SetSlotMaterial(
+                    needmate[ii].mateSO,
+                    needmate[ii].needAmo
+                );
+            }
+
             OverSet_MaterialList = false;
-            needmate_root = needMateSO.need_mate_root[location_level];
         }
         else
         {
@@ -171,15 +175,6 @@ public class LocationController : MonoBehaviour
             return;
         }
         
-        int maxneed_mate = needmate_root.need_materials.Length;
-
-        for(int ii = 0; ii < maxneed_mate; ii++)
-        {
-            mateSlots[ii].SetSlotMaterial(
-                needmate_root.need_materials[ii].mateSO, 
-                needmate_root.need_materials[ii].needAmo
-            );
-        }
 
         Check_SlotInMaterial();
     }
@@ -232,12 +227,12 @@ public class LocationController : MonoBehaviour
     /// </summary>
     void TextSet_NextLevelUnlock(int location_level)
     {
-        BASE_NEXT_UNLOCK base_next_unlock;
-        List<BASE_NEXT_UNLOCK> nextlevel_list = scSO.GetNextLevelUnlockedSO().GetBaseNextUnlocks_List();
+        NEXT_UNLOCK next_unlock;
+        NEXT_UNLOCK[] nextlevel_list = DataManager.instance.levelupUnlockTB.NextUnlock;
 
-        if(location_level < nextlevel_list.Count)
+        if(location_level < nextlevel_list.Length)
         {
-            base_next_unlock = nextlevel_list[location_level];
+            next_unlock = nextlevel_list[location_level];
         }
         else
         {
@@ -257,18 +252,18 @@ public class LocationController : MonoBehaviour
 
         
         // Unlockするためのオブジェクトのスクリプトを取得する
-        BASE_NEXT_UNLOCK _baseNextUnlock = nextUnlockSO.GetBaseNextUnlocks_List()[location_level];
-        BASE_NEXT_UNLOCK.StatusParam[] statusParam = base_next_unlock.statusParam;
+        NEXT_UNLOCK _nextUnlock = DataManager.instance.levelupUnlockTB.NextUnlock[location_level];
+        NEXT_UNLOCK.StatusParam[] statusParam = next_unlock.statusParam;
 
-        if(_baseNextUnlock != null)
+        if(_nextUnlock != null)
         {
             // スロットのアクティブ状態を設定する
             UnlockSlot_Active(true);
 
             // スロットやテキストを設定する
-            icon.sprite = _baseNextUnlock.icon;
-            objname_text.text = _baseNextUnlock.name_text;
-            exp_text.text = _baseNextUnlock.exp_text;
+            icon.sprite = _nextUnlock.icon;
+            objname_text.text = _nextUnlock.name_text;
+            exp_text.text = _nextUnlock.exp_text;
         }
         else
         {
@@ -286,7 +281,7 @@ public class LocationController : MonoBehaviour
                 slTexts[ii].statusValue_value.gameObject.SetActive(true);
 
                 // enumの名前をswitchで日本語に変換する
-                slTexts[ii].statusName_texts.text = $"{scSO.StatusSelectName(statusParam[ii].selectStatus)}";
+                slTexts[ii].statusName_texts.text = $"{EnumToStringConverter.StatusNameConvert[statusParam[ii].selectStatus]}";
                 slTexts[ii].statusValue_value.text = "+" + statusParam[ii].statusLimited_value;
             }
             else    // 中身が空っぽだったらテキストを非アクティブ状態にする
@@ -354,25 +349,28 @@ public class LocationController : MonoBehaviour
     /// </summary>
     void BottonOnClick_LocationLevelUp()
     {
+        int level = DataManager.instance.SystemControlSO.LocationLevel;
+        DataType.NEED_MATERIAL[] needmate = DataManager.instance.levelupUnlockTB.NextUnlock[level].needMaterials;
+
         // 連続でボタンを押されるのを防ぐ
         locationLevelUp_button.interactable = false;
         TutorialController.insrance.TutorialCheck(2, 2);
         TutorialController.insrance.BigTaskCheck(2);
         
         // 倉庫の所持数を必要個数分だけ減らす
-        for(int ii = 0; ii < needmate_root.need_materials.Length; ii++)
+        for(int ii = 0; ii < needmate.Length; ii++)
         {
-            wc.UseMaterial(
-                needmate_root.need_materials[ii].mateSO,
-                needmate_root.need_materials[ii].needAmo
+            warehouseCtrl.UseMaterial(
+                needmate[ii].mateSO,
+                needmate[ii].needAmo
             );
         }
-        
+
         // レベルアップ処理
-        scSO.LocationLevelUp();
+        DataManager.instance.SystemControlSO.LocationLevelUp();
 
         // LocationLevelに応じて必要素材を変える
-        CheckSet_NeedMaterial(scSO.GetLocationLevel);
+        CheckSet_NeedMaterial(level);
 
         // テキストの反映
         Sync_HaveMaterialToText();
@@ -387,13 +385,13 @@ public class LocationController : MonoBehaviour
     {
         for(int ii = 0; ii < mateSlots.Length; ii++)
         {
-            for(int qq = 0; qq < wlist.Count; qq++)
+            for(int qq = 0; qq < warehouseCtrl.HasMaterials.Count; qq++)
             {
                 // 必要素材と倉庫の素材のシリアル番号が同一だった場合
-                if(mateSlots[ii].GetMaterialSO()?.serialNum == wlist[qq].mateSO.serialNum)
+                if(mateSlots[ii].GetMaterialSO()?.serialNum == warehouseCtrl.HasMaterials[qq].mateSO.serialNum)
                 {
                     // 素材の所持数を反映させる
-                    mateSlots[ii].SetStockAmount(wlist[ii].mateAmount);
+                    mateSlots[ii].SetStockAmount(warehouseCtrl.HasMaterials[ii].hasAmount);
                 }
             }
         }
@@ -404,6 +402,6 @@ public class LocationController : MonoBehaviour
     /// </summary>
     void ButtonOnClick_Back()
     {
-        fm.CanvasEnabled(CanvasName.Location, false);
+        FacilityManager.instance.CanvasEnabled(CanvasName.Location, false);
     }
 }

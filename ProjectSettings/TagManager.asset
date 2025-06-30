@@ -14,7 +14,7 @@ TagManager:
   - warehouse
   - chargingroom
   - processingroom
-  - ironore
+  - ironOre
   - NightLight
   layers:
   - Default

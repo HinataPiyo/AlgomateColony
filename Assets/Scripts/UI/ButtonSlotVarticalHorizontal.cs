@@ -11,7 +11,7 @@ public class ButtonSlotVarticalHorizontal : MonoBehaviour
 
 
     WarehouseController wareC;
-    WarkshopManager warkC;
+    WarkshopController warkC;
     GameSettingController gSettingCont;
 
     public void Initialize_Warehouse(WarehouseController _wareC)
@@ -22,7 +22,7 @@ public class ButtonSlotVarticalHorizontal : MonoBehaviour
     /// <summary>
     /// ProcessingControllerで行う初期化処理
     /// </summary>
-    public void Initialize_Warkshop(WarkshopManager _warkC)
+    public void Initialize_Warkshop(WarkshopController _warkC)
     {
         warkC = _warkC;
         button.onClick.AddListener(OnClick_ChangePanel_Warkshop);

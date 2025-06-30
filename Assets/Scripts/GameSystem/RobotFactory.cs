@@ -2,25 +2,20 @@ using UnityEngine;
 
 public class RobotFactory : MonoBehaviour
 {
-    [SerializeField] SystemControlSO scSO;
     [Header("ロボット系")]
     [SerializeField] GameObject robotPrefab;    // ロボットのPrefab
     [SerializeField] Transform spawnPoint;      // スポーン地点
 
+    // テスト生成
     [SerializeField] bool CreatFlag;
 
-    private void Start() {
-        Initialize();
-    }
-    
-    private void Update() {
-        if(CreatFlag) { CreateRobot(); CreatFlag = false; }
-    }
-
-    void Initialize()
+    void Update()
     {
-        // for(int ii = 0; ii < 30; ii++)
-        CreateRobot();                 // ロボットを生成するた目の関数に格納
+        if (CreatFlag)
+        {
+            CreateRobot();
+            CreatFlag = false;
+        }
     }
 
     /// <summary>
@@ -32,7 +27,7 @@ public class RobotFactory : MonoBehaviour
         GameObject newRobot = Instantiate(robotPrefab, spawnPoint.position, Quaternion.identity);
         RobotController _robot = newRobot.GetComponent<RobotController>();
         _robot.SpawnInit();
-        scSO.robot_list.Add(_robot.GetBaseStatus());
-        _robot.SetRobotName($"アルゴメイト{scSO.robot_list.Count}");
+        GameManager.instance.RobotList.Add(_robot.GetBaseStatus());
+        _robot.SetRobotName($"アルゴメイト{GameManager.instance.RobotList.Count}");
     }
 }

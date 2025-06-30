@@ -34,12 +34,12 @@ public class AccessorySlot : MonoBehaviour
 
         EquipmentManager.instance.SetActiv_SelectSlots_Accessory();
 
-        foreach(var _slot in EquipmentManager.instance.GetEquipmentSelectSlot())
+        foreach(var _slot in EquipmentManager.instance.EquipSlot)
         {
             _slot.Check_SelectSlot(SELECT_EQUIPMENTSLOT.ACCESSORY, this_slotNumber);
         }
 
-        EquipmentManager.instance.GetAccessoryController().SetText_AccessoryInfo();
+        EquipmentManager.instance.AccessoryController.SetText_AccessoryInfo();
         EquipmentManager.instance.SetActive_Equipment_ScrollView(true);   // 非表・示表示の設定
     }
 

@@ -15,10 +15,11 @@ MonoBehaviour:
   icon: {fileID: 4189845308651797931, guid: 93466ca9c6a035049b05f78a3c991659, type: 3}
   serialNum: 2
   materialName: "\u6728\u6750"
+  tagName: tree
   maxHp: 30
   gatherTime: 30
-  EquipmentToMatch: 3
+  equipmentToMatch: 0
   exp: '
 
 '
-  mateTagName: 1
+  need_mate_list: []

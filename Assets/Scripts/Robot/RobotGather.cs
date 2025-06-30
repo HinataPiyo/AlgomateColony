@@ -8,7 +8,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(RobotController))]
 public class RobotGather : MonoBehaviour, IRobotInitializable
 {
-    [SerializeField] EquipmentSO equipmentSO;
     [SerializeField] SpriteRenderer equipment_sprite;
 
     RobotController robotCont;
@@ -177,12 +176,12 @@ public class RobotGather : MonoBehaviour, IRobotInitializable
     /// 収集速度ステータスの上昇
     /// 収集速度は値が増えるほど速くなる
     /// </summary>
-    /// <param name="_equipmentSO"></param>
+    /// <param name="_equipmentSO">収集対象</param>
     public void UpGread_GatharRate(MaterialSO _mateSO)
     {
         // 装備している装備の名前を引数で渡し、名前に合った値を返してくる
         _base.gatherRate = _base.GetGatherRate_Min() +
-            equipmentSO.GetEquipmentTotalValue(_base.equipment_value, _mateSO);
+            EquipmentType.GetEquipmentTotalValue(_base.equipment_value, _mateSO);
     }
 
     /// <summary>
@@ -200,24 +199,24 @@ public class RobotGather : MonoBehaviour, IRobotInitializable
 
         MaterialSO mateSo = _baseMate.mateSO;
 
-        switch (mateSo.EquipmentToMatch)
+        switch (mateSo.equipmentToMatch)
         {
-            case EQUIPMENT_NAME.NONE:
+            case EquipmentType.TYPE.NONE:
                 equipment_sprite.sprite = null;
                 equipment_sprite.enabled = false;
                 break;
-            case EQUIPMENT_NAME.DRIL:
-                _base.equipment_value = equipmentSO.equipment_values[0];
+            case EquipmentType.TYPE.DRIL:
+                _base.equipment_value = DataManager.instance.EquipmentDB.DB[0];
                 equipment_sprite.sprite = _base.equipment_value.icon;
                 equipment_sprite.enabled = true;
                 break;
-            case EQUIPMENT_NAME.ARM:
-                _base.equipment_value = equipmentSO.equipment_values[1];
+            case EquipmentType.TYPE.ARM:
+                _base.equipment_value = DataManager.instance.EquipmentDB.DB[1];
                 equipment_sprite.sprite = _base.equipment_value.icon;
                 equipment_sprite.enabled = true;
                 break;
-            case EQUIPMENT_NAME.CHAINSAW:
-                _base.equipment_value = equipmentSO.equipment_values[2];
+            case EquipmentType.TYPE.CHAINSAW:
+                _base.equipment_value = DataManager.instance.EquipmentDB.DB[2];
                 equipment_sprite.sprite = _base.equipment_value.icon;
                 equipment_sprite.enabled = true;
                 break;

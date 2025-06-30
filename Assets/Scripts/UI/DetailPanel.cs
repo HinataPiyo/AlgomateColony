@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class DetailPanel : MonoBehaviour
 {
-    [SerializeField] SystemControlSO scSO;
+    SystemControlSO scSO;
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI objectName_text;
     [SerializeField] TextMeshProUGUI useCommand_text;
@@ -16,8 +16,9 @@ public class DetailPanel : MonoBehaviour
     float waitTime = 2f;
     float progressTime;
 
-    private void Start()
+    void Start()
     {
+        scSO = DataManager.instance.SystemControlSO;
         playClosePanel = true;
         animStatFlag.panelCloseFlag = true;
         detailPanel.SetActive(false);
@@ -60,7 +61,7 @@ public class DetailPanel : MonoBehaviour
                 SetDetailSlot(scSO.settingDetails[5].icon, scSO.settingDetails[5]._name, scSO.settingDetails[5].cmd);
                 OpenPanel();
             }
-            else if (hit.collider.CompareTag("ironore"))
+            else if (hit.collider.CompareTag("ironOre"))
             {
                 SetDetailSlot(scSO.settingDetails[6].icon, scSO.settingDetails[6]._name, scSO.settingDetails[6].cmd);
                 OpenPanel();

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1492003855837096606}
   m_Layer: 7
   m_Name: IronOre
-  m_TagString: ironore
+  m_TagString: ironOre
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
