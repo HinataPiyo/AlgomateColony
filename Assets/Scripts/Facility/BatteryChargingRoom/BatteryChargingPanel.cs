@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// メイン処理
 /// </summary>
-public class ChargingBatteryPanel : MonoBehaviour
+public class BatteryChargingPanel : MonoBehaviour
 {
     UpdateTime_Class updateTime = new UpdateTime_Class();
     [SerializeField] ChargingBatterySO cbSO;

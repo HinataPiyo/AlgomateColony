@@ -6,7 +6,7 @@ public class ChargingBatteryRobotSlot : MonoBehaviour
 {
     [SerializeField] SystemControlSO scSO;
     [SerializeField] Button button;
-    ChargingBatteryPanel cbCont;
+    BatteryChargingPanel cbCont;
     public BaseStatus robotbase;
     public GameObject slotText_parent;      // テキスト全体を非表示にさせるため親オブジェクトを取得
     public Image icon;
@@ -24,7 +24,7 @@ public class ChargingBatteryRobotSlot : MonoBehaviour
         button.onClick.AddListener(OnClick_Slot);
     }
 
-    public void Set_ChargingBatteryPanel(ChargingBatteryPanel _script) { cbCont = _script; }
+    public void Set_ChargingBatteryPanel(BatteryChargingPanel _script) { cbCont = _script; }
     public void InSlot(BaseStatus _robotBase)
     {
         slotText_parent.SetActive(true);
