@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class BatteryChargingRoomManager : MonoBehaviour
 {
     HorizontalButtonController hbCont;
-    ChargingBatteryPanel cbCont;
+    BatteryChargingPanel cbCont;
 
 
     [Header("ChargingBatteryキャンバスの設定")]
@@ -32,7 +32,7 @@ public class BatteryChargingRoomManager : MonoBehaviour
         backButton.onClick.AddListener(ButtonOnClick_Back);
         // コンポーネントの取得
         hbCont = GetComponent<HorizontalButtonController>();
-        cbCont = GetComponent<ChargingBatteryPanel>();
+        cbCont = GetComponent<BatteryChargingPanel>();
         horizontal_slots = horizontalButton_parent.GetComponentsInChildren<ButtonSlotVarticalHorizontal>();
         
         // 横に並んでるボタンを設定する
@@ -51,5 +51,5 @@ public class BatteryChargingRoomManager : MonoBehaviour
         FacilityManager.instance.CanvasEnabled(CanvasName.BatteryRoom, false);
     }
 
-    public ChargingBatteryPanel GetChargingBatteryController() { return cbCont;}
+    public BatteryChargingPanel GetChargingBatteryController() { return cbCont;}
 }

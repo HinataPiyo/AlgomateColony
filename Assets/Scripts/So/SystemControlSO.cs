@@ -1,108 +1,49 @@
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SystemControlSO", menuName = "CreatScriptableObject/SystemControlSO")]
+[CreateAssetMenu(fileName = "SystemControlSO", menuName = "System/SystemControlSO")]
 public class SystemControlSO : ScriptableObject 
 {
     public string playerName;
-    [SerializeField] NextLevelUnlockedSO nluSO;
-    [SerializeField] int LocationLevel;                 // 拠点のレベルを設定
+    [SerializeField] int locationLevel;                 // 拠点のレベルを設定
     [SerializeField] float upgread_chargingTime;        // ロボットの充電を早くする為のUpgread要素
-    [SerializeField] POTENTIAL potential_class;         // 潜在能力のクラス
-
-    public List<BaseStatus> robot_list = new List<BaseStatus>();
+    
     public List<SettingDetail> settingDetails = new List<SettingDetail>();
 
-    public int GetLocationLevel { get{return LocationLevel;} set{ LocationLevel = value; } }
-    public List<BaseStatus> RobotStatusList { get{ return robot_list; } }
+    public int LocationLevel => locationLevel;
     public float GetBatteryChargingTime() { return upgread_chargingTime; }
-    public NextLevelUnlockedSO GetNextLevelUnlockedSO() { return nluSO; }
 
-    public POTENTIAL GetPotential() { return potential_class; }
-
-    /// <summary>
-    /// STATUS_SELECTの名前を日本語に変換
-    /// </summary>
-    public string StatusSelectName(STATUS_SELECT _statusSelect)
-    {
-        switch(_statusSelect)
-        {
-            case STATUS_SELECT.MoveSpeedMax:
-                return "移動速度";
-            case STATUS_SELECT.RechargeMax:
-                return "充電回数";
-            case STATUS_SELECT.EnergyMax:
-                return "バッテリー容量";
-            case STATUS_SELECT.GatherStrengthMax:
-                return "収集力";
-            case STATUS_SELECT.GatherRateMax:
-                return "収集速度";
-        }
-        return null;
-    }
-
-    /// <summary>
-    /// 潜在能力を確保するクラス
-    /// </summary>
-    [System.Serializable]
-    public class POTENTIAL
-    {
-        [Header("ロボットの潜在能力")]
-        public float MOVESPEED_MAX;
-        public float RECHARGE_MAX;
-        public float ENERGY_MAX;
-        public float GATHERSTRENGTH_MAX;
-        public float GATHERRATE_MAX;
-        
-    }
 
     /// <summary>
     /// Locationのレベルを上げたときに処理される関数
     /// </summary>
     public void LocationLevelUp()
     {
-        BASE_NEXT_UNLOCK.StatusParam[] _statusParams = null;
-        if(LocationLevel < nluSO.GetBaseNextUnlocks_List().Count)
+        NEXT_UNLOCK.StatusParam[] _statusParams = null;
+        NEXT_UNLOCK[] _nextUnlock = DataManager.instance.levelupUnlockTB.NextUnlock;
+        if (locationLevel < _nextUnlock.Length)
         {
-            if(LocationLevel == 1)
+            // TODO レベルアップしたとき建物を生成する処理だが、いずれどうにかしたい。
+            if (locationLevel == 1)
             {
-                Instantiate(nluSO.GetBaseNextUnlocks_List()[1].creatObj, nluSO.GetBaseNextUnlocks_List()[1].objPos, Quaternion.identity);
+                Instantiate(_nextUnlock[1].creatObj, _nextUnlock[1].objPos, Quaternion.identity);
             }
+
             // 現在のレベルに合わせたStatusParamを取得する
-            _statusParams = nluSO.GetBaseNextUnlocks_List()[LocationLevel].statusParam;
+            _statusParams = _nextUnlock[locationLevel].statusParam;
         }
 
-        if(_statusParams != null)
+        // 潜在能力の上昇
+        foreach (var param in _statusParams)
         {
-            for(int ii = 0; ii < _statusParams.Length; ii++)
-            {
-                // 上昇させたいステータスを決める
-                switch(_statusParams[ii].selectStatus)
-                {
-                    case STATUS_SELECT.MoveSpeedMax:
-                        potential_class.MOVESPEED_MAX += _statusParams[ii].statusLimited_value;
-                        break;
-                    case STATUS_SELECT.RechargeMax:
-                        potential_class.RECHARGE_MAX += _statusParams[ii].statusLimited_value;
-                        break;
-                    case STATUS_SELECT.EnergyMax:
-                        potential_class.ENERGY_MAX += _statusParams[ii].statusLimited_value;
-                        break;
-                    case STATUS_SELECT.GatherStrengthMax:
-                        potential_class.GATHERSTRENGTH_MAX += _statusParams[ii].statusLimited_value;
-                        break;
-                    case STATUS_SELECT.GatherRateMax:
-                        potential_class.GATHERRATE_MAX += _statusParams[ii].statusLimited_value;
-                        break;
-                }
-            }
+            DataManager.instance.SetPotential(param.selectStatus, param.statusLimited_value);
         }
 
         // アンロックさせる内容の処理が終わったら
-        LocationLevel++;        // 拠点のレベルを上げる
+        locationLevel++;        // 拠点のレベルを上げる
     }
 
+    // TODO 右下に表示されるパネルの設定だが、これはどうにかしたい。
     [System.Serializable]
     public class SettingDetail
     {
@@ -112,16 +53,7 @@ public class SystemControlSO : ScriptableObject
     }
 }
 
-[System.Flags]
-public enum STATUS_SELECT
-{
-    NONE = -1,
-    MoveSpeedMax = 0 << 0,
-    RechargeMax = 1 << 1,
-    EnergyMax = 2 << 2,
-    GatherStrengthMax = 3 << 3,
-    GatherRateMax = 4 << 4,
-}
+
 
 
 /// <summary>

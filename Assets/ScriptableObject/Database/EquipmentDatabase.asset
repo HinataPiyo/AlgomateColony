@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81e724c87fc68ac4e939e579e200b28e, type: 3}
+  m_Name: EquipmentDatabase
+  m_EditorClassIdentifier: 
+  stop_sprite: {fileID: 1547804281730946603, guid: 3d4ddbc0205189047a117f260180c4c6, type: 3}
+  equipment_values:
+  - equipment_name: 1
+    icon: {fileID: 3845756139494361395, guid: 86c1dc4878892e74c9702913f0c3e93d, type: 3}
+    _name: "\u30C9\u30EA\u30EB"
+    level: 50
+    statusup_name: "\u77F3\u3001\u9271\u77F3\u7CFB\u306E\u53CE\u96C6\u901F\u5EA6\u304C\u4E0A\u6607\u3057\u307E\u3059\u3002"
+    statusup_value: 50
+    levelupPitch: 0
+  - equipment_name: 2
+    icon: {fileID: -254286355086068568, guid: ee5d2df1db381464fadb6ea2a2c2c6ad, type: 3}
+    _name: "\u30A2\u30FC\u30E0"
+    level: 50
+    statusup_name: "\u5EFA\u7BC9\u3001\u5236\u4F5C\u7CFB\u306E\u901F\u5EA6\u304C\u4E0A\u6607\u3057\u307E\u3059\u3002"
+    statusup_value: 50
+    levelupPitch: 0
+  - equipment_name: 3
+    icon: {fileID: 3949327089529648890, guid: ef972d0712614e1408060204517d5aaa, type: 3}
+    _name: "\u30C1\u30A7\u30FC\u30F3\u30BD\u30FC"
+    level: 50
+    statusup_name: "\u6728\u3084\u6728\u6750\u7CFB\u306E\u53CE\u96C6\u901F\u5EA6\u304C\u4E0A\u6607\u3057\u307E\u3059\u3002"
+    statusup_value: 50
+    levelupPitch: 0

@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -107,11 +106,12 @@ public class RobotStatusPanelManager : MonoBehaviour
         }
 
         // 潜在能力テキスト
-        maxRecharge_potentialtext.text = $"({scSO.GetPotential().RECHARGE_MAX})";
-        maxEnergy_potentialtext.text = $"({scSO.GetPotential().ENERGY_MAX})";
-        maxMovespeed_potentialtext.text = $"({scSO.GetPotential().MOVESPEED_MAX})";
-        maxGatherStrength_potentialtext.text = $"({scSO.GetPotential().GATHERSTRENGTH_MAX})";
-        maxGatherRate_potentialtext.text = $"({scSO.GetPotential().GATHERRATE_MAX})";
+        DataType.POTENTIAL potential = DataManager.instance.PotentialTB;
+        maxRecharge_potentialtext.text = $"({potential.rechargeMax})";
+        maxEnergy_potentialtext.text = $"({potential.energyMax})";
+        maxMovespeed_potentialtext.text = $"({potential.moveSpeedMax})";
+        maxGatherStrength_potentialtext.text = $"({potential.gatherStrengthMax})";
+        maxGatherRate_potentialtext.text = $"({potential.gatherRateMax})";
 
 
         if(_baseSlot != null)
@@ -156,7 +156,7 @@ public class RobotStatusPanelManager : MonoBehaviour
             robotCmdCont.Reset_Buttons();
 
             // ロボット自身にアタッチしてあるスクリプトを取得する
-            robotCmdCont.Set_RobotCommandExecute = robot.gameObject.GetComponent<RobotCommandExecute>();
+            robotCmdCont.SetRobot(robot.RobotCommandExecute, robot);
 
             // 入力されているコマンドを押されたロボットの内容にする
             RobotCommandExecute _execute = robot.GetComponent<RobotCommandExecute>();

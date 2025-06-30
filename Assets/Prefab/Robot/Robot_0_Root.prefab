@@ -133,7 +133,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energySlider: {fileID: 4249589918113511865, guid: 055de1bda11bf934f9f2e07ba4de34eb, type: 3}
   gatherSlider: {fileID: 4249589918113511865, guid: adc46a6c5e28cb44a8a34c938d2083a0, type: 3}
-  batteryData: {fileID: 11400000, guid: 42915cfa5fade6a42a545c81325bfbe3, type: 2}
   _base:
     _runk: 
     totalScore: 0
@@ -148,6 +147,23 @@ MonoBehaviour:
     recharge_battery: 0
     currentRecharged: 0
     needchange_battery: 0
+    equipment_value:
+      equipment_name: 0
+      icon: {fileID: 0}
+      _name: 
+      level: 0
+      statusup_name: 
+      statusup_value: 0
+      levelupPitch: 0
+    battery_status:
+      _name: 
+      battery_level: 0
+      energyMax_Up: 0
+      statusup_name: 
+      icon: {fileID: 0}
+    acceData_list:
+    - {fileID: 0}
+    - {fileID: 0}
     slots:
     - mateSO: {fileID: 0}
       ITEM_STACK_MAX: 100
@@ -164,24 +180,7 @@ MonoBehaviour:
     - mateSO: {fileID: 0}
       ITEM_STACK_MAX: 100
       itemStackAmount: 0
-    equipment_value:
-      equipment_name: 0
-      icon: {fileID: 0}
-      _name: 
-      level: 0
-      statusup_name: 
-      statusup_value: 0
-      levelupPitch: 0
     unlock_accessory_slot: 0
-    acceData_list:
-    - {fileID: 0}
-    - {fileID: 0}
-    battery_status:
-      _name: 
-      battery_level: 0
-      energyMax_Up: 0
-      statusup_name: 
-      icon: {fileID: 0}
   robotname_text: {fileID: 6399483611660040957}
 --- !u!114 &3189009393217600519
 MonoBehaviour:
@@ -195,7 +194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3d0791f2e7de045bfa98ad5384213b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentSO: {fileID: 11400000, guid: c79b726fa38e6c942979de1585e25b30, type: 2}
   equipment_sprite: {fileID: 3450774001863145769}
 --- !u!114 &-5784115634375964066
 MonoBehaviour:
@@ -271,7 +269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24aa697a5c7de4043a9a8fbed598fdad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  commandSO: {fileID: 11400000, guid: 90f53193ebd214a43b8640f5bd2a98db, type: 2}
 --- !u!114 &926990175364111399
 MonoBehaviour:
   m_ObjectHideFlags: 0

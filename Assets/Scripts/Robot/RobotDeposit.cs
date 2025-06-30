@@ -67,7 +67,7 @@ public class RobotDeposit : MonoBehaviour, IRobotInitializable
         {
             if (slot.mateSO == null) continue;
 
-            if ($"{slot.mateSO.mateTagName}" == robotCont.DepsiteName[0])
+            if ($"{slot.mateSO.tagName}" == robotCont.DepsiteName[0])
             {
                 int quantity;
                 if (int.TryParse(robotCont.DepsiteName[1], out quantity))
@@ -89,7 +89,7 @@ public class RobotDeposit : MonoBehaviour, IRobotInitializable
 
 
                         // コマンドが終了したことを知らせる
-                        robotCont.Get_RobotCommandExecute.StateEndFlag = true;
+                        robotCont.RobotCommandExecute.StateEndFlag = true;
                         break;
                     }
                     else

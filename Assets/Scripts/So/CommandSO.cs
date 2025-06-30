@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "CommandList", fileName = "CommandSO")]
+[CreateAssetMenu(menuName = "System/CommandList", fileName = "CommandList")]
 public class CommandSO : ScriptableObject
 {
     [Header("コマンド一覧で表示するテキスト")] public ComanndsDetail[] cmdsDetail;

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class BaseMaterial : MonoBehaviour
@@ -8,7 +7,7 @@ public class BaseMaterial : MonoBehaviour
     int amo = 1;    // 収集一回で得られる個数
     bool deathFlag;
 
-    void Start()
+    void Awake()
     {
         hp = mateSO.maxHp;     // SOで設定した最大体力を変数に設定する
     }

@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.UI;
 
 public class ProcessingController : MonoBehaviour
 {
-    WarkshopManager warkManager;
+    WarehouseController warehouseCtrl;
     UpdateTime_Class updateTime = new UpdateTime_Class();
     
     
@@ -15,7 +14,6 @@ public class ProcessingController : MonoBehaviour
     [SerializeField] Transform warkshopSlot_parent;       // Prefabを生成する為の親オブジェクトとなる（スクロールバー）
     [SerializeField] List<WarkshopSlot> processingSlots_list = new List<WarkshopSlot>();
     [Space(10), Header("選択したときのスロット（Infoパネル）")]
-    [SerializeField] AccessorySO processingSO;
     [SerializeField] Image select_icon;
     [SerializeField] TextMeshProUGUI selectName_text;
     [SerializeField] TextMeshProUGUI selectExp_text;
@@ -41,17 +39,17 @@ public class ProcessingController : MonoBehaviour
         selectName_text.text = "";
         selectExp_text.text = "";
 
-        warkManager = GetComponent<WarkshopManager>();
+        warehouseCtrl = GetComponent<WarehouseController>();
         needMate_slots = needMate_parent.GetComponentsInChildren<WarkshopNeedMaterialSlot>();
 
         // リストに作成している加工品分回す
-        for(int ii = 0; ii < processingSO.processing_status.Length; ii++)
+        for(int ii = 0; ii < DataManager.instance.ProcessingDB.DB.Length; ii++)
         {
             // 加工品のスロットを作成
             GameObject _slot = Instantiate(warkshopSlot_prefab, warkshopSlot_parent);
             // スロットに番号を設定
             WarkshopSlot warkshop_cs = _slot.GetComponent<WarkshopSlot>();
-            warkshop_cs.SetProcessing_NumAndScript(this, processingSO.processing_status[ii]);
+            warkshop_cs.SetProcessing_NumAndScript(this, DataManager.instance.ProcessingDB.DB[ii]);
             // リストに追加
             processingSlots_list.Add(warkshop_cs);
         }
@@ -64,8 +62,8 @@ public class ProcessingController : MonoBehaviour
         }
 
         // 最初は0番目の加工品を表示する
-        SetProcessing_SelectsButton(processingSO.processing_status[0]);
-        Sync_HaveMaterialToText();
+        SetProcessing_SelectsButton(DataManager.instance.ProcessingDB.DB[0]);
+        DataType.Sync_HaveMaterialToText(needMate_slots, warehouseCtrl.HasMaterials);
     }
 
     void Update()
@@ -74,7 +72,7 @@ public class ProcessingController : MonoBehaviour
         {
             // 必要素材がそろっているか確認する
             Check_CompletionAllMaterials();
-            Sync_HaveMaterialToText();
+            DataType.Sync_HaveMaterialToText(needMate_slots, warehouseCtrl.HasMaterials);
         }        
     }
 
@@ -83,13 +81,13 @@ public class ProcessingController : MonoBehaviour
     /// ボタンが押された時にInfoパネルの設定を行う
     /// </summary>
     /// <param name="_selectNumber"></param>
-    public void SetProcessing_SelectsButton(AccessorySO.PROCESSING_STATUS _processingSO)
+    public void SetProcessing_SelectsButton(MaterialSO _processingData)
     {
         // Infoパネルの設定
         select_icon.enabled = true;
-        select_icon.sprite = _processingSO.mateSO.icon;
-        selectName_text.text = _processingSO.mateSO.materialName;
-        selectExp_text.text = _processingSO.mateSO.exp;
+        select_icon.sprite = _processingData.icon;
+        selectName_text.text = _processingData.materialName;
+        selectExp_text.text = _processingData.exp;
 
 
         // 必要素材スロットの表示
@@ -99,12 +97,12 @@ public class ProcessingController : MonoBehaviour
 
             // 上記で設定されたアクセサリーのステータスに入ってある
             // 必要素材の配列分forを回す
-            if(ii < _processingSO.need_mate_list.Length)
+            if(ii < _processingData.need_mate_list.Length)
             {
                 // 必要素材スロット(個々)
                 needMate_slots[ii].SetSlotMaterial(
-                    _processingSO.need_mate_list[ii].mateSO,   // 素材のデータ
-                    _processingSO.need_mate_list[ii].needAmo   // 必要個数
+                    _processingData.need_mate_list[ii].mateSO,   // 素材のデータ
+                    _processingData.need_mate_list[ii].needAmo   // 必要個数
                 );
             }
             else
@@ -141,27 +139,6 @@ public class ProcessingController : MonoBehaviour
             creat_button.interactable = false;
         }
     }
-
-    /// <summary>
-    /// 素材の所持数を必要素材のテキストに反映させる
-    /// </summary>
-    void Sync_HaveMaterialToText()
-    {
-        for(int ii = 0; ii < needMate_slots.Length; ii++)
-        {
-            for(int qq = 0; qq < warkManager.GetWarehouseList().Count; qq++)
-            {
-                // 必要素材と倉庫の素材のシリアル番号が同一だった場合
-                if(needMate_slots[ii].GetMaterialSO()?.serialNum == warkManager.GetWarehouseList()[qq].mateSO.serialNum)
-                {
-                    // 素材の所持数を反映させる
-                    needMate_slots[ii].SetStockAmount(warkManager.GetWarehouseList()[ii].mateAmount);
-                    break;
-                }
-            }
-        }
-    }
-
 
     public void Interactable_CreatButton(bool flag) { creat_button.interactable = flag; }
 }
