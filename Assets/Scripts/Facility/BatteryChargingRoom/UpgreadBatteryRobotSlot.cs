@@ -14,7 +14,7 @@ public class UpgreadBatteryRobotSlot : MonoBehaviour
 
     public BaseStatus RobotBase { get{ return robotbase; } }
 
-    private void Start()
+    void Start()
     {
         button.onClick.AddListener(OnClick_Slot);
     }

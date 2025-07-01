@@ -6,7 +6,8 @@ public class HorizontalButtonController : MonoBehaviour
     ButtonSlotVarticalHorizontal[] slot_script;
     BatteryChargingRoomManager.HorizontalButtonCohesion[] horizontal_panels;
     
-    private void Start() {
+    void Start()
+    {
         HorizontalButtonClick_Proc(0);
     }
 

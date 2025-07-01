@@ -52,33 +52,3 @@ public class SystemControlSO : ScriptableObject
         public string cmd;
     }
 }
-
-
-
-
-/// <summary>
-/// UIの更新を1フレームごとに行わないため
-/// </summary>
-public class UpdateTime_Class
-{
-    const float update_AbsTime = 1.0f;      // UIの更新を1フレームごとに行わないための時間
-    float processTime = 0f;                 // 経過時間
-
-    /// <summary>
-    /// UIの更新を1フレームごとに行わないための処理
-    /// </summary>
-    public bool UpdateTime()
-    {
-        // 経過時間を更新
-        processTime += Time.deltaTime;
-
-        // 設定時間より経過時間の方が大きくなったら
-        if (processTime > update_AbsTime)
-        {
-            processTime = 0f; // 条件を満たしたらリセット
-            return true;
-        }
-
-        return false;
-    }
-}

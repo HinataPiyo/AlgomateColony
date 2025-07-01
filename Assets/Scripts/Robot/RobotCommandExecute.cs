@@ -40,6 +40,7 @@ public class RobotCommandExecute : MonoBehaviour
     IEnumerator CommandToExecution()
     {
         if (robotCont == null) yield break;
+        if (proctext == null || proctext.Length == 0) yield break;
 
         LogController.instance.SetLog(robotCont.GetBaseStatus(), "コマンドを実行します");
         int commandIndex = 0;
@@ -47,6 +48,8 @@ public class RobotCommandExecute : MonoBehaviour
         while (true)
         {
             stateEndFlag = false;
+
+            if (proctext == null || proctext.Length == 0) yield break;
 
             ExecuteCommand(proctext[commandIndex]);
             yield return new WaitUntil(() => stateEndFlag);
@@ -72,6 +75,7 @@ public class RobotCommandExecute : MonoBehaviour
 
     private bool IsLastCommand(int index)
     {
+        if (proctext == null || proctext.Length == 0) return false;
         return index == proctext.Length - 1;
     }
 

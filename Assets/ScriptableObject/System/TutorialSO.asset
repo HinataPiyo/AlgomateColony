@@ -13,38 +13,39 @@ MonoBehaviour:
   m_Name: TutorialSO
   m_EditorClassIdentifier: 
   tutorialEndFlag: 0
+  resetTutorial: 1
   tutorialTasks:
   - focusPos: {x: 0, y: 0}
     textAllActiv: 1
-    completionFlag: 0
+    completionFlag: 1
     taskExp: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C8\u3092\u62E0\u70B9\u306B\u79FB\u52D5\u3055\u305B\u308B\u3002"
     fineTasks:
     - focusPos: {x: 0, y: 0}
       textPos: {x: 0, y: 0}
-      completionFlag: 0
+      completionFlag: 1
       taskExp: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C8\u3092\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
     - focusPos: {x: 0, y: 0}
       textPos: {x: 0, y: 0}
-      completionFlag: 0
+      completionFlag: 1
       taskExp: "\u5DE6\u4E0A\u306B\u8868\u793A\u3055\u308C\u3066\u3044\u308B\u3001[C]\u3068\u3044\u3046\u30DC\u30BF\u30F3\u3092\u62BC\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
     - focusPos: {x: 0, y: 0}
       textPos: {x: 0, y: 0}
-      completionFlag: 0
+      completionFlag: 1
       taskExp: "CommandEditor\u3067\u3001[ Move(location); ] \u3068\u6253\u3063\u3066\u307F\u307E\u3057\u3087\u3046\u3002\u6B21\u306B\u3001[
         \u30C1\u30A7\u30C3\u30AF] \u30DC\u30BF\u30F3\u3092\u62BC\u3057\u3066\u304F\u3060\u3055\u3044\u3002"
     - focusPos: {x: 0, y: 0}
       textPos: {x: 0, y: 0}
-      completionFlag: 0
+      completionFlag: 1
       taskExp: "[ \u5931\u6557 ] \u3068\u51FA\u305F\u3089\u3001\u30B3\u30DE\u30F3\u30C9\u3092\u898B\u76F4\u3057\u3066\u304F\u3060\u3055\u3044\u3002[
         \u6210\u529F ] \u3068\u51FA\u305F\u3089\u3001[ \u5B9F\u884C ]\u3092\u62BC\u3057\u52D5\u304B\u3057\u3066\u307F\u307E\u3057\u3087\u3046\u3002"
   - focusPos: {x: 0, y: 0}
-    textAllActiv: 0
+    textAllActiv: 1
     completionFlag: 0
     taskExp: "\u30A2\u30EB\u30B4\u30E1\u30A4\u30C8\u306B\u8CC7\u6E90\u306E\u8ABF\u9054\u3092\u3057\u3066\u3082\u3089\u3046\u3002"
     fineTasks:
     - focusPos: {x: 0, y: 0}
       textPos: {x: 0, y: 0}
-      completionFlag: 0
+      completionFlag: 1
       taskExp: "CommandEdior\u3067\u3001[ Move(rock); ]\u3001\u6539\u884C\u3057\u3066
         [ Gather(rock); ] \u3068\u6253\u3061\u8FBC\u307F\u5B9F\u884C\u3057\u307E\u3057\u3087\u3046\u3002"
     - focusPos: {x: 0, y: 0}

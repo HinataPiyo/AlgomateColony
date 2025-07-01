@@ -9,8 +9,6 @@ using UnityEngine.UI;
 /// </summary>
 public class WarehouseController : MonoBehaviour
 {
-    UpdateTime_Class updateTime = new UpdateTime_Class();
-
     List<DataType.WAREHOUSE_SLOT> w_list = new List<DataType.WAREHOUSE_SLOT>();        // 素材倉庫リスト
     List<AccessoryData> a_list = new List<AccessoryData>();          // アクセサリー倉庫リスト
 
@@ -70,20 +68,32 @@ public class WarehouseController : MonoBehaviour
         changePael[1].SetActive(false);
     }
 
-    /// <summary>
-    /// フレームごとの更新処理
-    /// </summary>
-    void Update()
+    // オブジェクトが有効になった時に呼ばれる
+    void OnEnable()
     {
-        if (updateTime.UpdateTime())
-        {
-            // 倉庫内を更新
-            SetSlot_MaterialInventory();
-            SetSlot_AccessoryInventory();
+        // UpdateManagerのイベントに、実行したい処理（HandleUpdateTick）を登録する
+        UpdateManager.OnUpdateTick += HandleUpdateTick;
+    }
 
-            // メインキャンバスのスロットを生成
-            CreatSlot_MainCanvas_HaveMaterial();
-        }
+    // オブジェクトが無効になった時に呼ばれる
+    void OnDisable()
+    {
+        // 必ず登録解除する（メモリリークやエラーを防ぐため）
+        UpdateManager.OnUpdateTick -= HandleUpdateTick;
+    }
+
+    /// <summary>
+    /// UpdateManagerから1秒ごとに呼び出される処理
+    /// </summary>
+    void HandleUpdateTick()
+    {
+        // 以前Update内にあった処理をここに移動する
+        // 倉庫内を更新
+        SetSlot_MaterialInventory();
+        SetSlot_AccessoryInventory();
+
+        // メインキャンバスのスロットを生成
+        CreatSlot_MainCanvas_HaveMaterial();
     }
 
     /// <summary>

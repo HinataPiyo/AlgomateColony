@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class ProcessingController : MonoBehaviour
 {
     WarehouseController warehouseCtrl;
-    UpdateTime_Class updateTime = new UpdateTime_Class();
-    
     
     [Header("加工品を選択するスロット")]
     [SerializeField] GameObject warkshopSlot_prefab;      // 設定されているアクセサリーの量分生成するため
@@ -66,16 +64,30 @@ public class ProcessingController : MonoBehaviour
         DataType.Sync_HaveMaterialToText(needMate_slots, warehouseCtrl.HasMaterials);
     }
 
-    void Update()
+    // オブジェクトが有効になった時に呼ばれる
+    void OnEnable()
     {
-        if(updateTime.UpdateTime() == true)
-        {
-            // 必要素材がそろっているか確認する
-            Check_CompletionAllMaterials();
-            DataType.Sync_HaveMaterialToText(needMate_slots, warehouseCtrl.HasMaterials);
-        }        
+        // UpdateManagerのイベントに、実行したい処理（HandleUpdateTick）を登録する
+        UpdateManager.OnUpdateTick += HandleUpdateTick;
     }
 
+    // オブジェクトが無効になった時に呼ばれる
+    void OnDisable()
+    {
+        // 必ず登録解除する（メモリリークやエラーを防ぐため）
+        UpdateManager.OnUpdateTick -= HandleUpdateTick;
+    }
+
+    /// <summary>
+    /// UpdateManagerから1秒ごとに呼び出される処理
+    /// </summary>
+    void HandleUpdateTick()
+    {
+        // 以前Update内にあった処理をここに移動する
+        // 必要素材がそろっているか確認する
+        Check_CompletionAllMaterials();
+        DataType.Sync_HaveMaterialToText(needMate_slots, warehouseCtrl.HasMaterials);
+    }
 
     /// <summary>
     /// ボタンが押された時にInfoパネルの設定を行う

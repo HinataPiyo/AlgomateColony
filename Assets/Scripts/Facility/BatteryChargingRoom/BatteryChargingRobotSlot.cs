@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChargingBatteryRobotSlot : MonoBehaviour
+public class BatteryChargingRobotSlot : MonoBehaviour
 {
     [SerializeField] SystemControlSO scSO;
     [SerializeField] Button button;

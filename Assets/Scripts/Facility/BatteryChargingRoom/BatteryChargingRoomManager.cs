@@ -28,7 +28,8 @@ public class BatteryChargingRoomManager : MonoBehaviour
         public TextMeshProUGUI[] buttonName;
     }
 
-    private void Start() {
+    void Start()
+    {
         backButton.onClick.AddListener(ButtonOnClick_Back);
         // コンポーネントの取得
         hbCont = GetComponent<HorizontalButtonController>();
@@ -37,10 +38,6 @@ public class BatteryChargingRoomManager : MonoBehaviour
         
         // 横に並んでるボタンを設定する
         hbCont.Set_HorizontalButton(horizontal_slots, horizontal_panels, buttonName);
-    }
-    
-    private void Update()
-    {
     }
 
     /// <summary>

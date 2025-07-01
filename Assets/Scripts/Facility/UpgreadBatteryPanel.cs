@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class UpgreadBatteryPanel : MonoBehaviour
 {
-    UpdateTime_Class updateTime = new UpdateTime_Class();
-
     [Header("Text")]
     [SerializeField] TextMeshProUGUI robotAmo_text;
 
@@ -22,15 +20,29 @@ public class UpgreadBatteryPanel : MonoBehaviour
         Check_RobotAmount();        // ロボットの出現数をテキストに反映させるs
         Creat_Slot();               // スロットを生成させる
     }
-
-    private void Update()
+    
+    // オブジェクトが有効になった時に呼ばれる
+    void OnEnable()
     {
-        // 数秒に一回更新されるようにする
-        if(updateTime.UpdateTime() == true)
-        {
-            Check_RobotAmount();        // ロボットの出現数をテキストに反映させる
-            Creat_Slot();               // スロットを生成させる
-        }
+        // UpdateManagerのイベントに、実行したい処理（HandleUpdateTick）を登録する
+        UpdateManager.OnUpdateTick += HandleUpdateTick;
+    }
+
+    // オブジェクトが無効になった時に呼ばれる
+    void OnDisable()
+    {
+        // 必ず登録解除する（メモリリークやエラーを防ぐため）
+        UpdateManager.OnUpdateTick -= HandleUpdateTick;
+    }
+
+    /// <summary>
+    /// UpdateManagerから1秒ごとに呼び出される処理
+    /// </summary>
+    void HandleUpdateTick()
+    {
+        // 以前Update内にあった処理をここに移動する
+        Check_RobotAmount();        // ロボットの出現数をテキストに反映させる
+        Creat_Slot();               // スロットを生成させる
     }
 
     /// <summary>

@@ -18,8 +18,6 @@ public class LocationController : MonoBehaviour
     [Header("非素材のスロットの行数"), SerializeField] SlotLine current_slotline;
 
     WarehouseController warehouseCtrl;     // 倉庫のスクリプト
-    UpdateTime_Class updateTime = new UpdateTime_Class();
-    
 
     [Header("Locationパネルの設定")]
     [SerializeField] RectTransform location_panel;      // 本体のパネル
@@ -49,6 +47,31 @@ public class LocationController : MonoBehaviour
         public TextMeshProUGUI statusValue_value;
     }
 
+    // オブジェクトが有効になった時に呼ばれる
+    void OnEnable()
+    {
+        // UpdateManagerのイベントに、実行したい処理（HandleUpdateTick）を登録する
+        UpdateManager.OnUpdateTick += HandleUpdateTick;
+    }
+
+    // オブジェクトが無効になった時に呼ばれる
+    void OnDisable()
+    {
+        // 必ず登録解除する（メモリリークやエラーを防ぐため）
+        UpdateManager.OnUpdateTick -= HandleUpdateTick;
+    }
+
+    /// <summary>
+    /// UpdateManagerから1秒ごとに呼び出される処理
+    /// </summary>
+    void HandleUpdateTick()
+    {
+        // 以前Update内にあった処理をここに移動する
+        Check_CompletionAllMaterials();
+        CheckSet_NeedMaterial(DataManager.instance.SystemControlSO.LocationLevel);
+        Sync_HaveMaterialToText();
+    }
+
     void Awake()
     {
         warehouseCtrl = GetComponent<WarehouseController>();
@@ -71,15 +94,6 @@ public class LocationController : MonoBehaviour
             DataManager.instance.SystemControlSO.playerName,
             DataManager.instance.SystemControlSO.LocationLevel
         );
-    }
-
-    private void Update() {
-        if(updateTime.UpdateTime() == true)
-        {
-            Check_CompletionAllMaterials();                         // 必要素材がそろっているか確認する
-            CheckSet_NeedMaterial(DataManager.instance.SystemControlSO.LocationLevel);         // LocationLevelに応じて必要素材を変える
-            Sync_HaveMaterialToText();                              // 素材の所持数を必要素材のテキストに反映させる
-        }
     }
 
     /// <summary>
