@@ -8,18 +8,17 @@ using UnityEngine.UI;
 /// </summary>
 public class BatteryChargingPanel : MonoBehaviour
 {
-    UpdateTime_Class updateTime = new UpdateTime_Class();
     [SerializeField] TextMeshProUGUI possible_chargeAmount_text;
 
     [SerializeField] Transform robotslots_parent;               // スロットを格納する親オブジェクト
     [SerializeField] GameObject robotslot_prefab;
-    [SerializeField] List<ChargingBatteryRobotSlot> robotSlots = new List<ChargingBatteryRobotSlot>();     // 生成したスロットを格納する
+    [SerializeField] List<BatteryChargingRobotSlot> robotSlots = new List<BatteryChargingRobotSlot>();     // 生成したスロットを格納する
 
     [Header("スロットを押したときに実行するもの")]
     [SerializeField] GameObject putout_panel;                   // 充電が完了したロボットのパネルを押すと表示されるパネル
     [SerializeField] Button yes_button;
     [SerializeField] Button no_button;
-    ChargingBatteryRobotSlot cbrSlot;
+    BatteryChargingRobotSlot cbrSlot;
 
     [Header("ロボットの出現位置とPrefab")]
     [SerializeField] GameObject robot_prefab;
@@ -38,14 +37,29 @@ public class BatteryChargingPanel : MonoBehaviour
         Creat_RobotSlot();
     }
 
-    void Update()
+    // オブジェクトが有効になった時に呼ばれる
+    void OnEnable()
     {
-        if(updateTime.UpdateTime() == true)
-        {
-            // 充電可能数を確認する
-            possible_chargeAmount_text.text = $"{Check_InSlot()}/{DataManager.instance.ChargingBatterySO.possible_chargeAmount}";
-            Creat_RobotSlot();
-        }
+        // UpdateManagerのイベントに、実行したい処理（HandleUpdateTick）を登録する
+        UpdateManager.OnUpdateTick += HandleUpdateTick;
+    }
+
+    // オブジェクトが無効になった時に呼ばれる
+    void OnDisable()
+    {
+        // 必ず登録解除する（メモリリークやエラーを防ぐため）
+        UpdateManager.OnUpdateTick -= HandleUpdateTick;
+    }
+
+    /// <summary>
+    /// UpdateManagerから1秒ごとに呼び出される処理
+    /// </summary>
+    void HandleUpdateTick()
+    {
+        // 以前Update内にあった処理をここに移動する
+        // 充電可能数を確認する
+        possible_chargeAmount_text.text = $"{Check_InSlot()}/{DataManager.instance.ChargingBatterySO.possible_chargeAmount}";
+        Creat_RobotSlot();
     }
 
     // ※充電回数がMAXの場合で充電施設に入れないようにする
@@ -61,7 +75,7 @@ public class BatteryChargingPanel : MonoBehaviour
             {
                 // スロットを生成する
                 GameObject _slot = Instantiate(robotslot_prefab, robotslots_parent);
-                ChargingBatteryRobotSlot cbSlot = _slot.GetComponent<ChargingBatteryRobotSlot>();
+                BatteryChargingRobotSlot cbSlot = _slot.GetComponent<BatteryChargingRobotSlot>();
 
                 // スロットの初期化
                 Initialization_RobotSlot(cbSlot);
@@ -75,7 +89,7 @@ public class BatteryChargingPanel : MonoBehaviour
     /// <summary>
     /// 生成したスロットの初期化
     /// </summary>
-    void Initialization_RobotSlot(ChargingBatteryRobotSlot _cbSlot)
+    void Initialization_RobotSlot(BatteryChargingRobotSlot _cbSlot)
     {
         _cbSlot.icon.sprite = null;
         _cbSlot.robotName_text.text = "";
@@ -111,7 +125,7 @@ public class BatteryChargingPanel : MonoBehaviour
     /// <summary>
     /// スロットからロボットの情報を一時的に格納する
     /// </summary>
-    public void Set_RobotData(BaseStatus _robotBase, ChargingBatteryRobotSlot _cbrSlot)
+    public void Set_RobotData(BaseStatus _robotBase, BatteryChargingRobotSlot _cbrSlot)
     {
         cbrSlot = _cbrSlot;
         robotBase = _robotBase;

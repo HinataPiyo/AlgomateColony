@@ -33,18 +33,18 @@ public class TutorialController : MonoBehaviour
     void Awake()
     {
         insrance = this;
+        
     }
 
 
     void Start()
     {
-
         tTaskList = tutorialSO.tutorialTasks;
         task_text.text = "";
         // チュートリアルをまだ実行していなければ
-        if(tutorialSO.tutorialEndFlag == false)
+        if(tutorialSO.tutorialEndFlag == false || tutorialSO.resetTutorial == true)
         {
-            ResetTutorial();
+            tutorialSO.ResetTutorial();
             // チュートリアル開始
             StartCoroutine(TutorialProgress());
         }
@@ -161,20 +161,6 @@ public class TutorialController : MonoBehaviour
         if(tTaskList[_bigNum].completionFlag == false)
         {
             tTaskList[_bigNum].completionFlag = true;
-        }
-    }
-
-
-    void ResetTutorial()
-    {
-        foreach(var _big in tTaskList)
-        {
-            _big.textAllActiv = false;
-            _big.completionFlag = false;
-            foreach(var _fine in _big.fineTasks)
-            {
-                _fine.completionFlag = false;
-            }
         }
     }
 }
