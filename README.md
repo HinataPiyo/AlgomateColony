@@ -65,8 +65,8 @@
 
 ### 💡 こんな書き方もできます
 
+> 鉄鉱石と木材を集めて倉庫に格納する例
 ```csharp
-// 鉄鉱石と木材を集めて倉庫に格納する例
 Move(ironOre);
 Gather(ironOre);
 Move(tree);
