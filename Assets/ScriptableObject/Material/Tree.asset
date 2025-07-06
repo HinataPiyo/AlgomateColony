@@ -18,7 +18,7 @@ MonoBehaviour:
   tagName: tree
   maxHp: 30
   gatherTime: 30
-  equipmentToMatch: 0
+  equipmentToMatch: 3
   exp: '
 
 '

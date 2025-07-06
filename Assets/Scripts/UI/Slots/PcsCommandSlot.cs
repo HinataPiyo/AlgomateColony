@@ -8,7 +8,7 @@ public class PcsCommandSlot : MonoBehaviour
     [SerializeField] Button button;
     [SerializeField] TextMeshProUGUI commandName_text;
 
-    [Header("コマンドの詳細"), SerializeField] ComanndsDetail cmd_Detail;
+    [Header("コマンドの詳細"), SerializeField] CommandDetail cmd_Detail;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class PcsCommandSlot : MonoBehaviour
     }
 
 
-    public void SetSlot(int ii, ComanndsDetail _cmd_detail, CommandList cmdList)
+    public void SetSlot(int ii, CommandDetail _cmd_detail, CommandList cmdList)
     {
         if(commandList == null)
         {

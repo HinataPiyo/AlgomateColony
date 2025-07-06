@@ -174,6 +174,7 @@ public class RobotMovement : MonoBehaviour, IRobotInitializable
             TutorialController.insrance.TutorialCheck(0, 3);
             TutorialController.insrance.BigTaskCheck(0);
         }
+
         robotCont.RobotCommandExecute.StateEndFlag = true;
     }
 

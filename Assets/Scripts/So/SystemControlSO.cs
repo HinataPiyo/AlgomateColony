@@ -24,9 +24,9 @@ public class SystemControlSO : ScriptableObject
         if (locationLevel < _nextUnlock.Length)
         {
             // TODO レベルアップしたとき建物を生成する処理だが、いずれどうにかしたい。
-            if (locationLevel == 1)
+            if (locationLevel == 0)
             {
-                Instantiate(_nextUnlock[1].creatObj, _nextUnlock[1].objPos, Quaternion.identity);
+                Instantiate(_nextUnlock[0].creatObj, _nextUnlock[0].objPos, Quaternion.identity);
             }
 
             // 現在のレベルに合わせたStatusParamを取得する

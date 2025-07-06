@@ -15,11 +15,15 @@ MonoBehaviour:
   batteryFacility: 0
   next_unlock:
   - icon: {fileID: -4530965693449461322, guid: abefb4d75dfe6894c9c55fc172bd5e37, type: 3}
-    objPos: {x: 5, y: -5}
+    objPos: {x: 5, y: -2}
     creatObj: {fileID: 7568077242174424434, guid: d01919362a7a5ce419273f082f4f955d, type: 3}
     name_text: "\u52A0\u5DE5\u5BA4"
     exp_text: 
     statusParam: []
     needMaterials:
     - mateSO: {fileID: 11400000, guid: 380daebfc203ddc468e185a5c341a12c, type: 2}
+      needAmo: 30
+    - mateSO: {fileID: 11400000, guid: 2d7d5f2e89d25654291cd54df7087c6f, type: 2}
+      needAmo: 30
+    - mateSO: {fileID: 11400000, guid: 6e2f2b0d0e287b74797f240d07e7755c, type: 2}
       needAmo: 30

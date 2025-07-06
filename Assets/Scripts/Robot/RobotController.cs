@@ -101,7 +101,7 @@ public class RobotController : MonoBehaviour
         _eslider = eSlider.GetComponent<Slider>();
 
         // 初期化処理を開始
-        _base.battery_status = DataManager.instance.BatteryDB.DB[0];   // 一番弱いバッテリーを最初に装着させておく
+        _base.battery_status = DataManager.instance.BatteryDB.DB[2];   // 一番強いバッテリーを最初に装着させておく
         _base.StatusUp_EnergyMax();
         _base.currentEnergy = _base.maxEnergy;  // 充電をMaxにする
         _base.base_MaxEnergy = _base.maxEnergy; // 最大充電量を別の変数に格納しておく

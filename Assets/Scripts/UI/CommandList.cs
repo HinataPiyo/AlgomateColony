@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CommandList : MonoBehaviour
 {
-    [SerializeField] CommandSO commandSO;
     [SerializeField] GameObject pcsCmdSlot_prefab;
     [SerializeField] Transform slotParent;
     [SerializeField] Button back_button;
@@ -20,10 +19,10 @@ public class CommandList : MonoBehaviour
         cmdDetailPanel.SetActive(false);
         back_button.onClick.AddListener(BackButtonOnClick);
 
-        for (int ii = 0; ii < commandSO.cmdsDetail.Length; ii++)
+        for (int ii = 0; ii < CommandDiscription.CommandDetails.Length; ii++)
         {
             GameObject obj = Instantiate(pcsCmdSlot_prefab, slotParent);
-            obj.GetComponent<PcsCommandSlot>().SetSlot(ii + 1, commandSO.cmdsDetail[ii], this);
+            obj.GetComponent<PcsCommandSlot>().SetSlot(ii + 1, CommandDiscription.CommandDetails[ii], this);
         }
     }
 
@@ -31,7 +30,7 @@ public class CommandList : MonoBehaviour
     /// 詳細ボタンがされた時の処理
     /// </summary>
     /// <param name="_detail"></param>
-    public void SetDetail(ComanndsDetail _detail)
+    public void SetDetail(CommandDetail _detail)
     {
         cmdDetailPanel.SetActive(true);
         // コマンドの説明
