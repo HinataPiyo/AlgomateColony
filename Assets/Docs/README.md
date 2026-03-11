@@ -1,4 +1,4 @@
-# Algorithm Colony Manual / アルゴリズム・コロニー マニュアル
+# AlgomateColony Manual / アルゴメイトコロニー マニュアル
 
 このページはプレイヤー向けの操作説明です。  
 This page is a player-facing manual.
@@ -8,8 +8,8 @@ This page is a player-facing manual.
 
 ## 1. Game Overview / ゲーム概要
 
-Algorithm Colony is a colony simulation game where you program robots from a top-down management perspective.  
-アルゴリズム・コロニーは、神の視点でロボットへ命令を与え、資源収集と運営を自動化していくシミュレーションゲームです。
+AlgomateColony is a colony simulation game where you program robots from a top-down management perspective.  
+アルゴメイトコロニーは、神の視点でロボットへ命令を与え、資源収集と運営を自動化していくシミュレーションゲームです。
 
 ## 2. Core Loop / 基本ループ
 
