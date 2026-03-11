@@ -1,4 +1,4 @@
-#　AlgomateColony(アルゴメイトコロニー)
+# AlgomateColony(アルゴメイトコロニー)
 ---
 
 ## 📚 ドキュメント案内
