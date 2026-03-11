@@ -40,7 +40,7 @@
 
 主にユーザーの助けになればと思い作っているものになります。
 例えば「cmd:setting」と打てば設定画面が開きます。
-現在実装いているのは、
+現在実装しているのは、
 
 *   cmd:setting
 *   cmd:location
@@ -81,3 +81,9 @@ Deposit(tree, 30);
 もし、ロボットがオブジェクトに引っかかることがあれば、再度実行するか、一度別のオブジェクトに移動してみて下さい。
 
 ---
+
+## 📚 ドキュメント案内
+
+ゲームの詳細なマニュアルは [Assets/Docs/README.md](Assets/Docs/README.md) を参照してください。  
+スクリプトのアーキテクチャ概要は [Assets/Docs/documentation.md](Assets/Docs/documentation.md) を参照してください。  
+ストーリーの背景については [Assets/Docs/story.md](Assets/Docs/story.md) を参照してください。
