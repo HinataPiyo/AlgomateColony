@@ -1,72 +1,16 @@
-# アルゴメイトコロニー マニュアル
+# プレイヤーマニュアル（統合先）
 
-このページはプレイヤー向けの操作説明です。  
+このページにあったゲーム概要、基本ループ、操作方法、コマンド例、補助入力、プレイ可能範囲、注意事項、未実装予定を、リポジトリの共通ドキュメントへ統合しました。
 
-- 開発者向けアーキテクチャ: [documentation.md](./documentation.md)
-- 世界観・企画背景: [story.md](./story.md)
+- ゲーム概要と現在のプレイ体験：[GameOverview.md](../../Documentation/GameOverview.md)
+- 現行の操作・コマンド・ゲーム仕様：[GameSpecification.md](../../Documentation/GameSpecification.md)
+- 実装済み／部分実装／未実装の区分：[ImplementationStatus.md](../../Documentation/ImplementationStatus.md)
+- 主要処理の呼び出し順とフロー図：[LogicFlows.md](../../Documentation/LogicFlows.md)
+- 将来構想：[FutureRoadmap.md](../../Documentation/FutureRoadmap.md)
 
-## 1. ゲーム概要
+旧記載からの主な整理：
 
-アルゴメイトコロニーは、神の視点でロボットへ命令を与え、資源収集と運営を自動化していくシミュレーションゲームです。
-
-## 2. 基本ループ
-
-1. マップ上のロボットを選択する。
-2. コマンドを入力して行動を実行する。
-3. 資源を収集・格納して進行する。
-4. 拠点レベルを上げて次の要素を解放する。
-
-## 3. 操作方法
-
-- ロボット選択:
-  - ロボットをクリックして状態確認と命令を行います。
-- コマンド入力:
-  - Move、Gather、Deposit などのコマンドを入力します。
-- 施設パネル:
-  - ワールド上の施設クリック、またはショートカット入力で施設UIを開きます。
-
-## 4. 現在実装済みコマンド
-
-- Move(target)
-- Gather(target)
-- Deposit(material, amount)
-
-例:
-
-```csharp
-Move(ironOre);
-Gather(ironOre);
-Move(tree);
-Gather(tree);
-Move(warehouse);
-Deposit(ironOre, 30);
-Deposit(tree, 30);
-```
-
-## 5. 左下入力の補助コマンド
-
-実装済み:
-
-- cmd:setting
-- cmd:location
-
-Tab補完:
-
-- c を入力して Tab で cmd: に補完されます。
-
-## 6. 現在プレイ可能な範囲
-
-- ロボットへの基本命令（Move/Gather/Deposit）
-- 資源の収集と格納
-- 拠点パネルとレベルアップ関連UI
-- 基本的なステータス・施設UI操作
-
-## 7. 注意事項
-
-ロボットがオブジェクトに引っかかった場合は、再実行するか別対象へ一度移動させてください。
-
-## 8. 今後予定（未実装）
-
-- 高度なプログラミング構文（if/for/while）
-- 施設や生産ラインの拡張
-- 自動化と進行システムの拡張
+- `Move`、`Gather`、`Deposit` の入力検証と実行上の制約を、現行コードに合わせて説明しています。
+- `Deposit(material, amount)` の素材引数と、倉庫が周囲検索される仕様を明記しています。
+- 倉庫管理・加工UIのコードが存在することと、各機能が完成していることを区別しています。
+- 操作説明はUnity Editorでの通しプレイ検証済みを意味しません。未確認事項は各資料に記載しています。

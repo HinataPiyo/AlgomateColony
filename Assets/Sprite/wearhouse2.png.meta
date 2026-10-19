@@ -144,6 +144,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -534,7 +547,24 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      wearhouse2_0: 7348582562039146609
+      wearhouse2_1: -3549697159196305295
+      wearhouse2_10: 3206880742081634924
+      wearhouse2_11: -2866511944001419633
+      wearhouse2_12: -4639442458634022806
+      wearhouse2_13: 764911945629266317
+      wearhouse2_14: 7047434478767684636
+      wearhouse2_15: -1188826127329230919
+      wearhouse2_16: -2911104785085155469
+      wearhouse2_2: -2160468552435067897
+      wearhouse2_3: 2115265168572491821
+      wearhouse2_4: 5740202412296495052
+      wearhouse2_5: 3520125857238169382
+      wearhouse2_6: 1428746173976841467
+      wearhouse2_7: 4078635704195709425
+      wearhouse2_8: 649548601045151705
+      wearhouse2_9: -2573550045632268172
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
