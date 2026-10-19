@@ -3,9 +3,11 @@
 
 ## 📚 ドキュメント案内
 
-ゲームの詳細なマニュアルは [Assets/Docs/README.md](Assets/Docs/README.md) を参照してください。  
-スクリプトのアーキテクチャ概要は [Assets/Docs/documentation.md](Assets/Docs/documentation.md) を参照してください。  
-ストーリーの背景については [Assets/Docs/story.md](Assets/Docs/story.md) を参照してください。
+ゲーム概要・作品紹介は [Documentation/GameOverview.md](Documentation/GameOverview.md) を参照してください。
+
+現行の操作・ゲーム仕様は [Documentation/GameSpecification.md](Documentation/GameSpecification.md) を参照してください。
+
+実装状況は [Documentation/ImplementationStatus.md](Documentation/ImplementationStatus.md)、将来構想は [Documentation/FutureRoadmap.md](Documentation/FutureRoadmap.md) にまとめています。
 
 ## 📖 ゲームの概要
 
